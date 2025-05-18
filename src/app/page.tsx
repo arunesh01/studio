@@ -42,6 +42,7 @@ export default function HomePage() {
               icon={<Zap size={28} />}
               link="/services#managed-it"
               linkText="Explore Managed IT"
+              className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
             />
             <CardComponent
               title="Cloud Solutions"
@@ -49,6 +50,7 @@ export default function HomePage() {
               icon={<CheckCircle size={28} />}
               link="/services#cloud-solutions"
               linkText="Discover Cloud Options"
+              className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
             />
             <CardComponent
               title="Cybersecurity"
@@ -56,6 +58,7 @@ export default function HomePage() {
               icon={<Users size={28} />}
               link="/services#cybersecurity"
               linkText="Strengthen Security"
+              className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
             />
           </div>
         </div>
