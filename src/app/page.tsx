@@ -1,11 +1,66 @@
 
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CardComponent } from "@/components/CardComponent";
 import { CheckCircle, Zap, Users, BarChart } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
 export default function HomePage() {
+  const [isWhyChooseUsImageVisible, setIsWhyChooseUsImageVisible] = useState(false);
+  const [isWhyChooseUsTextVisible, setIsWhyChooseUsTextVisible] = useState(false);
+  const whyChooseUsImageRef = useRef<HTMLDivElement>(null);
+  const whyChooseUsTextRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.2, // Trigger when 20% of the element is visible
+    };
+
+    const observerCallback = (
+      entries: IntersectionObserverEntry[],
+      observer: IntersectionObserver,
+      setter: React.Dispatch<React.SetStateAction<boolean>>
+    ) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setter(true);
+          observer.unobserve(entry.target); // Stop observing once visible
+        }
+      });
+    };
+
+    const imageObserver = new IntersectionObserver(
+      (entries, obs) => observerCallback(entries, obs, setIsWhyChooseUsImageVisible),
+      observerOptions
+    );
+    if (whyChooseUsImageRef.current) {
+      imageObserver.observe(whyChooseUsImageRef.current);
+    }
+
+    const textObserver = new IntersectionObserver(
+      (entries, obs) => observerCallback(entries, obs, setIsWhyChooseUsTextVisible),
+      observerOptions
+    );
+    if (whyChooseUsTextRef.current) {
+      textObserver.observe(whyChooseUsTextRef.current);
+    }
+
+    return () => {
+      if (whyChooseUsImageRef.current) {
+        imageObserver.unobserve(whyChooseUsImageRef.current);
+      }
+      if (whyChooseUsTextRef.current) {
+        textObserver.unobserve(whyChooseUsTextRef.current);
+      }
+    };
+  }, []);
+
   return (
     <>
       {/* Hero Section */}
@@ -65,10 +120,16 @@ export default function HomePage() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-16 bg-secondary">
+      <section className="py-16 bg-secondary overflow-x-hidden"> {/* Added overflow-x-hidden to prevent scrollbars during animation */}
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center gap-12">
-            <div className="md:w-1/2">
+            <div
+              ref={whyChooseUsImageRef}
+              className={cn(
+                "md:w-1/2 transition-all duration-700 ease-out transform",
+                isWhyChooseUsImageVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
+              )}
+            >
               <Image
                 src="https://placehold.co/600x400.png"
                 alt="Team collaboration"
@@ -78,7 +139,13 @@ export default function HomePage() {
                 data-ai-hint="collaboration team"
               />
             </div>
-            <div className="md:w-1/2">
+            <div
+              ref={whyChooseUsTextRef}
+              className={cn(
+                "md:w-1/2 transition-all duration-700 ease-out transform",
+                isWhyChooseUsTextVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
+              )}
+            >
               <h2 className="text-3xl font-bold text-foreground mb-6">Why Partner with TechFlow Hub?</h2>
               <p className="text-muted-foreground mb-6">
                 We are committed to your success. Our team of experts leverages the latest technologies and best practices to deliver solutions that make a real impact.
