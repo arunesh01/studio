@@ -64,19 +64,19 @@ export default function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="py-20 md:py-32 bg-gradient-to-br from-background to-secondary">
+      <section className="py-20 md:py-32 bg-gradient-to-r from-primary to-accent">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground mb-6">
-            Empowering Your Business with <span className="text-primary">TechFlow Hub</span>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-primary-foreground mb-6">
+            Empowering Your Business with <span className="text-white">TechFlow Hub</span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10">
+          <p className="text-lg md:text-xl text-primary-foreground/90 max-w-3xl mx-auto mb-10">
             We provide cutting-edge IT solutions tailored to drive growth, efficiency, and innovation for your enterprise.
           </p>
           <div className="space-x-4">
-            <Button asChild size="lg">
+            <Button asChild size="lg" variant="secondary" className="text-secondary-foreground hover:bg-secondary/90">
               <Link href="/dashboard">Get Started</Link>
             </Button>
-            <Button asChild variant="outline" size="lg">
+            <Button asChild variant="outline" size="lg" className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10">
               <Link href="/services">Our Services</Link>
             </Button>
           </div>
