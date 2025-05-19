@@ -22,6 +22,9 @@ export default function HomePage() {
   const [isServiceCard2Visible, setIsServiceCard2Visible] = useState(false);
   const [isServiceCard3Visible, setIsServiceCard3Visible] = useState(false);
 
+  const ctaSectionRef = useRef<HTMLDivElement>(null);
+  const [isCtaSectionVisible, setIsCtaSectionVisible] = useState(false);
+
   useEffect(() => {
     const observerOptions = {
       root: null,
@@ -79,12 +82,20 @@ export default function HomePage() {
     );
     if (serviceCard3Ref.current) serviceCard3Observer.observe(serviceCard3Ref.current);
 
+    // Observer for CTA Section
+    const ctaSectionObserver = new IntersectionObserver(
+      (entries, obs) => genericObserverCallback(entries, obs, setIsCtaSectionVisible),
+      observerOptions
+    );
+    if (ctaSectionRef.current) ctaSectionObserver.observe(ctaSectionRef.current);
+
     return () => {
       if (whyChooseUsImageRef.current) whyChooseUsImageObserver.unobserve(whyChooseUsImageRef.current);
       if (whyChooseUsTextRef.current) whyChooseUsTextObserver.unobserve(whyChooseUsTextRef.current);
       if (serviceCard1Ref.current) serviceCard1Observer.unobserve(serviceCard1Ref.current);
       if (serviceCard2Ref.current) serviceCard2Observer.unobserve(serviceCard2Ref.current);
       if (serviceCard3Ref.current) serviceCard3Observer.unobserve(serviceCard3Ref.current);
+      if (ctaSectionRef.current) ctaSectionObserver.unobserve(ctaSectionRef.current);
     };
   }, []);
 
@@ -144,7 +155,7 @@ export default function HomePage() {
               <CardComponent
                 title="Cloud Solutions"
                 description="Scalable and secure cloud infrastructure to power your applications."
-                icon={<CheckCircle size={28} />} // Changed to CheckCircle as Cloud icon was not imported
+                icon={<CheckCircle size={28} />} 
                 link="/services#cloud-solutions"
                 linkText="Discover Cloud Options"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
@@ -160,7 +171,7 @@ export default function HomePage() {
               <CardComponent
                 title="Cybersecurity"
                 description="Protect your valuable assets with our comprehensive security services."
-                icon={<Users size={28} />} // Changed to Users as ShieldCheck was not imported here
+                icon={<Users size={28} />} 
                 link="/services#cybersecurity"
                 linkText="Strengthen Security"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
@@ -226,7 +237,13 @@ export default function HomePage() {
 
       {/* CTA to Contact Section */}
       <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 text-center">
+        <div
+          ref={ctaSectionRef}
+          className={cn(
+            "container mx-auto px-4 text-center transition-all transform duration-700 ease-out",
+            isCtaSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          )}
+        >
           <h2 className="text-3xl font-bold text-foreground mb-6">Ready to Elevate Your IT?</h2>
           <p className="text-muted-foreground max-w-xl mx-auto mb-10">
             Let's discuss how TechFlow Hub can help your business thrive. Get in touch with our experts today.
