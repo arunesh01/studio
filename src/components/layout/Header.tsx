@@ -2,12 +2,12 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react"; // Removed X as it's no longer used for a custom button
 import { useState, useEffect } from "react";
 import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"; // Added SheetTitle
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -54,23 +54,23 @@ export function Header() {
           <ThemeToggle />
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(true)}>
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Open menu</span>
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-full max-w-xs bg-background p-6">
-              <div className="flex flex-col space-y-5">
-                <div className="flex justify-between items-center mb-4">
-                 <Link href="/" className="flex items-center gap-2" aria-label="TechFlow Hub Home">
+              {/* SheetContent provides its own close button, custom one removed */}
+              <div className="mb-6"> {/* Adjusted margin for title */}
+                <SheetTitle asChild>
+                  <Link href="/" className="flex items-center gap-2" aria-label="TechFlow Hub Home" onClick={() => setIsMobileMenuOpen(false)}>
                     <Logo className="h-8 w-8" />
                     <span className="font-semibold text-xl">TechFlow Hub</span>
                   </Link>
-                  <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(false)}>
-                    <X className="h-6 w-6" />
-                    <span className="sr-only">Close menu</span>
-                  </Button>
-                </div>
+                </SheetTitle>
+              </div>
+              
+              <div className="flex flex-col space-y-5">
                 {navItems.map((item) => (
                   <Link
                     key={item.href}
@@ -79,6 +79,7 @@ export function Header() {
                       "text-lg font-medium transition-colors hover:text-primary py-2",
                       pathname === item.href ? "text-primary" : "text-foreground/80"
                     )}
+                    onClick={() => setIsMobileMenuOpen(false)} // Explicitly close on item click
                   >
                     {item.label}
                   </Link>
