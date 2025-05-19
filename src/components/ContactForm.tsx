@@ -1,7 +1,8 @@
 
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState, useEffect } from "react"; // Changed from useFormState in react-dom to useActionState in react
+import { useFormStatus } from "react-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactFormSchema, type ContactFormValues } from "@/lib/schemas";
@@ -12,7 +13,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Terminal } from "lucide-react";
-import { useEffect } from "react";
 
 const initialState: ContactFormState = {
   message: "",
@@ -29,7 +29,7 @@ function SubmitButton() {
 }
 
 export function ContactForm() {
-  const [state, formAction] = useFormState(submitContactForm, initialState);
+  const [state, formAction] = useActionState(submitContactForm, initialState); // Changed useFormState to useActionState
   const {
     register,
     handleSubmit,
@@ -45,8 +45,23 @@ export function ContactForm() {
     }
   }, [state.success, reset]);
 
+  // The handleSubmit from react-hook-form is not directly used with formAction.
+  // We can simplify this by passing formAction directly to the <form>'s action prop.
+  // However, to keep client-side validation from react-hook-form before the server action,
+  // we can create a wrapper function for the onSubmit handler.
+  // For now, this structure relies on progressive enhancement if JS is disabled,
+  // or if handleSubmit is intended to be used for client-side pre-checks.
+  // Given the current setup, where formAction is directly used, handleSubmit(onSubmit) isn't strictly necessary
+  // unless there's a specific client-side logic to run via onSubmit before formAction.
+  // For simplicity and directness with server actions, using formAction directly is typical.
+  // If client-side validation needs to block the server action, then an intermediate step with handleSubmit is needed.
+
   return (
-    <form action={formAction} className="space-y-6">
+    <form
+      action={formAction} // Directly use the server action
+      // onSubmit={handleSubmit(() => { /* No explicit client-side function needed here if formAction is primary */})}
+      className="space-y-6"
+    >
       {state.message && (
         <Alert variant={state.success ? "default" : "destructive"}>
           <Terminal className="h-4 w-4" />
