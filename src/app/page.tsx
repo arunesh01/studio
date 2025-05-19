@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CardComponent } from "@/components/CardComponent";
-import { CheckCircle, Zap, Users, BarChart } from "lucide-react";
+import { CheckCircle, Zap, Users } from "lucide-react"; // Removed BarChart as it wasn't used in this section
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -15,14 +15,24 @@ export default function HomePage() {
   const whyChooseUsImageRef = useRef<HTMLDivElement>(null);
   const whyChooseUsTextRef = useRef<HTMLDivElement>(null);
 
+  const serviceCard1Ref = useRef<HTMLDivElement>(null);
+  const serviceCard2Ref = useRef<HTMLDivElement>(null);
+  const serviceCard3Ref = useRef<HTMLDivElement>(null);
+  const [isServiceCard1Visible, setIsServiceCard1Visible] = useState(false);
+  const [isServiceCard2Visible, setIsServiceCard2Visible] = useState(false);
+  const [isServiceCard3Visible, setIsServiceCard3Visible] = useState(false);
+
+  const ctaSectionRef = useRef<HTMLDivElement>(null);
+  const [isCtaSectionVisible, setIsCtaSectionVisible] = useState(false);
+
   useEffect(() => {
     const observerOptions = {
       root: null,
       rootMargin: "0px",
-      threshold: 0.2, // Trigger when 20% of the element is visible
+      threshold: 0.1, // Trigger when 10% of the element is visible
     };
 
-    const observerCallback = (
+    const genericObserverCallback = (
       entries: IntersectionObserverEntry[],
       observer: IntersectionObserver,
       setter: React.Dispatch<React.SetStateAction<boolean>>
@@ -30,34 +40,62 @@ export default function HomePage() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setter(true);
-          observer.unobserve(entry.target); // Stop observing once visible
+          observer.unobserve(entry.target);
         }
       });
     };
 
-    const imageObserver = new IntersectionObserver(
-      (entries, obs) => observerCallback(entries, obs, setIsWhyChooseUsImageVisible),
-      observerOptions
+    // Observer for "Why Choose Us" Image
+    const whyChooseUsImageObserver = new IntersectionObserver(
+      (entries, obs) => genericObserverCallback(entries, obs, setIsWhyChooseUsImageVisible),
+      { ...observerOptions, threshold: 0.2 } // specific threshold for this element
     );
     if (whyChooseUsImageRef.current) {
-      imageObserver.observe(whyChooseUsImageRef.current);
+      whyChooseUsImageObserver.observe(whyChooseUsImageRef.current);
     }
 
-    const textObserver = new IntersectionObserver(
-      (entries, obs) => observerCallback(entries, obs, setIsWhyChooseUsTextVisible),
-      observerOptions
+    // Observer for "Why Choose Us" Text
+    const whyChooseUsTextObserver = new IntersectionObserver(
+      (entries, obs) => genericObserverCallback(entries, obs, setIsWhyChooseUsTextVisible),
+      { ...observerOptions, threshold: 0.2 } // specific threshold for this element
     );
     if (whyChooseUsTextRef.current) {
-      textObserver.observe(whyChooseUsTextRef.current);
+      whyChooseUsTextObserver.observe(whyChooseUsTextRef.current);
     }
 
+    // Observers for Service Cards
+    const serviceCard1Observer = new IntersectionObserver(
+      (entries, obs) => genericObserverCallback(entries, obs, setIsServiceCard1Visible),
+      observerOptions
+    );
+    if (serviceCard1Ref.current) serviceCard1Observer.observe(serviceCard1Ref.current);
+
+    const serviceCard2Observer = new IntersectionObserver(
+      (entries, obs) => genericObserverCallback(entries, obs, setIsServiceCard2Visible),
+      observerOptions
+    );
+    if (serviceCard2Ref.current) serviceCard2Observer.observe(serviceCard2Ref.current);
+
+    const serviceCard3Observer = new IntersectionObserver(
+      (entries, obs) => genericObserverCallback(entries, obs, setIsServiceCard3Visible),
+      observerOptions
+    );
+    if (serviceCard3Ref.current) serviceCard3Observer.observe(serviceCard3Ref.current);
+
+    // Observer for CTA Section
+    const ctaSectionObserver = new IntersectionObserver(
+      (entries, obs) => genericObserverCallback(entries, obs, setIsCtaSectionVisible),
+      observerOptions
+    );
+    if (ctaSectionRef.current) ctaSectionObserver.observe(ctaSectionRef.current);
+
     return () => {
-      if (whyChooseUsImageRef.current) {
-        imageObserver.unobserve(whyChooseUsImageRef.current);
-      }
-      if (whyChooseUsTextRef.current) {
-        textObserver.unobserve(whyChooseUsTextRef.current);
-      }
+      if (whyChooseUsImageRef.current) whyChooseUsImageObserver.unobserve(whyChooseUsImageRef.current);
+      if (whyChooseUsTextRef.current) whyChooseUsTextObserver.unobserve(whyChooseUsTextRef.current);
+      if (serviceCard1Ref.current) serviceCard1Observer.unobserve(serviceCard1Ref.current);
+      if (serviceCard2Ref.current) serviceCard2Observer.unobserve(serviceCard2Ref.current);
+      if (serviceCard3Ref.current) serviceCard3Observer.unobserve(serviceCard3Ref.current);
+      if (ctaSectionRef.current) ctaSectionObserver.unobserve(ctaSectionRef.current);
     };
   }, []);
 
@@ -91,36 +129,60 @@ export default function HomePage() {
             Discover how our expertise can transform your business operations.
           </p>
           <div className="grid md:grid-cols-3 gap-8">
-            <CardComponent
-              title="Managed IT Services"
-              description="Proactive IT support and management to keep your systems running smoothly."
-              icon={<Zap size={28} />}
-              link="/services#managed-it"
-              linkText="Explore Managed IT"
-              className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
-            />
-            <CardComponent
-              title="Cloud Solutions"
-              description="Scalable and secure cloud infrastructure to power your applications."
-              icon={<CheckCircle size={28} />}
-              link="/services#cloud-solutions"
-              linkText="Discover Cloud Options"
-              className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
-            />
-            <CardComponent
-              title="Cybersecurity"
-              description="Protect your valuable assets with our comprehensive security services."
-              icon={<Users size={28} />}
-              link="/services#cybersecurity"
-              linkText="Strengthen Security"
-              className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
-            />
+            <div
+              ref={serviceCard1Ref}
+              className={cn(
+                "transition-all transform duration-700 ease-out",
+                isServiceCard1Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              )}
+            >
+              <CardComponent
+                title="Managed IT Services"
+                description="Proactive IT support and management to keep your systems running smoothly."
+                icon={<Zap size={28} />}
+                link="/services#managed-it"
+                linkText="Explore Managed IT"
+                className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full" 
+              />
+            </div>
+            <div
+              ref={serviceCard2Ref}
+              className={cn(
+                "transition-all transform duration-700 ease-out delay-200",
+                isServiceCard2Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              )}
+            >
+              <CardComponent
+                title="Cloud Solutions"
+                description="Scalable and secure cloud infrastructure to power your applications."
+                icon={<CheckCircle size={28} />} 
+                link="/services#cloud-solutions"
+                linkText="Discover Cloud Options"
+                className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
+              />
+            </div>
+            <div
+              ref={serviceCard3Ref}
+              className={cn(
+                "transition-all transform duration-700 ease-out delay-[400ms]",
+                isServiceCard3Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              )}
+            >
+              <CardComponent
+                title="Cybersecurity"
+                description="Protect your valuable assets with our comprehensive security services."
+                icon={<Users size={28} />} 
+                link="/services#cybersecurity"
+                linkText="Strengthen Security"
+                className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
+              />
+            </div>
           </div>
         </div>
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-16 bg-secondary overflow-x-hidden"> {/* Added overflow-x-hidden to prevent scrollbars during animation */}
+      <section className="py-16 bg-secondary overflow-x-hidden">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div
@@ -175,7 +237,13 @@ export default function HomePage() {
 
       {/* CTA to Contact Section */}
       <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 text-center">
+        <div
+          ref={ctaSectionRef}
+          className={cn(
+            "container mx-auto px-4 text-center transition-all transform duration-700 ease-out",
+            isCtaSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          )}
+        >
           <h2 className="text-3xl font-bold text-foreground mb-6">Ready to Elevate Your IT?</h2>
           <p className="text-muted-foreground max-w-xl mx-auto mb-10">
             Let's discuss how TechFlow Hub can help your business thrive. Get in touch with our experts today.
