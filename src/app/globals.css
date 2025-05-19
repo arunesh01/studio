@@ -1,9 +1,11 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  @apply bg-gradient-to-br from-[var(--page-gradient-start)] to-[var(--page-gradient-end)];
 }
 
 @layer base {
@@ -33,6 +35,10 @@ body {
     --chart-4: 192 38% 64%; /* Lighter Primary */
     --chart-5: 190 55% 82%; /* Lighter Accent */
     --radius: 0.5rem;
+
+    /* Page Gradient Variables */
+    --page-gradient-start: hsl(var(--background));
+    --page-gradient-end: hsl(var(--secondary));
 
     /* Sidebar specific theme variables */
     --sidebar-background: 192 30% 97%; /* Slightly off-primary very light */
@@ -71,6 +77,10 @@ body {
     --chart-4: 192 38% 30%; /* Darker Primary */
     --chart-5: 190 55% 42%; /* Darker Accent */
 
+    /* Page Gradient Variables */
+    --page-gradient-start: hsl(var(--background));
+    --page-gradient-end: hsl(var(--secondary));
+
     /* Sidebar specific theme variables for dark mode */
     --sidebar-background: 192 38% 10%;
     --sidebar-foreground: 192 30% 80%;
@@ -88,6 +98,7 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    /* @apply bg-background text-foreground; */ /* Original line, gradient applied above */
+    @apply text-foreground;
   }
 }
