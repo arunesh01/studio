@@ -7,8 +7,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contact Us - TechnoNspace",
-  description: "Get in touch with TechnoNspace. Send us a message, find our office locations, or reach out via email or phone. We're here to help with your IT needs.",
-  keywords: ["contact TechnoNspace", "IT support contact", "TechnoNspace address", "request consultation", "TechnoNspace Satna", "TechnoNspace Pune"],
+  description: "Get in touch with TechnoNspace. Send us a message, find our office location, or reach out via email or phone. We're here to help with your IT needs.",
+  keywords: ["contact TechnoNspace", "IT support contact", "TechnoNspace address", "request consultation", "TechnoNspace Satna"],
 };
 
 export default function ContactPage() {
@@ -35,13 +35,6 @@ export default function ContactPage() {
               </div>
             </div>
             <div className="flex items-start">
-              <MapPin className="h-6 w-6 text-primary mr-4 mt-1 shrink-0" />
-              <div>
-                <h3 className="font-semibold text-foreground">Pune Office</h3>
-                <p>Baner, Pune, MH, India</p>
-              </div>
-            </div>
-            <div className="flex items-start">
               <Mail className="h-6 w-6 text-primary mr-4 mt-1 shrink-0" />
               <div>
                 <h3 className="font-semibold text-foreground">Email Us</h3>
@@ -52,15 +45,15 @@ export default function ContactPage() {
               <Phone className="h-6 w-6 text-primary mr-4 mt-1 shrink-0" />
               <div>
                 <h3 className="font-semibold text-foreground">Call Us</h3>
-                <a href="tel:+1234567890" className="hover:text-primary transition-colors">(123) 456-7890</a> 
+                <a href="tel:+1234567890" className="hover:text-primary transition-colors">(123) 456-7890</a>
                 <p className="text-xs text-muted-foreground">(Placeholder number)</p>
               </div>
             </div>
             <div className="pt-4">
-                <Image 
-                    src="https://placehold.co/600x300.png" 
-                    alt="Map showing TechnoNspace office locations" 
-                    width={600} 
+                <Image
+                    src="https://placehold.co/600x300.png"
+                    alt="Map showing TechnoNspace office location"
+                    width={600}
                     height={300}
                     className="rounded-md"
                     data-ai-hint="office map"
