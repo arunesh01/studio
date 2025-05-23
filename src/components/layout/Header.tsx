@@ -20,7 +20,7 @@ import { AnalogClock } from "@/components/AnalogClock";
 const mainNavItems = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
-  // Contact is handled separately
+  // About Us is handled separately for hover menu
   { href: "/dashboard", label: "Dashboard" },
 ];
 
@@ -81,9 +81,9 @@ export function Header() {
             </Button>
           ))}
 
-          {/* About Us Hover Dropdown for Desktop */}
-          <div 
-            className="relative"
+          {/* About Us Hover Dropdown for Desktop (State Managed) */}
+          <div
+            className="relative" // Ensure no 'group' class if not used for CSS group-hover
             onMouseEnter={() => setIsAboutSubmenuOpen(true)}
             onMouseLeave={() => setIsAboutSubmenuOpen(false)}
           >
@@ -108,7 +108,7 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   className="block px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-sm"
-                  onClick={() => setIsAboutSubmenuOpen(false)} // Close on click
+                  onClick={() => setIsAboutSubmenuOpen(false)} 
                 >
                   {item.label}
                 </Link>
@@ -121,11 +121,11 @@ export function Header() {
           <Button variant="link" asChild className="text-sm font-medium">
             <Link href="/contact" legacyBehavior passHref>
               <a className={cn(
-                "transition-colors hover:text-primary px-3 py-2",
-                pathname === "/contact"
-                  ? "text-primary"
-                  : "text-foreground/60"
-              )}>
+                  "transition-colors hover:text-primary px-3 py-2",
+                  pathname === "/contact"
+                    ? "text-primary"
+                    : "text-foreground/60"
+                )}>
                 Contact
               </a>
             </Link>
@@ -205,7 +205,6 @@ export function Header() {
                       </Link>
                   ))}
                 </div>
-                {/* Contact Link for Mobile - Added last */}
                 <Link
                   href="/contact"
                   className={cn(
