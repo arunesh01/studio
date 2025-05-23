@@ -7,8 +7,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contact Us - TechnoNspace",
-  description: "Get in touch with TechnoNspace. Send us a message, find our office location, or reach out via email or phone. We're here to help with your IT needs.",
-  keywords: ["contact TechnoNspace", "IT support contact", "TechnoNspace address", "request consultation", "TechnoNspace Satna"],
+  description: "Get in touch with TechnoNspace. Send us a message, find our office locations, or reach out via email or phone. We're here to help with your IT needs.",
+  keywords: ["contact TechnoNspace", "IT support contact", "TechnoNspace address", "request consultation", "TechnoNspace Satna", "TechnoNspace Pune"],
 };
 
 export default function ContactPage() {
@@ -31,7 +31,14 @@ export default function ContactPage() {
               <MapPin className="h-6 w-6 text-primary mr-4 mt-1 shrink-0" />
               <div>
                 <h3 className="font-semibold text-foreground">Head Office</h3>
-                <p>Dhawari, Satna, MP, India</p>
+                <p>Satna, MP, India</p>
+              </div>
+            </div>
+            <div className="flex items-start">
+              <MapPin className="h-6 w-6 text-primary mr-4 mt-1 shrink-0" />
+              <div>
+                <h3 className="font-semibold text-foreground">Pune Office</h3>
+                <p>Baner, Pune, MH, India</p>
               </div>
             </div>
             <div className="flex items-start">
