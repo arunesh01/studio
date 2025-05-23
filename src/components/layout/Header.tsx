@@ -28,7 +28,7 @@ interface ClockCityConfig {
 const CITIES_CONFIG: ClockCityConfig[] = [
   { key: "dubai", label: "Dubai", timeZone: "Asia/Dubai" },
   { key: "india", label: "India", timeZone: "Asia/Kolkata" },
-  { key: "berlin", label: "Berlin", timeZone: "Europe/Berlin" },
+  { key: "zurich", label: "Zurich", timeZone: "Europe/Zurich" },
   { key: "london", label: "London", timeZone: "Europe/London" },
   { key: "sydney", label: "Sydney", timeZone: "Australia/Sydney" },
 ];
