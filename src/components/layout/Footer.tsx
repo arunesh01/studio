@@ -8,7 +8,7 @@ export function Footer() {
 
   return (
     <footer className="border-t bg-background">
-      <div className="container py-12 md:py-16">
+      <div className="container mx-auto py-12 md:py-16">
         <div className="grid md:grid-cols-3 gap-8">
           <div className="md:col-span-1 space-y-4">
             <h3 className="text-lg font-semibold text-foreground">Stay Connected</h3>
