@@ -5,15 +5,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CardComponent } from "@/components/CardComponent";
-import { CheckCircle, BarChartHorizontalBig, MapPinned } from "lucide-react"; // Added BarChartHorizontalBig, MapPinned
+import { CheckCircle, BarChartHorizontalBig, MapPinned, Briefcase, Users, Settings } from "lucide-react"; 
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
 import { TechStackShowcase } from "@/components/TechStackShowcase";
+import { WorldClockDisplay } from "@/components/WorldClockDisplay"; // Added WorldClockDisplay import
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { ChartContainer, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart"; // Corrected import
+import { ChartContainer, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
 import type { ChartConfig } from "@/components/ui/chart";
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip as RechartsTooltip, Cell } from "recharts"; // Added Cell
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip as RechartsTooltip, Cell } from "recharts";
 
 
 const serviceHighlights = [
@@ -153,6 +154,9 @@ export default function HomePage() {
   const techStackSectionRef = useRef<HTMLDivElement>(null);
   const [isTechStackSectionVisible, setIsTechStackSectionVisible] = useState(false);
 
+  const worldClockSectionRef = useRef<HTMLDivElement>(null); // Added ref for WorldClock
+  const [isWorldClockSectionVisible, setIsWorldClockSectionVisible] = useState(false); // Added state for WorldClock
+
   const globalReachSectionRef = useRef<HTMLDivElement>(null);
   const [isGlobalReachSectionVisible, setIsGlobalReachSectionVisible] = useState(false);
 
@@ -169,8 +173,9 @@ export default function HomePage() {
     { ref: serviceCard2Ref, setter: setIsServiceCard2Visible },
     { ref: serviceCard3Ref, setter: setIsServiceCard3Visible },
     { ref: serviceCard4Ref, setter: setIsServiceCard4Visible },
-    { ref: leadershipSectionRef, setter: setIsLeadershipSectionVisible },
     { ref: techStackSectionRef, setter: setIsTechStackSectionVisible },
+    { ref: worldClockSectionRef, setter: setIsWorldClockSectionVisible }, // Added WorldClock to observer list
+    { ref: leadershipSectionRef, setter: setIsLeadershipSectionVisible },
     { ref: globalReachSectionRef, setter: setIsGlobalReachSectionVisible, threshold: 0.1 },
     { ref: analyticsPreviewSectionRef, setter: setIsAnalyticsPreviewSectionVisible, threshold: 0.1 },
     { ref: ctaSectionRef, setter: setIsCtaSectionVisible },
@@ -180,7 +185,7 @@ export default function HomePage() {
     const observerOptions = {
       root: null,
       rootMargin: "0px",
-      threshold: 0.1,
+      threshold: 0.1, // Default threshold
     };
 
     const observers: IntersectionObserver[] = [];
@@ -192,7 +197,9 @@ export default function HomePage() {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               setter(true);
-              obs.unobserve(entry.target);
+              if (ref.current) { // Check if ref.current is not null before unobserving
+                obs.unobserve(ref.current);
+              }
             }
           });
         },
@@ -213,7 +220,8 @@ export default function HomePage() {
         }
       });
     };
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // No need to list all refs/setters here if they don't change
 
   return (
     <>
@@ -271,7 +279,7 @@ export default function HomePage() {
                     index === 1 ? isServiceCard2Visible :
                     index === 2 ? isServiceCard3Visible : isServiceCard4Visible
                   ) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-                  "h-full"
+                  "h-full" // Ensure cards in the same row maintain height
                 )}
               >
                 <CardComponent
@@ -353,6 +361,28 @@ export default function HomePage() {
         <TechStackShowcase techCategories={techCategoriesData} />
       </div>
 
+      {/* World Clock Section */}
+      <div
+        ref={worldClockSectionRef}
+        className={cn(
+          "transition-all transform duration-700 ease-out",
+          isWorldClockSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        )}
+      >
+        <WorldClockDisplay />
+      </div>
+      
+      {/* Leadership Section */}
+      <div
+        ref={leadershipSectionRef}
+        className={cn(
+          "transition-all transform duration-700 ease-out",
+          isLeadershipSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        )}
+      >
+        <LeadershipSection />
+      </div>
+
       {/* Global Reach Section */}
       <section
         ref={globalReachSectionRef}
@@ -399,7 +429,6 @@ export default function HomePage() {
             </div>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Get a glimpse of our powerful analytics capabilities. We transform data into actionable insights.
-              (This is a sample chart using existing Recharts library. Chart.js/D3.js would require new library integration.)
             </p>
           </div>
           <Card className="max-w-2xl mx-auto shadow-xl">
@@ -432,17 +461,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Leadership Section */}
-      <div
-        ref={leadershipSectionRef}
-        className={cn(
-          "transition-all transform duration-700 ease-out",
-          isLeadershipSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        )}
-      >
-        <LeadershipSection />
-      </div>
-
       {/* CTA to Contact Section */}
       <section className="py-20 bg-background">
         <div
@@ -464,5 +482,3 @@ export default function HomePage() {
     </>
   );
 }
-
-    
