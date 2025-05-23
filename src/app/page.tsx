@@ -5,17 +5,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CardComponent } from "@/components/CardComponent";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, BarChartHorizontalBig, MapPinned } from "lucide-react"; // Added BarChartHorizontalBig, MapPinned
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
-import { TechStackShowcase } from "@/components/TechStackShowcase"; 
+import { TechStackShowcase } from "@/components/TechStackShowcase";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { ChartContainer, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart"; // Corrected import
+import type { ChartConfig } from "@/components/ui/chart";
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip as RechartsTooltip, Cell } from "recharts"; // Added Cell
+
 
 const serviceHighlights = [
   {
     title: "Quality Assurance (QA)",
     description: "Ensuring product excellence with AI-driven and automated testing solutions.",
-    icon: <Image src="https://placehold.co/64x64.png" alt="Quality Assurance Animation for TechnoNspace" width={48} height={48} data-ai-hint="QA animation" />,
+    icon: <Image src="https://placehold.co/64x64.png" alt="Quality Assurance Lottie Animation for TechnoNspace" width={48} height={48} data-ai-hint="QA animation" />,
     link: "/services#qa",
     linkText: "Explore QA Solutions",
     refHook: "serviceCard1Ref",
@@ -25,7 +30,7 @@ const serviceHighlights = [
   {
     title: "Development Services",
     description: "Custom web, mobile, and CRM/ERP solutions for scalable growth.",
-    icon: <Image src="https://placehold.co/64x64.png" alt="Development Services Illustration for TechnoNspace" width={48} height={48} data-ai-hint="dev illustration" />,
+    icon: <Image src="https://placehold.co/64x64.png" alt="Development Services 3D Illustration for TechnoNspace" width={48} height={48} data-ai-hint="dev illustration" />,
     link: "/services#development",
     linkText: "Discover Development",
     refHook: "serviceCard2Ref",
@@ -35,7 +40,7 @@ const serviceHighlights = [
   {
     title: "Data Analytics & BI",
     description: "Actionable insights through data visualization and business intelligence.",
-    icon: <Image src="https://placehold.co/64x64.png" alt="Data Analytics Visualization for TechnoNspace" width={48} height={48} data-ai-hint="data animation" />,
+    icon: <Image src="https://placehold.co/64x64.png" alt="Data Analytics Lottie Animation for TechnoNspace" width={48} height={48} data-ai-hint="data animation" />,
     link: "/services#data-analytics",
     linkText: "Unlock Data Insights",
     refHook: "serviceCard3Ref",
@@ -45,7 +50,7 @@ const serviceHighlights = [
   {
     title: "DevOps & Cloud Solutions",
     description: "Efficient development pipelines with CI/CD and cloud automation.",
-    icon: <Image src="https://placehold.co/64x64.png" alt="DevOps Cloud Animation for TechnoNspace" width={48} height={48} data-ai-hint="devops illustration" />,
+    icon: <Image src="https://placehold.co/64x64.png" alt="DevOps Cloud 3D Illustration for TechnoNspace" width={48} height={48} data-ai-hint="devops illustration" />,
     link: "/services#devops",
     linkText: "Optimize Your DevOps",
     refHook: "serviceCard4Ref",
@@ -97,6 +102,35 @@ const techCategoriesData = [
   },
 ];
 
+const analyticsPreviewData = [
+  { metric: "Efficiency Gain", value: 75, fill: "hsl(var(--chart-1))" },
+  { metric: "Cost Reduction", value: 60, fill: "hsl(var(--chart-2))" },
+  { metric: "Process Speed-up", value: 85, fill: "hsl(var(--chart-3))" },
+  { metric: "Risk Mitigation", value: 70, fill: "hsl(var(--chart-4))" },
+];
+
+const analyticsPreviewChartConfig = {
+  value: {
+    label: "Percentage",
+  },
+  "Efficiency Gain": {
+    label: "Efficiency Gain",
+    color: "hsl(var(--chart-1))",
+  },
+  "Cost Reduction": {
+    label: "Cost Reduction",
+    color: "hsl(var(--chart-2))",
+  },
+  "Process Speed-up": {
+    label: "Process Speed-up",
+    color: "hsl(var(--chart-3))",
+  },
+  "Risk Mitigation": {
+    label: "Risk Mitigation",
+    color: "hsl(var(--chart-4))",
+  },
+} satisfies ChartConfig;
+
 
 export default function HomePage() {
   const [isWhyChooseUsImageVisible, setIsWhyChooseUsImageVisible] = useState(false);
@@ -116,8 +150,14 @@ export default function HomePage() {
   const leadershipSectionRef = useRef<HTMLDivElement>(null);
   const [isLeadershipSectionVisible, setIsLeadershipSectionVisible] = useState(false);
 
-  const techStackSectionRef = useRef<HTMLDivElement>(null); 
-  const [isTechStackSectionVisible, setIsTechStackSectionVisible] = useState(false); 
+  const techStackSectionRef = useRef<HTMLDivElement>(null);
+  const [isTechStackSectionVisible, setIsTechStackSectionVisible] = useState(false);
+
+  const globalReachSectionRef = useRef<HTMLDivElement>(null);
+  const [isGlobalReachSectionVisible, setIsGlobalReachSectionVisible] = useState(false);
+
+  const analyticsPreviewSectionRef = useRef<HTMLDivElement>(null);
+  const [isAnalyticsPreviewSectionVisible, setIsAnalyticsPreviewSectionVisible] = useState(false);
 
   const ctaSectionRef = useRef<HTMLDivElement>(null);
   const [isCtaSectionVisible, setIsCtaSectionVisible] = useState(false);
@@ -130,7 +170,9 @@ export default function HomePage() {
     { ref: serviceCard3Ref, setter: setIsServiceCard3Visible },
     { ref: serviceCard4Ref, setter: setIsServiceCard4Visible },
     { ref: leadershipSectionRef, setter: setIsLeadershipSectionVisible },
-    { ref: techStackSectionRef, setter: setIsTechStackSectionVisible }, 
+    { ref: techStackSectionRef, setter: setIsTechStackSectionVisible },
+    { ref: globalReachSectionRef, setter: setIsGlobalReachSectionVisible, threshold: 0.1 },
+    { ref: analyticsPreviewSectionRef, setter: setIsAnalyticsPreviewSectionVisible, threshold: 0.1 },
     { ref: ctaSectionRef, setter: setIsCtaSectionVisible },
   ];
 
@@ -138,7 +180,7 @@ export default function HomePage() {
     const observerOptions = {
       root: null,
       rootMargin: "0px",
-      threshold: 0.1, 
+      threshold: 0.1,
     };
 
     const observers: IntersectionObserver[] = [];
@@ -171,7 +213,7 @@ export default function HomePage() {
         }
       });
     };
-  }, []); 
+  }, []);
 
   return (
     <>
@@ -179,14 +221,14 @@ export default function HomePage() {
       <section className="relative py-20 md:py-32 bg-gradient-to-r from-primary to-accent text-primary-foreground overflow-hidden">
         <Image
           src="https://placehold.co/1920x1080.png"
-          alt="Abstract technology background for TechnoNspace hero section"
+          alt="Abstract technology background representing TechnoNspace innovation"
           layout="fill"
           objectFit="cover"
           className="absolute inset-0 z-0 opacity-20"
           data-ai-hint="tech abstract"
           priority
         />
-        <div className="absolute inset-0 bg-black/30 z-0"></div> 
+        <div className="absolute inset-0 bg-black/30 z-0"></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 text-primary-foreground">
             Empowering Your Business with <span className="text-white">TechnoNspace</span>
@@ -229,7 +271,7 @@ export default function HomePage() {
                     index === 1 ? isServiceCard2Visible :
                     index === 2 ? isServiceCard3Visible : isServiceCard4Visible
                   ) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-                  "h-full" 
+                  "h-full"
                 )}
               >
                 <CardComponent
@@ -311,6 +353,85 @@ export default function HomePage() {
         <TechStackShowcase techCategories={techCategoriesData} />
       </div>
 
+      {/* Global Reach Section */}
+      <section
+        ref={globalReachSectionRef}
+        className={cn(
+          "py-16 bg-background transition-all transform duration-700 ease-out",
+          isGlobalReachSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        )}
+      >
+        <div className="container mx-auto px-4 text-center">
+          <div className="flex justify-center items-center mb-4">
+            <MapPinned className="h-10 w-10 text-primary mr-3" />
+            <h2 className="text-3xl font-bold text-foreground">Our Global Reach</h2>
+          </div>
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
+            Visualizing our impact and client collaborations across the globe. We are dedicated to providing top-tier IT solutions to businesses worldwide.
+            (Placeholder for interactive map - e.g., Mapbox, Leaflet integration)
+          </p>
+          <div className="bg-muted p-4 rounded-lg shadow-md max-w-3xl mx-auto">
+            <Image
+              src="https://placehold.co/800x400.png"
+              alt="Placeholder for global reach map showing client locations or service zones"
+              width={800}
+              height={400}
+              className="rounded-md"
+              data-ai-hint="world map graphic"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Analytics Preview Section */}
+      <section
+        ref={analyticsPreviewSectionRef}
+        className={cn(
+          "py-16 bg-secondary transition-all transform duration-700 ease-out",
+          isAnalyticsPreviewSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        )}
+      >
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-10">
+            <div className="flex justify-center items-center mb-4">
+                <BarChartHorizontalBig className="h-10 w-10 text-primary mr-3" />
+                <h2 className="text-3xl font-bold text-foreground">Analytics Preview</h2>
+            </div>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Get a glimpse of our powerful analytics capabilities. We transform data into actionable insights.
+              (This is a sample chart using existing Recharts library. Chart.js/D3.js would require new library integration.)
+            </p>
+          </div>
+          <Card className="max-w-2xl mx-auto shadow-xl">
+            <CardHeader>
+              <CardTitle>Key Performance Indicators (Sample)</CardTitle>
+              <CardDescription>Illustrative data showing typical project outcomes.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ChartContainer config={analyticsPreviewChartConfig} className="h-[250px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={analyticsPreviewData} layout="vertical" margin={{ right: 20, left:20 }}>
+                    <CartesianGrid horizontal={false} />
+                    <XAxis type="number" hide/>
+                    <YAxis dataKey="metric" type="category" tickLine={false} axisLine={false} tickMargin={5} width={120} />
+                    <RechartsTooltip
+                      cursor={{ fill: 'hsl(var(--muted))' }}
+                      content={<ChartTooltipContent indicator="dot" />}
+                    />
+                    <ChartLegend content={<ChartLegendContent />} />
+                    <Bar dataKey="value" radius={5}>
+                       {analyticsPreviewData.map((entry, index) => (
+                         <Cell key={`cell-${index}`} fill={entry.fill} />
+                       ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </ChartContainer>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
       {/* Leadership Section */}
       <div
         ref={leadershipSectionRef}
@@ -343,6 +464,5 @@ export default function HomePage() {
     </>
   );
 }
-
 
     
