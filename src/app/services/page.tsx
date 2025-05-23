@@ -1,98 +1,72 @@
 
-import { CardComponent } from "@/components/CardComponent";
-import { Zap, Cloud, ShieldCheck, Network, Database, MessageSquare } from "lucide-react";
-import Image from "next/image";
+import Link from "next/link";
+import type { Metadata } from "next";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ClipboardCheck, Code2, BarChart3, ServerCog, CheckCircle } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Our Services - TechFlow Hub",
+  description: "Explore our core services: Quality Assurance, Development, Data Analytics, and DevOps.",
+};
 
 const services = [
   {
-    id: "managed-it",
-    title: "Managed IT Services",
-    description: "Comprehensive IT support, monitoring, and management to ensure your systems are always operational and efficient. We handle everything from helpdesk to strategic IT planning.",
-    icon: <Zap size={32} />,
-    details: [
-      "24/7 System Monitoring",
-      "Proactive Maintenance & Updates",
-      "Helpdesk Support",
-      "Vendor Management",
-      "IT Asset Management",
+    id: "qa",
+    title: "Quality Assurance (QA)",
+    icon: <ClipboardCheck size={36} className="text-primary" />,
+    description: "Detailed information on manual and automated testing, performance testing, and AI-driven QA solutions. We ensure your products meet the highest standards of quality and reliability.",
+    skills: [
+      "Manual Testing",
+      "Automation (Selenium, Cypress)",
+      "API Testing (Postman, REST Assured)",
+      "Performance Testing (JMeter)",
+      "Test Management (Jira, TestRail)",
+      "AI-driven QA Solutions",
     ],
-    image: "https://placehold.co/600x400.png?text=Managed+IT",
-    imageHint: "server room",
   },
   {
-    id: "cloud-solutions",
-    title: "Cloud Solutions",
-    description: "Leverage the power of the cloud with our tailored solutions. We offer cloud migration, infrastructure management, and SaaS integration to enhance scalability and collaboration.",
-    icon: <Cloud size={32} />,
-    details: [
-      "Cloud Migration & Strategy",
-      "Infrastructure as a Service (IaaS)",
-      "Platform as a Service (PaaS)",
-      "Software as a Service (SaaS) Integration",
-      "Cloud Backup & Disaster Recovery",
+    id: "development",
+    title: "Development Services",
+    icon: <Code2 size={36} className="text-primary" />,
+    description: "Showcasing expertise in web and mobile app development, custom software development, and robust CRM/ERP solutions tailored to your business needs.",
+    skills: [
+      "Frontend: React, Angular, HTML5, CSS3, JavaScript",
+      "Backend: Node.js, .NET, Java, Python",
+      "Mobile: Flutter, React Native",
+      "Custom Software Development",
+      "CRM/ERP Solutions",
+      "Databases: MongoDB, MySQL, PostgreSQL",
+      "CI/CD: GitHub Actions, Jenkins",
     ],
-    image: "https://placehold.co/600x400.png?text=Cloud+Solutions",
-    imageHint: "cloud computing",
   },
   {
-    id: "cybersecurity",
-    title: "Cybersecurity Services",
-    description: "Protect your digital assets with our robust cybersecurity services. We provide threat detection, vulnerability assessments, and security awareness training.",
-    icon: <ShieldCheck size={32} />,
-    details: [
-      "Threat Detection & Response",
-      "Vulnerability Assessments",
-      "Penetration Testing",
-      "Security Awareness Training",
-      "Firewall & Network Security",
+    id: "data-analytics",
+    title: "Data Analytics",
+    icon: <BarChart3 size={36} className="text-primary" />,
+    description: "Highlighting capabilities in data visualization, predictive analytics, and business intelligence solutions to transform your raw data into strategic assets.",
+    skills: [
+      "Data Processing: Python, Pandas, SQL",
+      "Data Visualization: Power BI, Tableau",
+      "Predictive Analytics",
+      "Business Intelligence Solutions",
+      "ETL Tools: Apache NiFi, Airflow",
+      "Machine Learning (Scikit-learn)",
     ],
-    image: "https://placehold.co/600x400.png?text=Cybersecurity",
-    imageHint: "security lock",
   },
   {
-    id: "network-solutions",
-    title: "Network Solutions",
-    description: "Design, implementation, and management of reliable and high-performance network infrastructures. Ensuring seamless connectivity for your business.",
-    icon: <Network size={32} />,
-    details: [
-        "Network Design & Implementation",
-        "Wireless Network Solutions",
-        "VPN & Remote Access",
-        "Network Monitoring & Optimization",
-        "SD-WAN Solutions"
+    id: "devops",
+    title: "DevOps Services",
+    icon: <ServerCog size={36} className="text-primary" />,
+    description: "Explaining our approach to continuous integration/continuous deployment (CI/CD) pipelines, comprehensive cloud infrastructure management, and automation to accelerate your delivery cycles.",
+    skills: [
+      "CI/CD Pipelines (Jenkins, GitLab CI, GitHub Actions)",
+      "Cloud Infrastructure Management (AWS, Azure, Google Cloud)",
+      "Automation & Orchestration",
+      "Containerization: Docker, Kubernetes",
+      "Monitoring: Prometheus, Grafana, ELK Stack",
+      "Infrastructure as Code: Terraform, Ansible",
     ],
-    image: "https://placehold.co/600x400.png?text=Network+Solutions",
-    imageHint: "network cables",
-  },
-  {
-    id: "data-management",
-    title: "Data Management & Analytics",
-    description: "Unlock the power of your data with our comprehensive data management and analytics services. From data warehousing to business intelligence.",
-    icon: <Database size={32} />,
-    details: [
-        "Data Warehousing",
-        "Database Administration",
-        "Business Intelligence & Reporting",
-        "Data Backup & Recovery",
-        "Big Data Solutions"
-    ],
-    image: "https://placehold.co/600x400.png?text=Data+Management",
-    imageHint: "data charts",
-  },
-  {
-    id: "it-consulting",
-    title: "IT Consulting",
-    description: "Strategic IT guidance to help you make informed technology decisions, optimize your IT investments, and align technology with your business goals.",
-    icon: <MessageSquare size={32} />,
-    details: [
-        "IT Strategy & Roadmap",
-        "Digital Transformation",
-        "Technology Assessment",
-        "Project Management",
-        "Compliance & Governance"
-    ],
-    image: "https://placehold.co/600x400.png?text=IT+Consulting",
-    imageHint: "business meeting",
   },
 ];
 
@@ -100,53 +74,56 @@ export default function ServicesPage() {
   return (
     <div className="container mx-auto px-4 py-12">
       <header className="text-center mb-12">
-        <h1 className="text-4xl font-bold tracking-tight text-foreground">Our IT Services</h1>
+        <h1 className="text-4xl font-bold tracking-tight text-foreground">
+          Our Services
+        </h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-          Tailored technology solutions designed to propel your business forward. Explore our comprehensive range of IT services.
+          Leverage our expertise in QA, Development, Data Analytics, and DevOps to achieve your business goals. We provide a range of specialized services tailored to your needs.
         </p>
       </header>
 
-      <div className="space-y-16">
-        {services.map((service, index) => (
-          <section key={service.id} id={service.id} className="scroll-mt-20">
-            <div className={`flex flex-col gap-8 md:gap-12 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-              <div className="md:w-1/2">
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  width={600}
-                  height={400}
-                  className="rounded-lg shadow-lg object-cover aspect-[3/2]"
-                  data-ai-hint={service.imageHint}
-                />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        {services.map((service) => (
+          <Card key={service.id} id={service.id} className="shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col scroll-mt-20">
+            <CardHeader>
+              <div className="flex items-center gap-4 mb-2">
+                {service.icon}
+                <CardTitle className="text-2xl leading-tight">{service.title}</CardTitle>
               </div>
-              <div className="md:w-1/2">
-                <div className="flex items-center mb-4">
-                  <span className="text-primary mr-3">{service.icon}</span>
-                  <h2 className="text-3xl font-semibold text-foreground">{service.title}</h2>
-                </div>
-                <p className="text-muted-foreground mb-6 text-base leading-relaxed">{service.description}</p>
+            </CardHeader>
+            <CardContent className="flex-grow flex flex-col">
+              <p className="text-muted-foreground mb-6 text-base">
+                {service.description}
+              </p>
+              <div>
+                <h4 className="font-semibold mb-3 text-md text-foreground">
+                  Key Skills & Tools:
+                </h4>
                 <ul className="space-y-2">
-                  {service.details.map((detail) => (
-                    <li key={detail} className="flex items-center">
-                      <CheckCircle className="h-5 w-5 text-accent mr-2 shrink-0" />
-                      <span className="text-sm">{detail}</span>
+                  {service.skills.map((skill) => (
+                    <li key={skill} className="flex items-start text-sm">
+                      <CheckCircle className="h-4 w-4 text-accent mr-2 mt-0.5 shrink-0" />
+                      <span>{skill}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-            </div>
-          </section>
+            </CardContent>
+          </Card>
         ))}
       </div>
+
+      <section className="text-center py-10 bg-secondary rounded-lg shadow-md">
+        <h2 className="text-3xl font-bold text-foreground mb-4">
+          Ready to Discuss Your Project?
+        </h2>
+        <p className="text-muted-foreground max-w-xl mx-auto mb-8">
+          Let our experts help you find the best solutions for your business.
+        </p>
+        <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+          <Link href="/contact">Contact Us for a Consultation</Link>
+        </Button>
+      </section>
     </div>
   );
 }
-
-// Helper for CheckCircle icon (assuming it's from lucide-react)
-const CheckCircle = ({className}: {className?: string}) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-  </svg>
-);

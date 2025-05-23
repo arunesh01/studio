@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CardComponent } from "@/components/CardComponent";
-import { CheckCircle, ClipboardCheck, Code2, BarChart3, ServerCog } from "lucide-react"; // Added new icons
+import { CheckCircle, ClipboardCheck, Code2, BarChart3, ServerCog } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
@@ -19,11 +19,11 @@ export default function HomePage() {
   const serviceCard1Ref = useRef<HTMLDivElement>(null);
   const serviceCard2Ref = useRef<HTMLDivElement>(null);
   const serviceCard3Ref = useRef<HTMLDivElement>(null);
-  const serviceCard4Ref = useRef<HTMLDivElement>(null); // Added ref for 4th card
+  const serviceCard4Ref = useRef<HTMLDivElement>(null);
   const [isServiceCard1Visible, setIsServiceCard1Visible] = useState(false);
   const [isServiceCard2Visible, setIsServiceCard2Visible] = useState(false);
   const [isServiceCard3Visible, setIsServiceCard3Visible] = useState(false);
-  const [isServiceCard4Visible, setIsServiceCard4Visible] = useState(false); // Added state for 4th card
+  const [isServiceCard4Visible, setIsServiceCard4Visible] = useState(false);
 
   const leadershipSectionRef = useRef<HTMLDivElement>(null);
   const [isLeadershipSectionVisible, setIsLeadershipSectionVisible] = useState(false);
@@ -85,7 +85,7 @@ export default function HomePage() {
     );
     if (serviceCard3Ref.current) serviceCard3Observer.observe(serviceCard3Ref.current);
 
-    const serviceCard4Observer = new IntersectionObserver( // Observer for 4th service card
+    const serviceCard4Observer = new IntersectionObserver( 
       (entries, obs) => genericObserverCallback(entries, obs, setIsServiceCard4Visible),
       observerOptions
     );
@@ -109,7 +109,7 @@ export default function HomePage() {
       if (serviceCard1Ref.current) serviceCard1Observer.unobserve(serviceCard1Ref.current);
       if (serviceCard2Ref.current) serviceCard2Observer.unobserve(serviceCard2Ref.current);
       if (serviceCard3Ref.current) serviceCard3Observer.unobserve(serviceCard3Ref.current);
-      if (serviceCard4Ref.current) serviceCard4Observer.unobserve(serviceCard4Ref.current); // Cleanup
+      if (serviceCard4Ref.current) serviceCard4Observer.unobserve(serviceCard4Ref.current); 
       if (leadershipSectionRef.current) leadershipSectionObserver.unobserve(leadershipSectionRef.current);
       if (ctaSectionRef.current) ctaSectionObserver.unobserve(ctaSectionRef.current);
     };
@@ -140,7 +140,7 @@ export default function HomePage() {
       {/* Services Overview Section */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-4">Our Core Services</h2>
+          <h2 className="text-3xl font-bold text-center text-foreground mb-4">Service Highlights</h2>
           <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-12">
             Discover how our expertise in QA, Development, Data Analytics, and DevOps can transform your business.
           </p>
@@ -154,9 +154,9 @@ export default function HomePage() {
             >
               <CardComponent
                 title="Quality Assurance (QA)"
-                description="Ensuring product quality through rigorous manual and automated testing."
+                description="Rigorous testing, including AI-driven solutions, to ensure product excellence."
                 icon={<ClipboardCheck size={28} />}
-                link="/offerings#qa"
+                link="/services#qa"
                 linkText="Explore QA Solutions"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
               />
@@ -169,10 +169,10 @@ export default function HomePage() {
               )}
             >
               <CardComponent
-                title="Development"
-                description="Building scalable, performant, and maintainable web & mobile applications."
+                title="Development Services"
+                description="Web, mobile, CRM/ERP, and custom software development for scalable solutions."
                 icon={<Code2 size={28} />}
-                link="/offerings#development"
+                link="/services#development"
                 linkText="Discover Development"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
               />
@@ -186,9 +186,9 @@ export default function HomePage() {
             >
               <CardComponent
                 title="Data Analytics"
-                description="Turning data into actionable insights and driving informed decisions."
+                description="Actionable insights through data visualization, predictive analytics, and BI."
                 icon={<BarChart3 size={28} />}
-                link="/offerings#data-analytics"
+                link="/services#data-analytics"
                 linkText="Unlock Data Insights"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
               />
@@ -196,15 +196,15 @@ export default function HomePage() {
             <div
               ref={serviceCard4Ref}
               className={cn(
-                "transition-all transform duration-700 ease-out delay-[600ms]", // Added delay for 4th card
+                "transition-all transform duration-700 ease-out delay-[600ms]", 
                 isServiceCard4Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
               )}
             >
               <CardComponent
-                title="DevOps"
-                description="Streamlining pipelines with automation, monitoring, and cloud infrastructure."
+                title="DevOps Services"
+                description="CI/CD, cloud management, and automation for efficient development pipelines."
                 icon={<ServerCog size={28} />}
-                link="/offerings#devops"
+                link="/services#devops"
                 linkText="Optimize Your DevOps"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
               />

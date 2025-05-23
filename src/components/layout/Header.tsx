@@ -13,8 +13,7 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/", label: "Home" },
-  { href: "/services", label: "Services" },
-  { href: "/offerings", label: "Our Offerings" },
+  { href: "/services", label: "Services" }, // Changed from "Our Offerings" and /offerings
   { href: "/contact", label: "Contact" },
   { href: "/dashboard", label: "Dashboard" },
 ];
@@ -55,7 +54,7 @@ export function Header() {
           <ThemeToggle />
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon" onClick={() => setIsMobileMenuOpen(true)}>
+              <Button variant="ghost" size="icon">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Open menu</span>
               </Button>
@@ -90,4 +89,3 @@ export function Header() {
     </header>
   );
 }
-
