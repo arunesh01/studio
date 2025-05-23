@@ -20,7 +20,7 @@ import { AnalogClock } from "@/components/AnalogClock";
 const mainNavItems = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
-  { href: "/contact", label: "Contact" },
+  // Contact removed from here, will be added explicitly after About Us
   { href: "/dashboard", label: "Dashboard" },
 ];
 
@@ -66,7 +66,7 @@ export function Header() {
 
         <nav className="hidden md:flex items-center space-x-1 text-sm font-medium">
           {mainNavItems.map((item) => (
-             <Button key={item.href} variant="link" asChild className="text-sm font-medium">
+            <Button key={item.href} variant="link" asChild className="text-sm font-medium">
               <Link href={item.href} legacyBehavior passHref>
                 <a className={cn(
                   "transition-colors hover:text-primary px-3 py-2",
@@ -84,6 +84,7 @@ export function Header() {
           <div className="relative group">
             <Button
               variant="link"
+              asChild={false} // Ensure this Button is not using asChild if it's the direct hover target
               className={cn(
                 "transition-colors hover:text-primary px-3 py-2 text-sm font-medium cursor-default",
                 pathname.startsWith("/about")
@@ -91,7 +92,7 @@ export function Header() {
                   : "text-foreground/60"
               )}
             >
-              About Us
+              <div>About Us</div>
             </Button>
             <div
               className="absolute left-0 mt-0 w-56 rounded-md shadow-lg bg-popover text-popover-foreground p-1 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-150 ease-in-out invisible group-hover:visible"
@@ -108,6 +109,20 @@ export function Header() {
             </div>
           </div>
           {/* End About Us Hover Dropdown */}
+
+          {/* Contact Link - Added after About Us */}
+          <Button variant="link" asChild className="text-sm font-medium">
+            <Link href="/contact" legacyBehavior passHref>
+              <a className={cn(
+                "transition-colors hover:text-primary px-3 py-2",
+                pathname === "/contact"
+                  ? "text-primary"
+                  : "text-foreground/60"
+              )}>
+                Contact
+              </a>
+            </Link>
+          </Button>
         </nav>
 
         <div className="flex items-center gap-1 sm:gap-2">
@@ -116,7 +131,7 @@ export function Header() {
               <div key={city.key} className="flex flex-col items-center px-1">
                 <AnalogClock
                   timeZone={city.timeZone}
-                  size={24} 
+                  size={24}
                   idSuffix={`header-${city.key}`}
                 />
                 <span className="text-[10px] text-muted-foreground mt-0.5 tracking-tighter">
@@ -127,8 +142,8 @@ export function Header() {
           </div>
           <ThemeToggle />
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-            <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon">
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Open menu</span>
               </Button>
@@ -183,6 +198,19 @@ export function Header() {
                       </Link>
                   ))}
                 </div>
+                {/* Contact Link for Mobile - Added last */}
+                <Link
+                  href="/contact"
+                  className={cn(
+                    "text-lg font-medium transition-colors hover:text-primary py-1.5",
+                    pathname === "/contact"
+                      ? "text-primary"
+                      : "text-foreground/80"
+                  )}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Contact
+                </Link>
               </div>
               <div className="mt-8 space-y-3 lg:hidden">
                 <p className="text-sm font-medium text-muted-foreground">
