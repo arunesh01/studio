@@ -15,6 +15,7 @@ import { AnalogClock } from "@/components/AnalogClock";
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
+  { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },
   { href: "/dashboard", label: "Dashboard" },
 ];
