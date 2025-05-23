@@ -2,18 +2,19 @@
 "use client";
 
 import Link from "next/link";
-import { Menu } from "lucide-react"; // Removed X as it's no longer used for a custom button
+import { Menu } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"; // Added SheetTitle
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
+  { href: "/offerings", label: "Our Offerings" },
   { href: "/contact", label: "Contact" },
   { href: "/dashboard", label: "Dashboard" },
 ];
@@ -60,15 +61,12 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-full max-w-xs bg-background p-6">
-              {/* SheetContent provides its own close button, custom one removed */}
-              <div className="mb-6"> {/* Adjusted margin for title */}
-                <SheetTitle asChild>
-                  <Link href="/" className="flex items-center gap-2" aria-label="TechFlow Hub Home" onClick={() => setIsMobileMenuOpen(false)}>
+              <SheetTitle asChild>
+                  <Link href="/" className="flex items-center gap-2 mb-6" aria-label="TechFlow Hub Home" onClick={() => setIsMobileMenuOpen(false)}>
                     <Logo className="h-8 w-8" />
                     <span className="font-semibold text-xl">TechFlow Hub</span>
                   </Link>
-                </SheetTitle>
-              </div>
+              </SheetTitle>
               
               <div className="flex flex-col space-y-5">
                 {navItems.map((item) => (
@@ -79,7 +77,7 @@ export function Header() {
                       "text-lg font-medium transition-colors hover:text-primary py-2",
                       pathname === item.href ? "text-primary" : "text-foreground/80"
                     )}
-                    onClick={() => setIsMobileMenuOpen(false)} // Explicitly close on item click
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.label}
                   </Link>
@@ -92,3 +90,4 @@ export function Header() {
     </header>
   );
 }
+
