@@ -3,23 +3,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import type { Metadata } from "next"; // Removed as metadata is now exported directly
+// import type { Metadata } from "next"; // Removed as metadata is now exported directly
 import { Button } from "@/components/ui/button";
 import { CardComponent } from "@/components/CardComponent";
-import { CheckCircle, ClipboardCheck, Code2, BarChart3, ServerCog, Users, CloudCog, ShieldCheck, GitFork } from "lucide-react"; // Added CloudCog, ShieldCheck
+// Removed Lucide icons that will be replaced by images for service cards
+import { CheckCircle, Users, CloudCog, ShieldCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
-
-// Metadata for this page - it's better to export this directly
-// export const metadata: Metadata = {
-//   title: "TechFlow Hub - IT Solutions for Your Business",
-//   description: "Modern IT solutions by TechFlow Hub.",
-// };
-// No, metadata should be exported from Server Components or page.tsx files directly, not defined within the component if it's a client component using "use client".
-// For client components, metadata is typically handled by the nearest server component parent (layout.tsx or page.tsx that *doesn't* use 'use client').
-// Since this page.tsx is 'use client', its metadata should be defined if it were a server component, or rely on layout.tsx.
-// However, Next.js allows exporting metadata object directly from page.tsx even if it's 'use client'. Let's assume this for now.
 
 export default function HomePage() {
   const [isWhyChooseUsImageVisible, setIsWhyChooseUsImageVisible] = useState(false);
@@ -129,9 +120,19 @@ export default function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="py-20 md:py-32 bg-gradient-to-r from-primary to-accent">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-primary-foreground mb-6">
+      <section className="relative py-20 md:py-32 bg-gradient-to-r from-primary to-accent text-primary-foreground overflow-hidden">
+        <Image
+          src="https://placehold.co/1920x1080.png"
+          alt="Abstract technology background or team collaboration"
+          layout="fill"
+          objectFit="cover"
+          className="absolute inset-0 z-0 opacity-20"
+          data-ai-hint="technology abstract background"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/30 z-0"></div> {/* Optional: Dark overlay for better text contrast */}
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
             Empowering Your Business with <span className="text-white">TechFlow Hub</span>
           </h1>
           <p className="text-lg md:text-xl text-primary-foreground/90 max-w-3xl mx-auto mb-10">
@@ -141,7 +142,7 @@ export default function HomePage() {
             <Button asChild size="lg" variant="secondary" className="text-secondary-foreground hover:bg-secondary/90">
               <Link href="/contact">Get a Free Consultation</Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10">
+            <Button asChild variant="outline" size="lg" className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
               <Link href="/contact">Request a Demo</Link>
             </Button>
           </div>
@@ -166,7 +167,7 @@ export default function HomePage() {
               <CardComponent
                 title="Quality Assurance (QA)"
                 description="Rigorous testing to ensure product excellence and reliability."
-                icon={<ClipboardCheck size={28} />}
+                icon={<Image src="https://placehold.co/64x64.png" alt="Quality Assurance Icon" width={48} height={48} data-ai-hint="quality checkmark icon" />}
                 link="/services#qa"
                 linkText="Explore QA Solutions"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
@@ -182,7 +183,7 @@ export default function HomePage() {
               <CardComponent
                 title="Development Services"
                 description="Custom web, mobile, and software solutions for scalable growth."
-                icon={<Code2 size={28} />}
+                icon={<Image src="https://placehold.co/64x64.png" alt="Development Services Icon" width={48} height={48} data-ai-hint="code brackets icon" />}
                 link="/services#development"
                 linkText="Discover Development"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
@@ -198,7 +199,7 @@ export default function HomePage() {
               <CardComponent
                 title="Data Analytics"
                 description="Actionable insights through data visualization and business intelligence."
-                icon={<BarChart3 size={28} />}
+                icon={<Image src="https://placehold.co/64x64.png" alt="Data Analytics Icon" width={48} height={48} data-ai-hint="chart graph icon" />}
                 link="/services#data-analytics"
                 linkText="Unlock Data Insights"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
@@ -214,7 +215,7 @@ export default function HomePage() {
               <CardComponent
                 title="DevOps Services"
                 description="Efficient development pipelines with CI/CD and cloud automation."
-                icon={<GitFork size={28} />} 
+                icon={<Image src="https://placehold.co/64x64.png" alt="DevOps Services Icon" width={48} height={48} data-ai-hint="gears automation icon" />}
                 link="/services#devops"
                 linkText="Optimize Your DevOps"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"

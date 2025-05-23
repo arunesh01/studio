@@ -51,11 +51,11 @@ export default function ContactPage() {
             <div className="pt-4">
                 <Image 
                     src="https://placehold.co/600x300.png" 
-                    alt="Placeholder map showing TechFlow Hub office location" 
+                    alt="Map showing TechFlow Hub office location" 
                     width={600} 
                     height={300}
                     className="rounded-md"
-                    data-ai-hint="map office city"
+                    data-ai-hint="map office location"
                 />
             </div>
           </CardContent>

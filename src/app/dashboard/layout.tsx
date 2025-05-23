@@ -37,6 +37,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import Image from "next/image"; // Added for Next Image
 
 const sidebarNavItems = [
   { href: "/dashboard", label: "Overview", icon: <LayoutDashboard /> },
@@ -120,7 +121,10 @@ export default function DashboardLayout({
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                     <Avatar className="h-9 w-9">
-                      <AvatarImage src="https://placehold.co/100x100.png" alt="User Avatar" data-ai-hint="person avatar" />
+                      {/* Using Next Image for avatar */}
+                      <AvatarImage asChild>
+                        <Image src="https://placehold.co/100x100.png" alt="User Avatar" width={36} height={36} data-ai-hint="person user avatar" />
+                      </AvatarImage>
                       <AvatarFallback>TF</AvatarFallback>
                     </Avatar>
                   </Button>
