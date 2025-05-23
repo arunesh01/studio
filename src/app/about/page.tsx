@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Briefcase, Building, Eye, Mail, Users } from "lucide-react"; // Removed Group as it's not used
+import { Briefcase, Building, Eye, Users } from "lucide-react"; // Removed Mail as it's not used
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -19,21 +19,6 @@ export const metadata: Metadata = {
 };
 
 const aboutSections = [
-  {
-    id: "contact-us",
-    title: "Get in Touch",
-    icon: <Mail className="h-8 w-8 text-primary" />,
-    content: (
-      <>
-        <p className="text-muted-foreground mb-4">
-          We're always here to help and answer any questions you might have. For detailed contact information, to send us a message, or to find our office locations, please visit our dedicated contact page.
-        </p>
-        <Button asChild>
-          <Link href="/contact">Go to Contact Page</Link>
-        </Button>
-      </>
-    ),
-  },
   {
     id: "our-vision",
     title: "Our Vision",

@@ -20,6 +20,7 @@ import { AnalogClock } from "@/components/AnalogClock";
 const mainNavItems = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
+  { href: "/contact", label: "Contact" },
   { href: "/dashboard", label: "Dashboard" },
 ];
 
@@ -65,7 +66,7 @@ export function Header() {
 
         <nav className="hidden md:flex items-center space-x-1 text-sm font-medium">
           {mainNavItems.map((item) => (
-            <Button key={item.href} variant="link" asChild className="text-sm font-medium">
+             <Button key={item.href} variant="link" asChild className="text-sm font-medium">
               <Link href={item.href} legacyBehavior passHref>
                 <a className={cn(
                   "transition-colors hover:text-primary px-3 py-2",
@@ -115,10 +116,10 @@ export function Header() {
               <div key={city.key} className="flex flex-col items-center px-1">
                 <AnalogClock
                   timeZone={city.timeZone}
-                  size={22}
+                  size={24} 
                   idSuffix={`header-${city.key}`}
                 />
-                <span className="text-[9px] text-muted-foreground mt-0.5 tracking-tighter">
+                <span className="text-[10px] text-muted-foreground mt-0.5 tracking-tighter">
                   {city.label}
                 </span>
               </div>
