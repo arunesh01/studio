@@ -5,17 +5,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CardComponent } from "@/components/CardComponent";
-import { CheckCircle, BarChart3, ServerCog, ClipboardCheck, Code2 } from "lucide-react"; // Added ClipboardCheck and Code2 for service icons
+import { CheckCircle } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
-import { TechStackShowcase } from "@/components/TechStackShowcase"; // Import the new component
+import { TechStackShowcase } from "@/components/TechStackShowcase"; 
 
 const serviceHighlights = [
   {
     title: "Quality Assurance (QA)",
     description: "Ensuring product excellence with AI-driven and automated testing solutions.",
-    icon: <Image src="https://placehold.co/64x64.png" alt="Quality Assurance Icon for TechnoNspace" width={48} height={48} data-ai-hint="quality seal" />,
+    icon: <Image src="https://placehold.co/64x64.png" alt="Quality Assurance Animation for TechnoNspace" width={48} height={48} data-ai-hint="QA animation" />,
     link: "/services#qa",
     linkText: "Explore QA Solutions",
     refHook: "serviceCard1Ref",
@@ -25,7 +25,7 @@ const serviceHighlights = [
   {
     title: "Development Services",
     description: "Custom web, mobile, and CRM/ERP solutions for scalable growth.",
-    icon: <Image src="https://placehold.co/64x64.png" alt="Development Services Icon for TechnoNspace" width={48} height={48} data-ai-hint="dev tools" />,
+    icon: <Image src="https://placehold.co/64x64.png" alt="Development Services Illustration for TechnoNspace" width={48} height={48} data-ai-hint="dev illustration" />,
     link: "/services#development",
     linkText: "Discover Development",
     refHook: "serviceCard2Ref",
@@ -35,7 +35,7 @@ const serviceHighlights = [
   {
     title: "Data Analytics & BI",
     description: "Actionable insights through data visualization and business intelligence.",
-    icon: <Image src="https://placehold.co/64x64.png" alt="Data Analytics Icon for TechnoNspace" width={48} height={48} data-ai-hint="data insight" />,
+    icon: <Image src="https://placehold.co/64x64.png" alt="Data Analytics Visualization for TechnoNspace" width={48} height={48} data-ai-hint="data animation" />,
     link: "/services#data-analytics",
     linkText: "Unlock Data Insights",
     refHook: "serviceCard3Ref",
@@ -45,7 +45,7 @@ const serviceHighlights = [
   {
     title: "DevOps & Cloud Solutions",
     description: "Efficient development pipelines with CI/CD and cloud automation.",
-    icon: <Image src="https://placehold.co/64x64.png" alt="DevOps Services Icon for TechnoNspace" width={48} height={48} data-ai-hint="process gears" />,
+    icon: <Image src="https://placehold.co/64x64.png" alt="DevOps Cloud Animation for TechnoNspace" width={48} height={48} data-ai-hint="devops illustration" />,
     link: "/services#devops",
     linkText: "Optimize Your DevOps",
     refHook: "serviceCard4Ref",
@@ -116,8 +116,8 @@ export default function HomePage() {
   const leadershipSectionRef = useRef<HTMLDivElement>(null);
   const [isLeadershipSectionVisible, setIsLeadershipSectionVisible] = useState(false);
 
-  const techStackSectionRef = useRef<HTMLDivElement>(null); // Ref for new section
-  const [isTechStackSectionVisible, setIsTechStackSectionVisible] = useState(false); // State for new section
+  const techStackSectionRef = useRef<HTMLDivElement>(null); 
+  const [isTechStackSectionVisible, setIsTechStackSectionVisible] = useState(false); 
 
   const ctaSectionRef = useRef<HTMLDivElement>(null);
   const [isCtaSectionVisible, setIsCtaSectionVisible] = useState(false);
@@ -130,7 +130,7 @@ export default function HomePage() {
     { ref: serviceCard3Ref, setter: setIsServiceCard3Visible },
     { ref: serviceCard4Ref, setter: setIsServiceCard4Visible },
     { ref: leadershipSectionRef, setter: setIsLeadershipSectionVisible },
-    { ref: techStackSectionRef, setter: setIsTechStackSectionVisible }, // Added for new section
+    { ref: techStackSectionRef, setter: setIsTechStackSectionVisible }, 
     { ref: ctaSectionRef, setter: setIsCtaSectionVisible },
   ];
 
@@ -138,7 +138,7 @@ export default function HomePage() {
     const observerOptions = {
       root: null,
       rootMargin: "0px",
-      threshold: 0.1, // Default threshold
+      threshold: 0.1, 
     };
 
     const observers: IntersectionObserver[] = [];
@@ -171,7 +171,7 @@ export default function HomePage() {
         }
       });
     };
-  }, []); // refsAndSetters is stable
+  }, []); 
 
   return (
     <>
@@ -186,7 +186,7 @@ export default function HomePage() {
           data-ai-hint="tech abstract"
           priority
         />
-        <div className="absolute inset-0 bg-black/30 z-0"></div> {/* Optional: Dark overlay for better text contrast */}
+        <div className="absolute inset-0 bg-black/30 z-0"></div> 
         <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 text-primary-foreground">
             Empowering Your Business with <span className="text-white">TechnoNspace</span>
@@ -238,7 +238,7 @@ export default function HomePage() {
                   icon={service.icon}
                   link={service.link}
                   linkText={service.linkText}
-                  className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
+                  className="transition-all duration-300 ease-in-out hover:scale-105 hover:-translate-y-1 hover:shadow-xl h-full"
                 />
               </div>
             ))}
@@ -343,3 +343,6 @@ export default function HomePage() {
     </>
   );
 }
+
+
+    
