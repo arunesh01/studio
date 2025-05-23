@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { AnalogClock } from "@/components/AnalogClock"; // Import the AnalogClock
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -50,7 +51,10 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3"> {/* Increased gap slightly for the clock */}
+          <div className="hidden md:block"> {/* Hide clock on small screens if too cluttered */}
+            <AnalogClock timeZone="Asia/Kolkata" size={28} idSuffix="header" />
+          </div>
           <ThemeToggle />
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild className="md:hidden">
