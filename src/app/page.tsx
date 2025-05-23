@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CardComponent } from "@/components/CardComponent";
-import { CheckCircle, BarChartHorizontalBig, MapPinned, Briefcase, Users, Settings, Sparkles, Workflow, BarChart3 } from "lucide-react"; 
+import { CheckCircle, BarChartHorizontalBig, MapPinned, Briefcase, Users, Settings, Sparkles, Workflow, BarChart3, Clock, ServerCog, ClipboardCheck, Code2 } from "lucide-react"; 
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
@@ -14,6 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { ChartContainer, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
 import type { ChartConfig } from "@/components/ui/chart";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip as RechartsTooltip, Cell } from "recharts";
+import { WorldClockDisplay } from "@/components/WorldClockDisplay";
 
 
 const serviceHighlights = [
@@ -147,17 +148,17 @@ export default function HomePage() {
   const [isServiceCard3Visible, setIsServiceCard3Visible] = useState(false);
   const [isServiceCard4Visible, setIsServiceCard4Visible] = useState(false);
 
+  const techStackSectionRef = useRef<HTMLDivElement>(null);
+  const [isTechStackSectionVisible, setIsTechStackSectionVisible] = useState(false);
+  
+  const worldClockSectionRef = useRef<HTMLDivElement>(null);
+  const [isWorldClockSectionVisible, setIsWorldClockSectionVisible] = useState(false);
+
   const leadershipSectionRef = useRef<HTMLDivElement>(null);
   const [isLeadershipSectionVisible, setIsLeadershipSectionVisible] = useState(false);
 
-  const techStackSectionRef = useRef<HTMLDivElement>(null);
-  const [isTechStackSectionVisible, setIsTechStackSectionVisible] = useState(false);
-
-  const globalReachSectionRef = useRef<HTMLDivElement>(null);
-  const [isGlobalReachSectionVisible, setIsGlobalReachSectionVisible] = useState(false);
-
-  const analyticsPreviewSectionRef = useRef<HTMLDivElement>(null);
-  const [isAnalyticsPreviewSectionVisible, setIsAnalyticsPreviewSectionVisible] = useState(false);
+  const combinedSectionRef = useRef<HTMLDivElement>(null);
+  const [isCombinedSectionVisible, setIsCombinedSectionVisible] = useState(false);
 
   const ctaSectionRef = useRef<HTMLDivElement>(null);
   const [isCtaSectionVisible, setIsCtaSectionVisible] = useState(false);
@@ -170,9 +171,9 @@ export default function HomePage() {
     { ref: serviceCard3Ref, setter: setIsServiceCard3Visible },
     { ref: serviceCard4Ref, setter: setIsServiceCard4Visible },
     { ref: techStackSectionRef, setter: setIsTechStackSectionVisible },
+    { ref: worldClockSectionRef, setter: setIsWorldClockSectionVisible, threshold: 0.1 },
     { ref: leadershipSectionRef, setter: setIsLeadershipSectionVisible },
-    { ref: globalReachSectionRef, setter: setIsGlobalReachSectionVisible, threshold: 0.1 },
-    { ref: analyticsPreviewSectionRef, setter: setIsAnalyticsPreviewSectionVisible, threshold: 0.1 },
+    { ref: combinedSectionRef, setter: setIsCombinedSectionVisible, threshold: 0.1 },
     { ref: ctaSectionRef, setter: setIsCtaSectionVisible },
   ];
 
@@ -355,6 +356,19 @@ export default function HomePage() {
       >
         <TechStackShowcase techCategories={techCategoriesData} />
       </div>
+
+      {/* World Clock Display Section - Removed, clocks moved to header */}
+      {/*
+      <section
+        ref={worldClockSectionRef}
+        className={cn(
+          "py-16 bg-muted transition-all transform duration-700 ease-out",
+          isWorldClockSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        )}
+      >
+        <WorldClockDisplay />
+      </section>
+      */}
       
       {/* Leadership Section */}
       <div
@@ -367,86 +381,84 @@ export default function HomePage() {
         <LeadershipSection />
       </div>
 
-      {/* Global Reach Section */}
+      {/* Combined Global Reach & Analytics Preview Section */}
       <section
-        ref={globalReachSectionRef}
+        ref={combinedSectionRef}
         className={cn(
           "py-16 bg-background transition-all transform duration-700 ease-out",
-          isGlobalReachSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        )}
-      >
-        <div className="container mx-auto px-4 text-center">
-          <div className="flex justify-center items-center mb-4">
-            <MapPinned className="h-10 w-10 text-primary mr-3" />
-            <h2 className="text-3xl font-bold text-foreground">Our Global Reach</h2>
-          </div>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
-            Visualizing our impact and client collaborations across the globe. We are dedicated to providing top-tier IT solutions to businesses worldwide.
-            (Placeholder for interactive map - e.g., Mapbox, Leaflet integration)
-          </p>
-          <div className="bg-muted p-4 rounded-lg shadow-md max-w-3xl mx-auto">
-            <Image
-              src="https://placehold.co/800x400.png"
-              alt="Placeholder for global reach map showing client locations or service zones"
-              width={800}
-              height={400}
-              className="rounded-md"
-              data-ai-hint="world map graphic"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Analytics Preview Section */}
-      <section
-        ref={analyticsPreviewSectionRef}
-        className={cn(
-          "py-16 bg-secondary transition-all transform duration-700 ease-out",
-          isAnalyticsPreviewSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          isCombinedSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         )}
       >
         <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <div className="flex justify-center items-center mb-4">
-                <BarChartHorizontalBig className="h-10 w-10 text-primary mr-3" />
-                <h2 className="text-3xl font-bold text-foreground">Analytics Preview</h2>
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            {/* Column 1: Global Reach */}
+            <div className="space-y-6">
+              <div className="text-center md:text-left">
+                <div className="flex justify-center md:justify-start items-center mb-4">
+                  <MapPinned className="h-10 w-10 text-primary mr-3" />
+                  <h2 className="text-3xl font-bold text-foreground">Our Global Reach</h2>
+                </div>
+                <p className="text-muted-foreground max-w-2xl mx-auto md:mx-0 mb-8">
+                  Visualizing our impact and client collaborations across the globe. We are dedicated to providing top-tier IT solutions to businesses worldwide.
+                </p>
+              </div>
+              <div className="bg-muted p-4 rounded-lg shadow-md">
+                <Image
+                  src="https://placehold.co/800x400.png"
+                  alt="Global reach map placeholder for TechnoNspace"
+                  width={800}
+                  height={400}
+                  className="rounded-md w-full"
+                  data-ai-hint="world map graphic"
+                />
+              </div>
             </div>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Get a glimpse of our powerful analytics capabilities. We transform data into actionable insights.
-            </p>
+
+            {/* Column 2: Analytics Preview */}
+            <div className="space-y-6">
+              <div className="text-center md:text-left">
+                <div className="flex justify-center md:justify-start items-center mb-4">
+                    <BarChartHorizontalBig className="h-10 w-10 text-primary mr-3" />
+                    <h2 className="text-3xl font-bold text-foreground">Analytics Preview</h2>
+                </div>
+                <p className="text-muted-foreground max-w-2xl mx-auto md:mx-0 mb-8">
+                  Get a glimpse of our powerful analytics capabilities. We transform data into actionable insights.
+                </p>
+              </div>
+              <Card className="shadow-xl">
+                <CardHeader>
+                  <CardTitle>Key Performance Indicators (Sample)</CardTitle>
+                  <CardDescription>Illustrative data showing typical project outcomes.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ChartContainer config={analyticsPreviewChartConfig} className="h-[250px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={analyticsPreviewData} layout="vertical" margin={{ right: 20, left:20 }}>
+                        <CartesianGrid horizontal={false} />
+                        <XAxis type="number" hide/>
+                        <YAxis dataKey="metric" type="category" tickLine={false} axisLine={false} tickMargin={5} width={120} />
+                        <RechartsTooltip
+                          cursor={{ fill: 'hsl(var(--muted))' }}
+                          content={<ChartTooltipContent indicator="dot" />}
+                        />
+                        <ChartLegend content={<ChartLegendContent />} />
+                        <Bar dataKey="value" radius={5}>
+                           {analyticsPreviewData.map((entry, index) => (
+                             <Cell key={`cell-${index}`} fill={entry.fill} />
+                           ))}
+                        </Bar>
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
+            </div>
           </div>
-          <Card className="max-w-2xl mx-auto shadow-xl">
-            <CardHeader>
-              <CardTitle>Key Performance Indicators (Sample)</CardTitle>
-              <CardDescription>Illustrative data showing typical project outcomes.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ChartContainer config={analyticsPreviewChartConfig} className="h-[250px] w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={analyticsPreviewData} layout="vertical" margin={{ right: 20, left:20 }}>
-                    <CartesianGrid horizontal={false} />
-                    <XAxis type="number" hide/>
-                    <YAxis dataKey="metric" type="category" tickLine={false} axisLine={false} tickMargin={5} width={120} />
-                    <RechartsTooltip
-                      cursor={{ fill: 'hsl(var(--muted))' }}
-                      content={<ChartTooltipContent indicator="dot" />}
-                    />
-                    <ChartLegend content={<ChartLegendContent />} />
-                    <Bar dataKey="value" radius={5}>
-                       {analyticsPreviewData.map((entry, index) => (
-                         <Cell key={`cell-${index}`} fill={entry.fill} />
-                       ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </ChartContainer>
-            </CardContent>
-          </Card>
         </div>
       </section>
 
       {/* CTA to Contact Section */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-secondary">
         <div
           ref={ctaSectionRef}
           className={cn(
@@ -458,7 +470,7 @@ export default function HomePage() {
           <p className="text-muted-foreground max-w-xl mx-auto mb-10">
             Let's discuss how TechnoNspace can help your business thrive. Get in touch with our experts today.
           </p>
-          <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+          <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
             <Link href="/contact">Contact Us Now</Link>
           </Button>
         </div>
@@ -466,3 +478,4 @@ export default function HomePage() {
     </>
   );
 }
+
