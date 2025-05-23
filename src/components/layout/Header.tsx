@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, Globe } from "lucide-react"; // Added Globe for potential future use, kept Menu
+import { Menu } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -29,8 +29,8 @@ const CITIES_CONFIG: ClockCityConfig[] = [
   { key: "dubai", label: "Dubai", timeZone: "Asia/Dubai" },
   { key: "india", label: "India", timeZone: "Asia/Kolkata" },
   { key: "berlin", label: "Berlin", timeZone: "Europe/Berlin" },
-  // { key: "sydney", label: "Sydney", timeZone: "Australia/Sydney" }, // Keep to 3 for header space
-  // { key: "london", label: "London", timeZone: "Europe/London" },
+  { key: "london", label: "London", timeZone: "Europe/London" },
+  { key: "sydney", label: "Sydney", timeZone: "Australia/Sydney" },
 ];
 
 
@@ -66,12 +66,12 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          <div className="hidden lg:flex items-end gap-3 ml-auto"> {/* Changed to items-end and gap-3 */}
+        <div className="flex items-center gap-1 sm:gap-2"> {/* Reduced gap for more space */}
+          <div className="hidden lg:flex items-end gap-2 ml-auto"> {/* Reduced gap */}
             {CITIES_CONFIG.map(city => (
               <div key={city.key} className="flex flex-col items-center">
-                <AnalogClock timeZone={city.timeZone} size={24} idSuffix={`header-${city.key}`} />
-                <span className="text-[10px] text-muted-foreground mt-0.5">{city.label}</span>
+                <AnalogClock timeZone={city.timeZone} size={22} idSuffix={`header-${city.key}`} /> {/* Slightly smaller clock */}
+                <span className="text-[9px] text-muted-foreground mt-0.5 tracking-tighter">{city.label}</span> {/* Smaller, tighter text */}
               </div>
             ))}
           </div>
@@ -110,7 +110,7 @@ export function Header() {
                 <p className="text-sm font-medium text-muted-foreground">Global Times:</p>
                 {CITIES_CONFIG.map(city => (
                   <div key={`mobile-${city.key}`} className="flex items-center justify-between text-sm">
-                    <span>{city.label}</span>
+                    <span className="text-xs">{city.label}</span>
                      <AnalogClock timeZone={city.timeZone} size={20} idSuffix={`mobile-header-${city.key}`} />
                   </div>
                 ))}
