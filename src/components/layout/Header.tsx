@@ -20,7 +20,7 @@ import { AnalogClock } from "@/components/AnalogClock";
 const mainNavItems = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
-  // Contact removed from here, will be added explicitly after About Us
+  // Contact is handled separately
   { href: "/dashboard", label: "Dashboard" },
 ];
 
@@ -48,6 +48,7 @@ const CITIES_CONFIG: ClockCityConfig[] = [
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAboutSubmenuOpen, setIsAboutSubmenuOpen] = useState(false);
   const pathname = usePathname();
 
   return (
@@ -81,10 +82,12 @@ export function Header() {
           ))}
 
           {/* About Us Hover Dropdown for Desktop */}
-          <div className="relative group">
-            <Button
-              variant="link"
-              asChild={false} // Ensure this Button is not using asChild if it's the direct hover target
+          <div 
+            className="relative"
+            onMouseEnter={() => setIsAboutSubmenuOpen(true)}
+            onMouseLeave={() => setIsAboutSubmenuOpen(false)}
+          >
+            <div // This div acts as the trigger area
               className={cn(
                 "transition-colors hover:text-primary px-3 py-2 text-sm font-medium cursor-default",
                 pathname.startsWith("/about")
@@ -92,16 +95,20 @@ export function Header() {
                   : "text-foreground/60"
               )}
             >
-              <div>About Us</div>
-            </Button>
+              About Us
+            </div>
             <div
-              className="absolute left-0 mt-0 w-56 rounded-md shadow-lg bg-popover text-popover-foreground p-1 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-150 ease-in-out invisible group-hover:visible"
+              className={cn(
+                "absolute left-0 mt-0 w-56 rounded-md shadow-lg bg-popover text-popover-foreground p-1 z-50 transition-opacity duration-150 ease-in-out",
+                isAboutSubmenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+              )}
             >
               {aboutSubNavItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   className="block px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-sm"
+                  onClick={() => setIsAboutSubmenuOpen(false)} // Close on click
                 >
                   {item.label}
                 </Link>
