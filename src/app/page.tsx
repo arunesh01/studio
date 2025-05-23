@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CardComponent } from "@/components/CardComponent";
-import { CheckCircle, BarChartHorizontalBig, MapPinned, Briefcase, Users, Settings, Sparkles, Workflow, BarChart3, Clock, ServerCog, ClipboardCheck, Code2 } from "lucide-react"; 
+import { CheckCircle, BarChartHorizontalBig, MapPinned, Briefcase, Users, Settings, Sparkles, Workflow, BarChart3, Clock, ServerCog, ClipboardCheck, Code2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
@@ -14,14 +14,14 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { ChartContainer, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
 import type { ChartConfig } from "@/components/ui/chart";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip as RechartsTooltip, Cell } from "recharts";
-import { WorldClockDisplay } from "@/components/WorldClockDisplay";
+// import { WorldClockDisplay } from "@/components/WorldClockDisplay";
 
 
 const serviceHighlights = [
   {
     title: "Quality Assurance (QA)",
     description: "Ensuring product excellence with AI-driven and automated testing solutions.",
-    icon: <Image src="https://placehold.co/64x64.png" alt="Quality Assurance Lottie Animation for TechnoNspace" width={48} height={48} data-ai-hint="QA animation" />,
+    icon: <Image src="https://placehold.co/64x64.png" alt="Quality Assurance and Test Automation icon" width={48} height={48} data-ai-hint="test automation" />,
     link: "/services#qa",
     linkText: "Explore QA Solutions",
     refHook: "serviceCard1Ref",
@@ -31,7 +31,7 @@ const serviceHighlights = [
   {
     title: "Development Services",
     description: "Custom web, mobile, and CRM/ERP solutions for scalable growth.",
-    icon: <Image src="https://placehold.co/64x64.png" alt="Development Services 3D Illustration for TechnoNspace" width={48} height={48} data-ai-hint="dev illustration" />,
+    icon: <Image src="https://placehold.co/64x64.png" alt="Software Development and Coding Screen icon" width={48} height={48} data-ai-hint="coding screen" />,
     link: "/services#development",
     linkText: "Discover Development",
     refHook: "serviceCard2Ref",
@@ -41,7 +41,7 @@ const serviceHighlights = [
   {
     title: "Data Analytics & BI",
     description: "Actionable insights through data visualization and business intelligence.",
-    icon: <Image src="https://placehold.co/64x64.png" alt="Data Analytics Lottie Animation for TechnoNspace" width={48} height={48} data-ai-hint="data animation" />,
+    icon: <Image src="https://placehold.co/64x64.png" alt="Data Analytics Dashboard icon" width={48} height={48} data-ai-hint="analytics dashboard" />,
     link: "/services#data-analytics",
     linkText: "Unlock Data Insights",
     refHook: "serviceCard3Ref",
@@ -51,7 +51,7 @@ const serviceHighlights = [
   {
     title: "DevOps & Cloud Solutions",
     description: "Efficient development pipelines with CI/CD and cloud automation.",
-    icon: <Image src="https://placehold.co/64x64.png" alt="DevOps Cloud 3D Illustration for TechnoNspace" width={48} height={48} data-ai-hint="devops illustration" />,
+    icon: <Image src="https://placehold.co/64x64.png" alt="DevOps CI/CD Pipeline icon" width={48} height={48} data-ai-hint="ci cd pipeline" />,
     link: "/services#devops",
     linkText: "Optimize Your DevOps",
     refHook: "serviceCard4Ref",
@@ -150,9 +150,9 @@ export default function HomePage() {
 
   const techStackSectionRef = useRef<HTMLDivElement>(null);
   const [isTechStackSectionVisible, setIsTechStackSectionVisible] = useState(false);
-  
-  const worldClockSectionRef = useRef<HTMLDivElement>(null);
-  const [isWorldClockSectionVisible, setIsWorldClockSectionVisible] = useState(false);
+
+  // const worldClockSectionRef = useRef<HTMLDivElement>(null);
+  // const [isWorldClockSectionVisible, setIsWorldClockSectionVisible] = useState(false);
 
   const leadershipSectionRef = useRef<HTMLDivElement>(null);
   const [isLeadershipSectionVisible, setIsLeadershipSectionVisible] = useState(false);
@@ -171,7 +171,7 @@ export default function HomePage() {
     { ref: serviceCard3Ref, setter: setIsServiceCard3Visible },
     { ref: serviceCard4Ref, setter: setIsServiceCard4Visible },
     { ref: techStackSectionRef, setter: setIsTechStackSectionVisible },
-    { ref: worldClockSectionRef, setter: setIsWorldClockSectionVisible, threshold: 0.1 },
+    // { ref: worldClockSectionRef, setter: setIsWorldClockSectionVisible, threshold: 0.1 },
     { ref: leadershipSectionRef, setter: setIsLeadershipSectionVisible },
     { ref: combinedSectionRef, setter: setIsCombinedSectionVisible, threshold: 0.1 },
     { ref: ctaSectionRef, setter: setIsCtaSectionVisible },
@@ -193,7 +193,7 @@ export default function HomePage() {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               setter(true);
-              if (ref.current) { 
+              if (ref.current) {
                 obs.unobserve(ref.current);
               }
             }
@@ -217,7 +217,7 @@ export default function HomePage() {
       });
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); 
+  }, []);
 
   return (
     <>
@@ -275,7 +275,7 @@ export default function HomePage() {
                     index === 1 ? isServiceCard2Visible :
                     index === 2 ? isServiceCard3Visible : isServiceCard4Visible
                   ) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-                  "h-full" 
+                  "h-full"
                 )}
               >
                 <CardComponent
@@ -305,11 +305,11 @@ export default function HomePage() {
             >
               <Image
                 src="https://placehold.co/600x400.png"
-                alt="TechnoNspace team collaborating in a modern office environment"
+                alt="TechnoNspace team collaborating on a technical project"
                 width={600}
                 height={400}
                 className="rounded-lg shadow-xl"
-                data-ai-hint="team meeting"
+                data-ai-hint="tech collaboration"
               />
             </div>
             <div
@@ -369,7 +369,7 @@ export default function HomePage() {
         <WorldClockDisplay />
       </section>
       */}
-      
+
       {/* Leadership Section */}
       <div
         ref={leadershipSectionRef}
@@ -405,7 +405,7 @@ export default function HomePage() {
               <div className="bg-muted p-4 rounded-lg shadow-md">
                 <Image
                   src="https://placehold.co/800x400.png"
-                  alt="Global reach map placeholder for TechnoNspace"
+                  alt="World map graphic showing global client locations or service areas"
                   width={800}
                   height={400}
                   className="rounded-md w-full"

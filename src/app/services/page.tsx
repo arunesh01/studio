@@ -3,8 +3,14 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle } from "lucide-react"; 
-import Image from "next/image"; 
+import { CheckCircle } from "lucide-react";
+import Image from "next/image";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export const metadata: Metadata = {
   title: "Our Core IT Services - QA, Development, Data Analytics, DevOps",
@@ -16,7 +22,7 @@ const services = [
   {
     id: "qa",
     title: "Quality Assurance (QA)",
-    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Quality Assurance Icon", hint: "quality seal" },
+    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Quality Assurance and Testing services icon", hint: "test report" },
     description: "Ensuring product quality through rigorous manual and automated testing, performance testing, and innovative AI-driven QA solutions. We guarantee your applications meet the highest standards of reliability and user satisfaction.",
     skills: [
       "Manual & Exploratory Testing",
@@ -32,7 +38,7 @@ const services = [
   {
     id: "development",
     title: "Development Services",
-    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Development Services Icon", hint: "dev tools" },
+    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Software Development services icon", hint: "software architecture" },
     description: "Building scalable, performant, and maintainable web and mobile applications. Our expertise covers custom software development, and robust CRM/ERP solutions tailored to your specific business needs and growth objectives.",
     skills: [
       "Frontend: React, Next.js, Angular, Vue.js, HTML5, CSS3, TypeScript",
@@ -47,7 +53,7 @@ const services = [
   {
     id: "data-analytics",
     title: "Data Analytics & Business Intelligence",
-    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Data Analytics Icon", hint: "data insight" },
+    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Data Analytics and Business Intelligence icon", hint: "bi dashboard" },
     description: "Transforming raw data into strategic assets. We offer expertise in data visualization, predictive analytics, and comprehensive business intelligence solutions to unlock actionable insights and drive informed decision-making.",
     skills: [
       "Data Processing & ETL (Python, Pandas, Apache Spark, Airflow)",
@@ -62,7 +68,7 @@ const services = [
   {
     id: "devops",
     title: "DevOps & Cloud Solutions",
-    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "DevOps Services Icon", hint: "process gears" },
+    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "DevOps and Cloud Automation services icon", hint: "cloud automation" },
     description: "Streamlining development pipelines and enhancing operational efficiency. Our DevOps services include continuous integration/deployment (CI/CD), cloud infrastructure management, and automation to accelerate your delivery cycles and ensure system reliability.",
     skills: [
       "CI/CD Pipelines (GitHub Actions, Jenkins, GitLab CI, Azure DevOps)",
@@ -89,48 +95,44 @@ export default function ServicesPage() {
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+      <Accordion type="single" collapsible className="w-full space-y-6 mb-16">
         {services.map((service) => (
-          <Card key={service.id} id={service.id} className="shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col scroll-mt-20">
-            <CardHeader>
-              <div className="flex items-center gap-4 mb-2">
-                <Image 
-                    src={service.iconPlaceholder.src} 
-                    alt={service.iconPlaceholder.alt} 
-                    width={64} 
-                    height={64}
-                    className="text-primary" 
-                    data-ai-hint={service.iconPlaceholder.hint}
-                />
-                <CardTitle className="text-2xl leading-tight">{service.title}</CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent className="flex-grow flex flex-col">
-              <p className="text-muted-foreground mb-6 text-base leading-relaxed">
-                {service.description}
-              </p>
-              <div>
-                <h4 className="font-semibold mb-3 text-md text-foreground">
-                  Key Skills & Technologies:
-                </h4>
-                <ul className="space-y-2">
-                  {service.skills.map((skill) => (
-                    <li key={skill} className="flex items-start text-sm">
-                      <CheckCircle className="h-4 w-4 text-accent mr-2 mt-0.5 shrink-0" />
-                      <span>{skill}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              {/* Example:
-                <div className="mt-6">
-                  <Image src="https://placehold.co/500x250.png" alt={`${service.title} Diagram`} width={500} height={250} className="rounded-md" data-ai-hint="infographic diagram" />
-                </div>
-              */}
-            </CardContent>
-          </Card>
+          <AccordionItem value={service.id} key={service.id} id={service.id} className="border-none">
+             <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col scroll-mt-20">
+                <AccordionTrigger className="p-6 hover:no-underline">
+                  <div className="flex items-center gap-4 w-full">
+                    <Image
+                        src={service.iconPlaceholder.src}
+                        alt={service.iconPlaceholder.alt}
+                        width={56} // Slightly larger for trigger
+                        height={56}
+                        data-ai-hint={service.iconPlaceholder.hint}
+                    />
+                    <CardTitle className="text-2xl leading-tight text-left">{service.title}</CardTitle>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-6">
+                  <p className="text-muted-foreground mb-6 text-base leading-relaxed">
+                    {service.description}
+                  </p>
+                  <div>
+                    <h4 className="font-semibold mb-3 text-md text-foreground">
+                      Key Skills & Technologies:
+                    </h4>
+                    <ul className="space-y-2">
+                      {service.skills.map((skill) => (
+                        <li key={skill} className="flex items-start text-sm">
+                          <CheckCircle className="h-4 w-4 text-accent mr-2 mt-0.5 shrink-0" />
+                          <span>{skill}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </AccordionContent>
+             </Card>
+          </AccordionItem>
         ))}
-      </div>
+      </Accordion>
 
       <section className="text-center py-10 bg-secondary rounded-lg shadow-md">
         <h2 className="text-3xl font-bold text-foreground mb-4">
