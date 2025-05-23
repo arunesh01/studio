@@ -3,6 +3,14 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ClipboardCheck, Code2, BarChart3, ServerCog, CheckCircle } from "lucide-react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Archived Offerings - TechFlow Hub",
+  description: "This page lists a previous version of our service offerings. For the most current information, please visit our main Services page.",
+  robots: "noindex, follow", // Discourage indexing for this potentially redundant page
+};
+
 
 const services = [
   {
@@ -63,10 +71,10 @@ export default function OfferingsPage() {
     <div className="container mx-auto px-4 py-12">
       <header className="text-center mb-12">
         <h1 className="text-4xl font-bold tracking-tight text-foreground">
-          Services We Offer
+          Our Offerings (Archived)
         </h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-          Leverage our expertise to achieve your business goals. We provide a range of specialized services tailored to your needs.
+          This is a previous version of our services. Please see our updated <Link href="/services" className="text-primary hover:underline">Services Page</Link> for the latest information.
         </p>
       </header>
 

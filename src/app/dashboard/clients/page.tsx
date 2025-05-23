@@ -52,7 +52,10 @@ export default function ClientsPage() {
                   <TableCell>
                     <div className="flex items-center gap-2">
                         <Avatar className="h-8 w-8">
-                            <AvatarImage src={`https://placehold.co/40x40.png?text=${client.avatar}`} data-ai-hint={client.avatarHint} />
+                            <AvatarImage 
+                                src={`https://placehold.co/40x40.png?text=${client.avatar}`} 
+                                alt={`${client.name} logo placeholder`}
+                                data-ai-hint={client.avatarHint} />
                             <AvatarFallback>{client.avatar}</AvatarFallback>
                         </Avatar>
                         {client.name}

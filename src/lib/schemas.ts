@@ -9,3 +9,12 @@ export const contactFormSchema = z.object({
 });
 
 export type ContactFormValues = z.infer<typeof contactFormSchema>;
+
+export const newsletterFormSchema = z.object({
+  email: z.string().email({ message: "Please enter a valid email address." }),
+  consent: z.boolean().refine(value => value === true, {
+    message: "You must agree to receive marketing emails.",
+  }),
+});
+
+export type NewsletterFormValues = z.infer<typeof newsletterFormSchema>;

@@ -3,12 +3,23 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next"; // Removed as metadata is now exported directly
 import { Button } from "@/components/ui/button";
 import { CardComponent } from "@/components/CardComponent";
-import { CheckCircle, ClipboardCheck, Code2, BarChart3, ServerCog } from "lucide-react";
+import { CheckCircle, ClipboardCheck, Code2, BarChart3, ServerCog, Users, CloudCog, ShieldCheck, GitFork } from "lucide-react"; // Added CloudCog, ShieldCheck
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
+
+// Metadata for this page - it's better to export this directly
+// export const metadata: Metadata = {
+//   title: "TechFlow Hub - IT Solutions for Your Business",
+//   description: "Modern IT solutions by TechFlow Hub.",
+// };
+// No, metadata should be exported from Server Components or page.tsx files directly, not defined within the component if it's a client component using "use client".
+// For client components, metadata is typically handled by the nearest server component parent (layout.tsx or page.tsx that *doesn't* use 'use client').
+// Since this page.tsx is 'use client', its metadata should be defined if it were a server component, or rely on layout.tsx.
+// However, Next.js allows exporting metadata object directly from page.tsx even if it's 'use client'. Let's assume this for now.
 
 export default function HomePage() {
   const [isWhyChooseUsImageVisible, setIsWhyChooseUsImageVisible] = useState(false);
@@ -89,7 +100,7 @@ export default function HomePage() {
       (entries, obs) => genericObserverCallback(entries, obs, setIsServiceCard4Visible),
       observerOptions
     );
-    if (serviceCard4Ref.current) serviceCard4Observer.observe(serviceCard4Ref.current);
+    if (serviceCard4Ref.current) serviceCard4Observer.observe(serviceCard4Ref.current); 
 
     const leadershipSectionObserver = new IntersectionObserver(
       (entries, obs) => genericObserverCallback(entries, obs, setIsLeadershipSectionVisible),
@@ -154,7 +165,7 @@ export default function HomePage() {
             >
               <CardComponent
                 title="Quality Assurance (QA)"
-                description="Rigorous testing, including AI-driven solutions, to ensure product excellence."
+                description="Rigorous testing to ensure product excellence and reliability."
                 icon={<ClipboardCheck size={28} />}
                 link="/services#qa"
                 linkText="Explore QA Solutions"
@@ -170,7 +181,7 @@ export default function HomePage() {
             >
               <CardComponent
                 title="Development Services"
-                description="Web, mobile, CRM/ERP, and custom software development for scalable solutions."
+                description="Custom web, mobile, and software solutions for scalable growth."
                 icon={<Code2 size={28} />}
                 link="/services#development"
                 linkText="Discover Development"
@@ -186,7 +197,7 @@ export default function HomePage() {
             >
               <CardComponent
                 title="Data Analytics"
-                description="Actionable insights through data visualization, predictive analytics, and BI."
+                description="Actionable insights through data visualization and business intelligence."
                 icon={<BarChart3 size={28} />}
                 link="/services#data-analytics"
                 linkText="Unlock Data Insights"
@@ -202,8 +213,8 @@ export default function HomePage() {
             >
               <CardComponent
                 title="DevOps Services"
-                description="CI/CD, cloud management, and automation for efficient development pipelines."
-                icon={<ServerCog size={28} />}
+                description="Efficient development pipelines with CI/CD and cloud automation."
+                icon={<GitFork size={28} />} 
                 link="/services#devops"
                 linkText="Optimize Your DevOps"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
@@ -226,11 +237,11 @@ export default function HomePage() {
             >
               <Image
                 src="https://placehold.co/600x400.png"
-                alt="Team collaboration"
+                alt="TechFlow Hub team collaborating in a modern office"
                 width={600}
                 height={400}
                 className="rounded-lg shadow-xl"
-                data-ai-hint="collaboration team"
+                data-ai-hint="collaboration team office"
               />
             </div>
             <div

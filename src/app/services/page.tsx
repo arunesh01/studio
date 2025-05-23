@@ -3,11 +3,12 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ClipboardCheck, Code2, BarChart3, ServerCog, CheckCircle } from "lucide-react";
+import { ClipboardCheck, Code2, BarChart3, ServerCog, CheckCircle, Zap, Brain, CloudCog, ShieldCheck, GitFork } from "lucide-react"; // Added Zap, Brain, CloudCog, ShieldCheck, GitFork
 
 export const metadata: Metadata = {
-  title: "Our Services - TechFlow Hub",
-  description: "Explore our core services: Quality Assurance, Development, Data Analytics, and DevOps.",
+  title: "Our Core IT Services - QA, Development, Data Analytics, DevOps",
+  description: "Explore TechFlow Hub's core services: Advanced Quality Assurance including AI-driven solutions, full-stack Development, insightful Data Analytics, and efficient DevOps practices to streamline your operations.",
+  keywords: ["QA services", "AI testing", "software development", "web development", "mobile app development", "data analytics", "business intelligence", "DevOps", "CI/CD", "cloud solutions", "IT consulting"],
 };
 
 const services = [
@@ -15,57 +16,62 @@ const services = [
     id: "qa",
     title: "Quality Assurance (QA)",
     icon: <ClipboardCheck size={36} className="text-primary" />,
-    description: "Detailed information on manual and automated testing, performance testing, and AI-driven QA solutions. We ensure your products meet the highest standards of quality and reliability.",
+    description: "Ensuring product quality through rigorous manual and automated testing, performance testing, and innovative AI-driven QA solutions. We guarantee your applications meet the highest standards of reliability and user satisfaction.",
     skills: [
-      "Manual Testing",
-      "Automation (Selenium, Cypress)",
+      "Manual & Exploratory Testing",
+      "Test Automation (Selenium, Cypress, Playwright)",
       "API Testing (Postman, REST Assured)",
-      "Performance Testing (JMeter)",
-      "Test Management (Jira, TestRail)",
+      "Performance & Load Testing (JMeter, k6)",
+      "Security Testing Basics",
+      "Mobile Application Testing",
       "AI-driven QA Solutions",
+      "Test Management (Jira, TestRail, Xray)",
     ],
   },
   {
     id: "development",
     title: "Development Services",
     icon: <Code2 size={36} className="text-primary" />,
-    description: "Showcasing expertise in web and mobile app development, custom software development, and robust CRM/ERP solutions tailored to your business needs.",
+    description: "Building scalable, performant, and maintainable web and mobile applications. Our expertise covers custom software development, and robust CRM/ERP solutions tailored to your specific business needs and growth objectives.",
     skills: [
-      "Frontend: React, Angular, HTML5, CSS3, JavaScript",
-      "Backend: Node.js, .NET, Java, Python",
-      "Mobile: Flutter, React Native",
-      "Custom Software Development",
-      "CRM/ERP Solutions",
-      "Databases: MongoDB, MySQL, PostgreSQL",
-      "CI/CD: GitHub Actions, Jenkins",
+      "Frontend: React, Next.js, Angular, Vue.js, HTML5, CSS3, TypeScript",
+      "Backend: Node.js (Express, NestJS), Python (Django, Flask), Java (Spring), .NET",
+      "Mobile: React Native, Flutter, Swift (iOS), Kotlin (Android)",
+      "Databases: PostgreSQL, MongoDB, MySQL, Firebase Firestore, Redis",
+      "Custom Software & Enterprise Solutions",
+      "CRM/ERP System Integration & Development",
+      "API Design & Development (REST, GraphQL)",
     ],
   },
   {
     id: "data-analytics",
-    title: "Data Analytics",
+    title: "Data Analytics & Business Intelligence",
     icon: <BarChart3 size={36} className="text-primary" />,
-    description: "Highlighting capabilities in data visualization, predictive analytics, and business intelligence solutions to transform your raw data into strategic assets.",
+    description: "Transforming raw data into strategic assets. We offer expertise in data visualization, predictive analytics, and comprehensive business intelligence solutions to unlock actionable insights and drive informed decision-making.",
     skills: [
-      "Data Processing: Python, Pandas, SQL",
-      "Data Visualization: Power BI, Tableau",
-      "Predictive Analytics",
-      "Business Intelligence Solutions",
-      "ETL Tools: Apache NiFi, Airflow",
-      "Machine Learning (Scikit-learn)",
+      "Data Processing & ETL (Python, Pandas, Apache Spark, Airflow)",
+      "Data Warehousing (BigQuery, Redshift, Snowflake)",
+      "BI & Visualization (Tableau, Power BI, Looker, Grafana)",
+      "Predictive Analytics & Basic ML (Scikit-learn, TensorFlow Lite)",
+      "Statistical Analysis & Reporting",
+      "Data Governance & Quality Management",
+      "SQL & NoSQL Database Expertise",
     ],
   },
   {
     id: "devops",
-    title: "DevOps Services",
-    icon: <ServerCog size={36} className="text-primary" />,
-    description: "Explaining our approach to continuous integration/continuous deployment (CI/CD) pipelines, comprehensive cloud infrastructure management, and automation to accelerate your delivery cycles.",
+    title: "DevOps & Cloud Solutions",
+    icon: <GitFork size={36} className="text-primary" />, // Changed icon
+    description: "Streamlining development pipelines and enhancing operational efficiency. Our DevOps services include continuous integration/deployment (CI/CD), cloud infrastructure management, and automation to accelerate your delivery cycles and ensure system reliability.",
     skills: [
-      "CI/CD Pipelines (Jenkins, GitLab CI, GitHub Actions)",
-      "Cloud Infrastructure Management (AWS, Azure, Google Cloud)",
-      "Automation & Orchestration",
-      "Containerization: Docker, Kubernetes",
-      "Monitoring: Prometheus, Grafana, ELK Stack",
-      "Infrastructure as Code: Terraform, Ansible",
+      "CI/CD Pipelines (GitHub Actions, Jenkins, GitLab CI, Azure DevOps)",
+      "Containerization & Orchestration (Docker, Kubernetes, Helm)",
+      "Cloud Platforms (AWS, Azure, Google Cloud Platform)",
+      "Infrastructure as Code (Terraform, Ansible, CloudFormation)",
+      "Monitoring & Logging (Prometheus, Grafana, ELK Stack, Datadog)",
+      "Automated Testing Integration",
+      "Site Reliability Engineering (SRE) Principles",
+      "Security Best Practices (DevSecOps)",
     ],
   },
 ];
@@ -75,10 +81,10 @@ export default function ServicesPage() {
     <div className="container mx-auto px-4 py-12">
       <header className="text-center mb-12">
         <h1 className="text-4xl font-bold tracking-tight text-foreground">
-          Our Services
+          Our Core IT Services
         </h1>
-        <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-          Leverage our expertise in QA, Development, Data Analytics, and DevOps to achieve your business goals. We provide a range of specialized services tailored to your needs.
+        <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
+          TechFlow Hub provides a comprehensive suite of IT services designed to empower your business. From ensuring software quality to leveraging data for strategic advantage, our expert teams are here to support your digital transformation.
         </p>
       </header>
 
@@ -92,12 +98,12 @@ export default function ServicesPage() {
               </div>
             </CardHeader>
             <CardContent className="flex-grow flex flex-col">
-              <p className="text-muted-foreground mb-6 text-base">
+              <p className="text-muted-foreground mb-6 text-base leading-relaxed">
                 {service.description}
               </p>
               <div>
                 <h4 className="font-semibold mb-3 text-md text-foreground">
-                  Key Skills & Tools:
+                  Key Skills & Technologies:
                 </h4>
                 <ul className="space-y-2">
                   {service.skills.map((skill) => (
@@ -118,10 +124,10 @@ export default function ServicesPage() {
           Ready to Discuss Your Project?
         </h2>
         <p className="text-muted-foreground max-w-xl mx-auto mb-8">
-          Let our experts help you find the best solutions for your business.
+          Let our experts help you find the best solutions for your business. Contact us for a personalized consultation.
         </p>
         <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-          <Link href="/contact">Contact Us for a Consultation</Link>
+          <Link href="/contact">Get a Free Consultation</Link>
         </Button>
       </section>
     </div>
