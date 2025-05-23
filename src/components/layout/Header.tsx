@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { Menu } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
@@ -13,12 +13,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { AnalogClock } from "@/components/AnalogClock";
@@ -26,7 +20,6 @@ import { AnalogClock } from "@/components/AnalogClock";
 const mainNavItems = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
-  // "About Us" will be a dropdown
   { href: "/dashboard", label: "Dashboard" },
 ];
 
@@ -56,11 +49,6 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  // Close mobile menu on route change
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [pathname]);
-
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
@@ -78,71 +66,61 @@ export function Header() {
         <nav className="hidden md:flex items-center space-x-1 text-sm font-medium">
           {mainNavItems.map((item) => (
             <Button key={item.href} variant="link" asChild className="text-sm font-medium">
-              <Link
-                href={item.href}
-                className={cn(
-                  "transition-colors hover:text-primary px-3 py-2", // Adjusted padding
+              <Link href={item.href} legacyBehavior passHref>
+                <a className={cn(
+                  "transition-colors hover:text-primary px-3 py-2",
                   pathname === item.href
                     ? "text-primary"
                     : "text-foreground/60"
-                )}
-              >
-                {item.label}
+                )}>
+                  {item.label}
+                </a>
               </Link>
             </Button>
           ))}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="link" className={cn(
-                  "transition-colors hover:text-primary px-3 py-2 text-sm font-medium", // Adjusted padding
-                  pathname.startsWith("/about")
-                    ? "text-primary"
-                    : "text-foreground/60"
-                )}>
-                About Us
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
-              {aboutSubNavItems.map((item) => (
-                <DropdownMenuItem key={item.href} asChild>
-                  <Link href={item.href}>{item.label}</Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-           <Button variant="link" asChild className="text-sm font-medium">
-             <Link
-                href="/contact"
-                className={cn(
-                  "transition-colors hover:text-primary px-3 py-2", 
-                  pathname === "/contact"
-                    ? "text-primary"
-                    : "text-foreground/60"
-                )}
-              >
-                Contact
-              </Link>
+
+          {/* About Us Hover Dropdown for Desktop */}
+          <div className="relative group">
+            <Button
+              variant="link"
+              className={cn(
+                "transition-colors hover:text-primary px-3 py-2 text-sm font-medium cursor-default",
+                pathname.startsWith("/about")
+                  ? "text-primary"
+                  : "text-foreground/60"
+              )}
+            >
+              About Us
             </Button>
+            <div
+              className="absolute left-0 mt-0 w-56 rounded-md shadow-lg bg-popover text-popover-foreground p-1 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-150 ease-in-out invisible group-hover:visible"
+            >
+              {aboutSubNavItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="block px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-sm"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+          {/* End About Us Hover Dropdown */}
         </nav>
 
         <div className="flex items-center gap-1 sm:gap-2">
-          {" "}
-          {/* Reduced gap for more space */}
           <div className="hidden lg:flex items-end gap-2 ml-auto">
-            {" "}
-            {/* Reduced gap */}
             {CITIES_CONFIG.map((city) => (
-              <div key={city.key} className="flex flex-col items-center">
+              <div key={city.key} className="flex flex-col items-center px-1">
                 <AnalogClock
                   timeZone={city.timeZone}
                   size={22}
                   idSuffix={`header-${city.key}`}
-                />{" "}
-                {/* Slightly smaller clock */}
+                />
                 <span className="text-[9px] text-muted-foreground mt-0.5 tracking-tighter">
                   {city.label}
-                </span>{" "}
-                {/* Smaller, tighter text */}
+                </span>
               </div>
             ))}
           </div>
@@ -170,13 +148,13 @@ export function Header() {
                 </Link>
               </SheetTitle>
 
-              <div className="flex flex-col space-y-3"> {/* Reduced space-y for more items */}
+              <div className="flex flex-col space-y-3">
                 {mainNavItems.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      "text-lg font-medium transition-colors hover:text-primary py-1.5", // Reduced py
+                      "text-lg font-medium transition-colors hover:text-primary py-1.5",
                       pathname === item.href
                         ? "text-primary"
                         : "text-foreground/80"
@@ -186,7 +164,6 @@ export function Header() {
                     {item.label}
                   </Link>
                 ))}
-                {/* About Us sub-items for mobile */}
                 <span className="text-lg font-medium text-foreground/80 py-1.5">About Us</span>
                 <div className="flex flex-col space-y-2 pl-4">
                   {aboutSubNavItems.map((item) => (
@@ -194,8 +171,8 @@ export function Header() {
                         key={item.href}
                         href={item.href}
                         className={cn(
-                          "text-md font-medium transition-colors hover:text-primary py-1", // Smaller font, reduced py
-                          pathname === item.href || (pathname === "/about" && item.href === "/about")
+                          "text-md font-medium transition-colors hover:text-primary py-1",
+                          (pathname === item.href || (pathname === "/about" && item.href === "/about"))
                             ? "text-primary"
                             : "text-foreground/70"
                         )}
@@ -205,18 +182,6 @@ export function Header() {
                       </Link>
                   ))}
                 </div>
-                 <Link
-                    href="/contact"
-                    className={cn(
-                      "text-lg font-medium transition-colors hover:text-primary py-1.5",
-                      pathname === "/contact"
-                        ? "text-primary"
-                        : "text-foreground/80"
-                    )}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Contact
-                  </Link>
               </div>
               <div className="mt-8 space-y-3 lg:hidden">
                 <p className="text-sm font-medium text-muted-foreground">
