@@ -11,9 +11,13 @@ interface AnalogClockProps {
 }
 
 export const AnalogClock: FC<AnalogClockProps> = ({ timeZone, size = 120, idSuffix = "" }) => {
+  const [isMounted, setIsMounted] = useState(false);
+  // Initialize currentTime with a default structure, values will be updated by useEffect
   const [currentTime, setCurrentTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
+    setIsMounted(true); // Indicates component has mounted on the client
+
     const updateClockTime = () => {
       const now = new Date();
       try {
@@ -31,15 +35,25 @@ export const AnalogClock: FC<AnalogClockProps> = ({ timeZone, size = 120, idSuff
         setCurrentTime({ hours, minutes, seconds });
       } catch (error) {
         console.error(`Error formatting time for timezone ${timeZone}:`, error);
+        // Fallback to a default time if an error occurs
+        setCurrentTime({ hours: 0, minutes: 0, seconds: 0 });
       }
     };
 
-    updateClockTime();
+    updateClockTime(); // Initial time update on client mount
     const intervalId = setInterval(updateClockTime, 1000);
 
     return () => clearInterval(intervalId);
-  }, [timeZone]);
+  }, [timeZone]); // Re-run effect if timeZone changes
 
+  if (!isMounted) {
+    // Render a placeholder on the server and during initial client render before mount.
+    // This helps prevent hydration mismatch by ensuring server and client initial HTML are consistent here.
+    // The placeholder should occupy the same space as the clock to avoid layout shift.
+    return <div style={{ width: size, height: size }} className="block mx-auto" aria-hidden="true" />;
+  }
+
+  // Dynamic values based on currentTime, only used after client-side mount and effect
   const { hours, minutes, seconds } = currentTime;
 
   const secondAngle = seconds * 6;
@@ -62,7 +76,7 @@ export const AnalogClock: FC<AnalogClockProps> = ({ timeZone, size = 120, idSuff
         aria-label={`Analog clock for ${timeZone}`}
         role="img"
     >
-      <title>Analog clock showing time for {timeZone}</title>
+      <title>{`Analog clock showing time for ${timeZone}`}</title>
       <circle 
         cx={center} 
         cy={center} 
@@ -86,7 +100,7 @@ export const AnalogClock: FC<AnalogClockProps> = ({ timeZone, size = 120, idSuff
       ))}
 
        {[...Array(60)].map((_, i) => {
-        if (i % 5 === 0) return null;
+        if (i % 5 === 0) return null; // Avoid overlapping with hour marks
         return (
           <line
             key={`m-mark-${idSuffix}-${i}`}
@@ -101,6 +115,7 @@ export const AnalogClock: FC<AnalogClockProps> = ({ timeZone, size = 120, idSuff
         );
       })}
 
+      {/* Hour Hand */}
       <line
         x1={center}
         y1={center}
@@ -111,6 +126,7 @@ export const AnalogClock: FC<AnalogClockProps> = ({ timeZone, size = 120, idSuff
         strokeLinecap="round"
         transform={`rotate(${hourAngle} ${center} ${center})`}
       />
+      {/* Minute Hand */}
       <line
         x1={center}
         y1={center}
@@ -121,8 +137,10 @@ export const AnalogClock: FC<AnalogClockProps> = ({ timeZone, size = 120, idSuff
         strokeLinecap="round"
         transform={`rotate(${minuteAngle} ${center} ${center})`}
       />
+      {/* Center Dot */}
       <circle cx={center} cy={center} r={baseStrokeWidth * 2.5} fill="hsl(var(--foreground))" />
       
+      {/* Second Hand */}
       <line
         x1={center}
         y1={center}
@@ -133,6 +151,7 @@ export const AnalogClock: FC<AnalogClockProps> = ({ timeZone, size = 120, idSuff
         strokeLinecap="round"
         transform={`rotate(${secondAngle} ${center} ${center})`}
       />
+      {/* Second Hand Center Dot Overlay */}
       <circle cx={center} cy={center} r={baseStrokeWidth * 1.2} fill="hsl(var(--primary))" />
     </svg>
   );
