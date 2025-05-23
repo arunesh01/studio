@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { Menu, Globe } from "lucide-react"; // Added Globe for potential future use, kept Menu
 import { useState, useEffect } from "react";
 import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -11,7 +11,6 @@ import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/s
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { AnalogClock } from "@/components/AnalogClock";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -30,8 +29,8 @@ const CITIES_CONFIG: ClockCityConfig[] = [
   { key: "dubai", label: "Dubai", timeZone: "Asia/Dubai" },
   { key: "india", label: "India", timeZone: "Asia/Kolkata" },
   { key: "berlin", label: "Berlin", timeZone: "Europe/Berlin" },
-  { key: "sydney", label: "Sydney", timeZone: "Australia/Sydney" },
-  { key: "london", label: "London", timeZone: "Europe/London" },
+  // { key: "sydney", label: "Sydney", timeZone: "Australia/Sydney" }, // Keep to 3 for header space
+  // { key: "london", label: "London", timeZone: "Europe/London" },
 ];
 
 
@@ -68,21 +67,13 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <div className="hidden lg:flex items-center gap-2">
-            <TooltipProvider>
-              {CITIES_CONFIG.map(city => (
-                <Tooltip key={city.key}>
-                  <TooltipTrigger asChild>
-                    <div> {/* Wrap AnalogClock for TooltipTrigger if it doesn't spread props */}
-                      <AnalogClock timeZone={city.timeZone} size={24} idSuffix={`header-${city.key}`} />
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{city.label}</p>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
-            </TooltipProvider>
+          <div className="hidden lg:flex items-end gap-3 ml-auto"> {/* Changed to items-end and gap-3 */}
+            {CITIES_CONFIG.map(city => (
+              <div key={city.key} className="flex flex-col items-center">
+                <AnalogClock timeZone={city.timeZone} size={24} idSuffix={`header-${city.key}`} />
+                <span className="text-[10px] text-muted-foreground mt-0.5">{city.label}</span>
+              </div>
+            ))}
           </div>
           <ThemeToggle />
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -113,6 +104,15 @@ export function Header() {
                   >
                     {item.label}
                   </Link>
+                ))}
+              </div>
+               <div className="mt-8 space-y-3 lg:hidden">
+                <p className="text-sm font-medium text-muted-foreground">Global Times:</p>
+                {CITIES_CONFIG.map(city => (
+                  <div key={`mobile-${city.key}`} className="flex items-center justify-between text-sm">
+                    <span>{city.label}</span>
+                     <AnalogClock timeZone={city.timeZone} size={20} idSuffix={`mobile-header-${city.key}`} />
+                  </div>
                 ))}
               </div>
             </SheetContent>
