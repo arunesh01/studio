@@ -16,7 +16,7 @@ const services = [
   {
     id: "qa",
     title: "Quality Assurance (QA)",
-    iconPlaceholder: { src: "https://placehold.co/128x128.png", alt: "Quality Assurance Icon", hint: "quality checkmark icon large" },
+    iconPlaceholder: { src: "https://placehold.co/128x128.png", alt: "Quality Assurance Icon", hint: "quality seal" },
     description: "Ensuring product quality through rigorous manual and automated testing, performance testing, and innovative AI-driven QA solutions. We guarantee your applications meet the highest standards of reliability and user satisfaction.",
     skills: [
       "Manual & Exploratory Testing",
@@ -32,7 +32,7 @@ const services = [
   {
     id: "development",
     title: "Development Services",
-    iconPlaceholder: { src: "https://placehold.co/128x128.png", alt: "Development Services Icon", hint: "code brackets icon large" },
+    iconPlaceholder: { src: "https://placehold.co/128x128.png", alt: "Development Services Icon", hint: "dev tools" },
     description: "Building scalable, performant, and maintainable web and mobile applications. Our expertise covers custom software development, and robust CRM/ERP solutions tailored to your specific business needs and growth objectives.",
     skills: [
       "Frontend: React, Next.js, Angular, Vue.js, HTML5, CSS3, TypeScript",
@@ -47,7 +47,7 @@ const services = [
   {
     id: "data-analytics",
     title: "Data Analytics & Business Intelligence",
-    iconPlaceholder: { src: "https://placehold.co/128x128.png", alt: "Data Analytics Icon", hint: "chart graph icon large" },
+    iconPlaceholder: { src: "https://placehold.co/128x128.png", alt: "Data Analytics Icon", hint: "data insight" },
     description: "Transforming raw data into strategic assets. We offer expertise in data visualization, predictive analytics, and comprehensive business intelligence solutions to unlock actionable insights and drive informed decision-making.",
     skills: [
       "Data Processing & ETL (Python, Pandas, Apache Spark, Airflow)",
@@ -62,7 +62,7 @@ const services = [
   {
     id: "devops",
     title: "DevOps & Cloud Solutions",
-    iconPlaceholder: { src: "https://placehold.co/128x128.png", alt: "DevOps Services Icon", hint: "gears automation icon large" },
+    iconPlaceholder: { src: "https://placehold.co/128x128.png", alt: "DevOps Services Icon", hint: "process gears" },
     description: "Streamlining development pipelines and enhancing operational efficiency. Our DevOps services include continuous integration/deployment (CI/CD), cloud infrastructure management, and automation to accelerate your delivery cycles and ensure system reliability.",
     skills: [
       "CI/CD Pipelines (GitHub Actions, Jenkins, GitLab CI, Azure DevOps)",
@@ -97,9 +97,9 @@ export default function ServicesPage() {
                 <Image 
                     src={service.iconPlaceholder.src} 
                     alt={service.iconPlaceholder.alt} 
-                    width={64} // Adjusted size for better fit in card header
+                    width={64} 
                     height={64}
-                    className="text-primary" // class an be used if svg is passed directly, not for Image
+                    className="text-primary" 
                     data-ai-hint={service.iconPlaceholder.hint}
                 />
                 <CardTitle className="text-2xl leading-tight">{service.title}</CardTitle>
@@ -122,7 +122,6 @@ export default function ServicesPage() {
                   ))}
                 </ul>
               </div>
-              {/* You can add a placeholder here for infographics or architecture diagrams */}
               {/* Example:
                 <div className="mt-6">
                   <Image src="https://placehold.co/500x250.png" alt={`${service.title} Diagram`} width={500} height={250} className="rounded-md" data-ai-hint="infographic diagram" />

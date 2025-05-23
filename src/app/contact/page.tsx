@@ -55,7 +55,7 @@ export default function ContactPage() {
                     width={600} 
                     height={300}
                     className="rounded-md"
-                    data-ai-hint="map office location"
+                    data-ai-hint="office map"
                 />
             </div>
           </CardContent>

@@ -6,8 +6,7 @@ import Link from "next/link";
 // import type { Metadata } from "next"; // Removed as metadata is now exported directly
 import { Button } from "@/components/ui/button";
 import { CardComponent } from "@/components/CardComponent";
-// Removed Lucide icons that will be replaced by images for service cards
-import { CheckCircle, Users, CloudCog, ShieldCheck } from "lucide-react";
+import { CheckCircle } from "lucide-react"; // Kept CheckCircle for "Why Choose Us"
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
@@ -123,16 +122,16 @@ export default function HomePage() {
       <section className="relative py-20 md:py-32 bg-gradient-to-r from-primary to-accent text-primary-foreground overflow-hidden">
         <Image
           src="https://placehold.co/1920x1080.png"
-          alt="Abstract technology background or team collaboration"
+          alt="Abstract technology background"
           layout="fill"
           objectFit="cover"
           className="absolute inset-0 z-0 opacity-20"
-          data-ai-hint="technology abstract background"
+          data-ai-hint="tech abstract"
           priority
         />
         <div className="absolute inset-0 bg-black/30 z-0"></div> {/* Optional: Dark overlay for better text contrast */}
         <div className="container mx-auto px-4 text-center relative z-10">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 text-primary-foreground">
             Empowering Your Business with <span className="text-white">TechFlow Hub</span>
           </h1>
           <p className="text-lg md:text-xl text-primary-foreground/90 max-w-3xl mx-auto mb-10">
@@ -161,13 +160,14 @@ export default function HomePage() {
               ref={serviceCard1Ref}
               className={cn(
                 "transition-all transform duration-700 ease-out",
-                isServiceCard1Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                isServiceCard1Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+                "h-full" 
               )}
             >
               <CardComponent
                 title="Quality Assurance (QA)"
                 description="Rigorous testing to ensure product excellence and reliability."
-                icon={<Image src="https://placehold.co/64x64.png" alt="Quality Assurance Icon" width={48} height={48} data-ai-hint="quality checkmark icon" />}
+                icon={<Image src="https://placehold.co/64x64.png" alt="Quality Assurance Icon" width={48} height={48} data-ai-hint="quality checkmark" />}
                 link="/services#qa"
                 linkText="Explore QA Solutions"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
@@ -177,13 +177,14 @@ export default function HomePage() {
               ref={serviceCard2Ref}
               className={cn(
                 "transition-all transform duration-700 ease-out delay-200",
-                isServiceCard2Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                isServiceCard2Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+                "h-full"
               )}
             >
               <CardComponent
                 title="Development Services"
                 description="Custom web, mobile, and software solutions for scalable growth."
-                icon={<Image src="https://placehold.co/64x64.png" alt="Development Services Icon" width={48} height={48} data-ai-hint="code brackets icon" />}
+                icon={<Image src="https://placehold.co/64x64.png" alt="Development Services Icon" width={48} height={48} data-ai-hint="code brackets" />}
                 link="/services#development"
                 linkText="Discover Development"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
@@ -193,13 +194,14 @@ export default function HomePage() {
               ref={serviceCard3Ref}
               className={cn(
                 "transition-all transform duration-700 ease-out delay-[400ms]",
-                isServiceCard3Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                isServiceCard3Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+                "h-full" 
               )}
             >
               <CardComponent
                 title="Data Analytics"
                 description="Actionable insights through data visualization and business intelligence."
-                icon={<Image src="https://placehold.co/64x64.png" alt="Data Analytics Icon" width={48} height={48} data-ai-hint="chart graph icon" />}
+                icon={<Image src="https://placehold.co/64x64.png" alt="Data Analytics Icon" width={48} height={48} data-ai-hint="chart graph" />}
                 link="/services#data-analytics"
                 linkText="Unlock Data Insights"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
@@ -209,13 +211,14 @@ export default function HomePage() {
               ref={serviceCard4Ref}
               className={cn(
                 "transition-all transform duration-700 ease-out delay-[600ms]", 
-                isServiceCard4Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                isServiceCard4Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+                "h-full" 
               )}
             >
               <CardComponent
                 title="DevOps Services"
                 description="Efficient development pipelines with CI/CD and cloud automation."
-                icon={<Image src="https://placehold.co/64x64.png" alt="DevOps Services Icon" width={48} height={48} data-ai-hint="gears automation icon" />}
+                icon={<Image src="https://placehold.co/64x64.png" alt="DevOps Services Icon" width={48} height={48} data-ai-hint="gears process" />}
                 link="/services#devops"
                 linkText="Optimize Your DevOps"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
@@ -242,7 +245,7 @@ export default function HomePage() {
                 width={600}
                 height={400}
                 className="rounded-lg shadow-xl"
-                data-ai-hint="collaboration team office"
+                data-ai-hint="team meeting"
               />
             </div>
             <div

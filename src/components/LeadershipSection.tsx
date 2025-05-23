@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
-import { Linkedin, Briefcase } from 'lucide-react'; // Ensured Briefcase is imported
+import { Linkedin, Briefcase } from 'lucide-react';
 // To enable actual Firebase fetching, uncomment these lines:
 // import { getFirestore, collection, getDocs } from 'firebase/firestore';
 // import { firebaseApp } from '@/lib/firebase'; // Assuming you create this file
@@ -52,8 +52,8 @@ export function LeadershipSection() {
         //   name: doc.data().name || 'N/A',
         //   title: doc.data().title || 'N/A',
         //   bio: doc.data().bio || 'Bio not available.',
-        //   imageURL: doc.data().imageURL || `https://placehold.co/400x400.png?text=${doc.data().name?.[0] || 'P'}`,
-        //   imageHint: doc.data().imageHint || 'portrait person',
+        //   imageURL: doc.data().imageURL || `https://placehold.co/400x400.png`,
+        //   imageHint: doc.data().imageHint || 'person portrait',
         //   skills: doc.data().skills || [],
         //   linkedinURL: doc.data().linkedinURL,
         // } as FounderProfile));
@@ -83,7 +83,7 @@ export function LeadershipSection() {
       title: 'Founder & CEO',
       bio: 'Alex is a visionary leader with over 15 years of experience in the tech industry, passionate about driving innovation and helping businesses thrive through technology. His expertise spans across software development, strategic planning, and team building.',
       imageURL: 'https://placehold.co/400x400.png',
-      imageHint: 'founder portrait man headshot',
+      imageHint: 'ceo headshot',
       skills: ['Strategic Planning', 'Software Architecture', 'Team Leadership', 'Product Management'],
       linkedinURL: '#',
     },
@@ -93,7 +93,7 @@ export function LeadershipSection() {
       title: 'Co-Founder & CTO',
       bio: 'Maria is a tech enthusiast and a problem-solver at heart. With a strong background in DevOps and cloud computing, she ensures our technical operations are efficient, scalable, and secure. Maria champions agile methodologies and cutting-edge solutions.',
       imageURL: 'https://placehold.co/400x400.png',
-      imageHint: 'cofounder portrait woman headshot',
+      imageHint: 'cto headshot',
       skills: ['DevOps Strategy', 'Cloud Infrastructure', 'CI/CD Pipelines', 'Cybersecurity'],
       linkedinURL: '#',
     },
@@ -129,7 +129,7 @@ export function LeadershipSection() {
     );
   }
 
-  if (error && founders.length === 0) { // Only show full error if no placeholders are shown
+  if (error && founders.length === 0) { 
     return (
       <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4 text-center">
@@ -202,6 +202,3 @@ export function LeadershipSection() {
     </section>
   );
 }
-
-// Removed inline Briefcase SVG and cn function as they should be imported/available globally.
-// Ensure Briefcase is imported from lucide-react and cn from lib/utils.

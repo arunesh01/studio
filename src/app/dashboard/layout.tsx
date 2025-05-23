@@ -1,5 +1,5 @@
 
-"use client"; // Sidebar component might require client context
+"use client"; 
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -37,7 +37,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import Image from "next/image"; // Added for Next Image
+import Image from "next/image"; 
 
 const sidebarNavItems = [
   { href: "/dashboard", label: "Overview", icon: <LayoutDashboard /> },
@@ -107,13 +107,10 @@ export default function DashboardLayout({
 
         <SidebarInset className="flex-1 flex flex-col">
           <header className="sticky top-0 z-40 flex h-16 items-center gap-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6">
-            <SidebarTrigger className="md:hidden" /> {/* Mobile Trigger */}
+            <SidebarTrigger className="md:hidden" /> 
              <div className="hidden md:block">
-                {/* Desktop trigger can be a button or part of rail interaction from sidebar component */}
              </div>
             <div className="flex-1">
-              {/* Optional: Breadcrumbs or Page Title */}
-              {/* <h1 className="text-xl font-semibold">Dashboard</h1> */}
             </div>
             <div className="flex items-center gap-4">
               <ThemeToggle />
@@ -121,9 +118,8 @@ export default function DashboardLayout({
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                     <Avatar className="h-9 w-9">
-                      {/* Using Next Image for avatar */}
                       <AvatarImage asChild>
-                        <Image src="https://placehold.co/100x100.png" alt="User Avatar" width={36} height={36} data-ai-hint="person user avatar" />
+                        <Image src="https://placehold.co/100x100.png" alt="User Avatar" width={36} height={36} data-ai-hint="user profile" />
                       </AvatarImage>
                       <AvatarFallback>TF</AvatarFallback>
                     </Avatar>
