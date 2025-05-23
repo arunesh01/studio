@@ -5,10 +5,98 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CardComponent } from "@/components/CardComponent";
-import { CheckCircle, Activity, BarChart3, Users, Cloud, Shield } from "lucide-react";
+import { CheckCircle, BarChart3, ServerCog, ClipboardCheck, Code2 } from "lucide-react"; // Added ClipboardCheck and Code2 for service icons
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
+import { TechStackShowcase } from "@/components/TechStackShowcase"; // Import the new component
+
+const serviceHighlights = [
+  {
+    title: "Quality Assurance (QA)",
+    description: "Ensuring product excellence with AI-driven and automated testing solutions.",
+    icon: <Image src="https://placehold.co/64x64.png" alt="Quality Assurance Icon for TechnoNspace" width={48} height={48} data-ai-hint="quality seal" />,
+    link: "/services#qa",
+    linkText: "Explore QA Solutions",
+    refHook: "serviceCard1Ref",
+    visibleHook: "isServiceCard1Visible",
+    delay: "",
+  },
+  {
+    title: "Development Services",
+    description: "Custom web, mobile, and CRM/ERP solutions for scalable growth.",
+    icon: <Image src="https://placehold.co/64x64.png" alt="Development Services Icon for TechnoNspace" width={48} height={48} data-ai-hint="dev tools" />,
+    link: "/services#development",
+    linkText: "Discover Development",
+    refHook: "serviceCard2Ref",
+    visibleHook: "isServiceCard2Visible",
+    delay: "delay-200",
+  },
+  {
+    title: "Data Analytics & BI",
+    description: "Actionable insights through data visualization and business intelligence.",
+    icon: <Image src="https://placehold.co/64x64.png" alt="Data Analytics Icon for TechnoNspace" width={48} height={48} data-ai-hint="data insight" />,
+    link: "/services#data-analytics",
+    linkText: "Unlock Data Insights",
+    refHook: "serviceCard3Ref",
+    visibleHook: "isServiceCard3Visible",
+    delay: "delay-[400ms]",
+  },
+  {
+    title: "DevOps & Cloud Solutions",
+    description: "Efficient development pipelines with CI/CD and cloud automation.",
+    icon: <Image src="https://placehold.co/64x64.png" alt="DevOps Services Icon for TechnoNspace" width={48} height={48} data-ai-hint="process gears" />,
+    link: "/services#devops",
+    linkText: "Optimize Your DevOps",
+    refHook: "serviceCard4Ref",
+    visibleHook: "isServiceCard4Visible",
+    delay: "delay-[600ms]",
+  },
+];
+
+const techCategoriesData = [
+  {
+    categoryName: "Quality Assurance",
+    technologies: [
+      { name: "Selenium" }, { name: "Cypress" }, { name: "Playwright" },
+      { name: "Postman" }, { name: "REST Assured" }, { name: "JMeter" },
+      { name: "k6" }, { name: "TestRail" }, { name: "Jira Xray" },
+      { name: "AI in Testing" },
+    ],
+  },
+  {
+    categoryName: "Development",
+    technologies: [
+      { name: "React" }, { name: "Next.js" }, { name: "Angular" }, { name: "Vue.js" },
+      { name: "Node.js" }, { name: "Express.js" }, { name: "NestJS" },
+      { name: "Python" }, { name: "Django" }, { name: "Flask" },
+      { name: "Java" }, { name: "Spring Boot" }, { name: ".NET" },
+      { name: "React Native" }, { name: "Flutter" }, { name: "Swift" }, { name: "Kotlin" },
+      { name: "PostgreSQL" }, { name: "MongoDB" }, { name: "Firebase" }, { name: "GraphQL" },
+    ],
+  },
+  {
+    categoryName: "Data Analytics & BI",
+    technologies: [
+      { name: "Python (Pandas, NumPy)" }, { name: "Apache Spark" }, { name: "Airflow" },
+      { name: "Tableau" }, { name: "Power BI" }, { name: "Looker" }, { name: "Grafana" },
+      { name: "Google BigQuery" }, { name: "AWS Redshift" }, { name: "Snowflake" },
+      { name: "SQL" }, { name: "Scikit-learn" }, { name: "TensorFlow" },
+    ],
+  },
+  {
+    categoryName: "DevOps & Cloud Solutions",
+    technologies: [
+      { name: "Docker" }, { name: "Kubernetes" }, { name: "Helm" },
+      { name: "Jenkins" }, { name: "GitHub Actions" }, { name: "GitLab CI" },
+      { name: "AWS" }, { name: "Azure" }, { name: "Google Cloud (GCP)" },
+      { name: "Terraform" }, { name: "Ansible" },
+      { name: "Prometheus" }, { name: "Grafana (Monitoring)" }, { name: "ELK Stack" }, { name: "Datadog" },
+      { name: "DevSecOps" },
+    ],
+  },
+];
+
 
 export default function HomePage() {
   const [isWhyChooseUsImageVisible, setIsWhyChooseUsImageVisible] = useState(false);
@@ -28,92 +116,62 @@ export default function HomePage() {
   const leadershipSectionRef = useRef<HTMLDivElement>(null);
   const [isLeadershipSectionVisible, setIsLeadershipSectionVisible] = useState(false);
 
+  const techStackSectionRef = useRef<HTMLDivElement>(null); // Ref for new section
+  const [isTechStackSectionVisible, setIsTechStackSectionVisible] = useState(false); // State for new section
+
   const ctaSectionRef = useRef<HTMLDivElement>(null);
   const [isCtaSectionVisible, setIsCtaSectionVisible] = useState(false);
+
+  const refsAndSetters = [
+    { ref: whyChooseUsImageRef, setter: setIsWhyChooseUsImageVisible, threshold: 0.2 },
+    { ref: whyChooseUsTextRef, setter: setIsWhyChooseUsTextVisible, threshold: 0.2 },
+    { ref: serviceCard1Ref, setter: setIsServiceCard1Visible },
+    { ref: serviceCard2Ref, setter: setIsServiceCard2Visible },
+    { ref: serviceCard3Ref, setter: setIsServiceCard3Visible },
+    { ref: serviceCard4Ref, setter: setIsServiceCard4Visible },
+    { ref: leadershipSectionRef, setter: setIsLeadershipSectionVisible },
+    { ref: techStackSectionRef, setter: setIsTechStackSectionVisible }, // Added for new section
+    { ref: ctaSectionRef, setter: setIsCtaSectionVisible },
+  ];
 
   useEffect(() => {
     const observerOptions = {
       root: null,
       rootMargin: "0px",
-      threshold: 0.1,
+      threshold: 0.1, // Default threshold
     };
 
-    const genericObserverCallback = (
-      entries: IntersectionObserverEntry[],
-      observer: IntersectionObserver,
-      setter: React.Dispatch<React.SetStateAction<boolean>>
-    ) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setter(true);
-          observer.unobserve(entry.target);
+    const observers: IntersectionObserver[] = [];
+
+    refsAndSetters.forEach(({ ref, setter, threshold }) => {
+      const currentObserverOptions = { ...observerOptions, threshold: threshold || observerOptions.threshold };
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setter(true);
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        currentObserverOptions
+      );
+
+      if (ref.current) {
+        observer.observe(ref.current);
+        observers.push(observer);
+      }
+    });
+
+    return () => {
+      observers.forEach((observer, index) => {
+        const ref = refsAndSetters[index]?.ref;
+        if (ref?.current) {
+          observer.unobserve(ref.current);
         }
       });
     };
-
-    const whyChooseUsImageObserver = new IntersectionObserver(
-      (entries, obs) => genericObserverCallback(entries, obs, setIsWhyChooseUsImageVisible),
-      { ...observerOptions, threshold: 0.2 }
-    );
-    if (whyChooseUsImageRef.current) {
-      whyChooseUsImageObserver.observe(whyChooseUsImageRef.current);
-    }
-
-    const whyChooseUsTextObserver = new IntersectionObserver(
-      (entries, obs) => genericObserverCallback(entries, obs, setIsWhyChooseUsTextVisible),
-      { ...observerOptions, threshold: 0.2 }
-    );
-    if (whyChooseUsTextRef.current) {
-      whyChooseUsTextObserver.observe(whyChooseUsTextRef.current);
-    }
-
-    const serviceCard1Observer = new IntersectionObserver(
-      (entries, obs) => genericObserverCallback(entries, obs, setIsServiceCard1Visible),
-      observerOptions
-    );
-    if (serviceCard1Ref.current) serviceCard1Observer.observe(serviceCard1Ref.current);
-
-    const serviceCard2Observer = new IntersectionObserver(
-      (entries, obs) => genericObserverCallback(entries, obs, setIsServiceCard2Visible),
-      observerOptions
-    );
-    if (serviceCard2Ref.current) serviceCard2Observer.observe(serviceCard2Ref.current);
-
-    const serviceCard3Observer = new IntersectionObserver(
-      (entries, obs) => genericObserverCallback(entries, obs, setIsServiceCard3Visible),
-      observerOptions
-    );
-    if (serviceCard3Ref.current) serviceCard3Observer.observe(serviceCard3Ref.current);
-
-    const serviceCard4Observer = new IntersectionObserver( 
-      (entries, obs) => genericObserverCallback(entries, obs, setIsServiceCard4Visible),
-      observerOptions
-    );
-    if (serviceCard4Ref.current) serviceCard4Observer.observe(serviceCard4Ref.current); 
-
-    const leadershipSectionObserver = new IntersectionObserver(
-      (entries, obs) => genericObserverCallback(entries, obs, setIsLeadershipSectionVisible),
-      observerOptions
-    );
-    if (leadershipSectionRef.current) leadershipSectionObserver.observe(leadershipSectionRef.current);
-
-    const ctaSectionObserver = new IntersectionObserver(
-      (entries, obs) => genericObserverCallback(entries, obs, setIsCtaSectionVisible),
-      observerOptions
-    );
-    if (ctaSectionRef.current) ctaSectionObserver.observe(ctaSectionRef.current);
-
-    return () => {
-      if (whyChooseUsImageRef.current) whyChooseUsImageObserver.unobserve(whyChooseUsImageRef.current);
-      if (whyChooseUsTextRef.current) whyChooseUsTextObserver.unobserve(whyChooseUsTextRef.current);
-      if (serviceCard1Ref.current) serviceCard1Observer.unobserve(serviceCard1Ref.current);
-      if (serviceCard2Ref.current) serviceCard2Observer.unobserve(serviceCard2Ref.current);
-      if (serviceCard3Ref.current) serviceCard3Observer.unobserve(serviceCard3Ref.current);
-      if (serviceCard4Ref.current) serviceCard4Observer.unobserve(serviceCard4Ref.current); 
-      if (leadershipSectionRef.current) leadershipSectionObserver.unobserve(leadershipSectionRef.current);
-      if (ctaSectionRef.current) ctaSectionObserver.unobserve(ctaSectionRef.current);
-    };
-  }, []);
+  }, []); // refsAndSetters is stable
 
   return (
     <>
@@ -155,74 +213,35 @@ export default function HomePage() {
             Discover how our expertise in QA, Development, Data Analytics, and DevOps can transform your business.
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div
-              ref={serviceCard1Ref}
-              className={cn(
-                "transition-all transform duration-700 ease-out",
-                isServiceCard1Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-                "h-full" 
-              )}
-            >
-              <CardComponent
-                title="Quality Assurance (QA)"
-                description="Rigorous testing to ensure product excellence and reliability."
-                icon={<Image src="https://placehold.co/64x64.png" alt="Quality Assurance Icon for TechnoNspace" width={48} height={48} data-ai-hint="quality checkmark" />}
-                link="/services#qa"
-                linkText="Explore QA Solutions"
-                className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
-              />
-            </div>
-            <div
-              ref={serviceCard2Ref}
-              className={cn(
-                "transition-all transform duration-700 ease-out delay-200",
-                isServiceCard2Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-                "h-full"
-              )}
-            >
-              <CardComponent
-                title="Development Services"
-                description="Custom web, mobile, and software solutions for scalable growth."
-                icon={<Image src="https://placehold.co/64x64.png" alt="Development Services Icon for TechnoNspace" width={48} height={48} data-ai-hint="code brackets" />}
-                link="/services#development"
-                linkText="Discover Development"
-                className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
-              />
-            </div>
-            <div
-              ref={serviceCard3Ref}
-              className={cn(
-                "transition-all transform duration-700 ease-out delay-[400ms]",
-                isServiceCard3Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-                "h-full" 
-              )}
-            >
-              <CardComponent
-                title="Data Analytics"
-                description="Actionable insights through data visualization and business intelligence."
-                icon={<Image src="https://placehold.co/64x64.png" alt="Data Analytics Icon for TechnoNspace" width={48} height={48} data-ai-hint="chart graph" />}
-                link="/services#data-analytics"
-                linkText="Unlock Data Insights"
-                className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
-              />
-            </div>
-            <div
-              ref={serviceCard4Ref}
-              className={cn(
-                "transition-all transform duration-700 ease-out delay-[600ms]", 
-                isServiceCard4Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-                "h-full" 
-              )}
-            >
-              <CardComponent
-                title="DevOps Services"
-                description="Efficient development pipelines with CI/CD and cloud automation."
-                icon={<Image src="https://placehold.co/64x64.png" alt="DevOps Services Icon for TechnoNspace" width={48} height={48} data-ai-hint="gears process" />}
-                link="/services#devops"
-                linkText="Optimize Your DevOps"
-                className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
-              />
-            </div>
+            {serviceHighlights.map((service, index) => (
+              <div
+                key={index}
+                ref={
+                  index === 0 ? serviceCard1Ref :
+                  index === 1 ? serviceCard2Ref :
+                  index === 2 ? serviceCard3Ref : serviceCard4Ref
+                }
+                className={cn(
+                  "transition-all transform duration-700 ease-out",
+                  service.delay,
+                  (
+                    index === 0 ? isServiceCard1Visible :
+                    index === 1 ? isServiceCard2Visible :
+                    index === 2 ? isServiceCard3Visible : isServiceCard4Visible
+                  ) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+                  "h-full" 
+                )}
+              >
+                <CardComponent
+                  title={service.title}
+                  description={service.description}
+                  icon={service.icon}
+                  link={service.link}
+                  linkText={service.linkText}
+                  className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -280,6 +299,17 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Tech Stack Showcase Section */}
+      <div
+        ref={techStackSectionRef}
+        className={cn(
+          "transition-all transform duration-700 ease-out",
+          isTechStackSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        )}
+      >
+        <TechStackShowcase techCategories={techCategoriesData} />
+      </div>
 
       {/* Leadership Section */}
       <div
