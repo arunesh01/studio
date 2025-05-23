@@ -5,9 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CardComponent } from "@/components/CardComponent";
-import { CheckCircle, Zap, Users } from "lucide-react"; // Removed BarChart as it wasn't used in this section
+import { CheckCircle, Zap, Users } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { LeadershipSection } from "@/components/LeadershipSection"; // Import the new section
 
 export default function HomePage() {
   const [isWhyChooseUsImageVisible, setIsWhyChooseUsImageVisible] = useState(false);
@@ -22,6 +23,9 @@ export default function HomePage() {
   const [isServiceCard2Visible, setIsServiceCard2Visible] = useState(false);
   const [isServiceCard3Visible, setIsServiceCard3Visible] = useState(false);
 
+  const leadershipSectionRef = useRef<HTMLDivElement>(null); // Ref for LeadershipSection
+  const [isLeadershipSectionVisible, setIsLeadershipSectionVisible] = useState(false); // State for LeadershipSection
+
   const ctaSectionRef = useRef<HTMLDivElement>(null);
   const [isCtaSectionVisible, setIsCtaSectionVisible] = useState(false);
 
@@ -29,7 +33,7 @@ export default function HomePage() {
     const observerOptions = {
       root: null,
       rootMargin: "0px",
-      threshold: 0.1, // Trigger when 10% of the element is visible
+      threshold: 0.1, 
     };
 
     const genericObserverCallback = (
@@ -45,25 +49,22 @@ export default function HomePage() {
       });
     };
 
-    // Observer for "Why Choose Us" Image
     const whyChooseUsImageObserver = new IntersectionObserver(
       (entries, obs) => genericObserverCallback(entries, obs, setIsWhyChooseUsImageVisible),
-      { ...observerOptions, threshold: 0.2 } // specific threshold for this element
+      { ...observerOptions, threshold: 0.2 }
     );
     if (whyChooseUsImageRef.current) {
       whyChooseUsImageObserver.observe(whyChooseUsImageRef.current);
     }
 
-    // Observer for "Why Choose Us" Text
     const whyChooseUsTextObserver = new IntersectionObserver(
       (entries, obs) => genericObserverCallback(entries, obs, setIsWhyChooseUsTextVisible),
-      { ...observerOptions, threshold: 0.2 } // specific threshold for this element
+      { ...observerOptions, threshold: 0.2 }
     );
     if (whyChooseUsTextRef.current) {
       whyChooseUsTextObserver.observe(whyChooseUsTextRef.current);
     }
 
-    // Observers for Service Cards
     const serviceCard1Observer = new IntersectionObserver(
       (entries, obs) => genericObserverCallback(entries, obs, setIsServiceCard1Visible),
       observerOptions
@@ -81,8 +82,13 @@ export default function HomePage() {
       observerOptions
     );
     if (serviceCard3Ref.current) serviceCard3Observer.observe(serviceCard3Ref.current);
+    
+    const leadershipSectionObserver = new IntersectionObserver( // Observer for LeadershipSection
+      (entries, obs) => genericObserverCallback(entries, obs, setIsLeadershipSectionVisible),
+      observerOptions
+    );
+    if (leadershipSectionRef.current) leadershipSectionObserver.observe(leadershipSectionRef.current);
 
-    // Observer for CTA Section
     const ctaSectionObserver = new IntersectionObserver(
       (entries, obs) => genericObserverCallback(entries, obs, setIsCtaSectionVisible),
       observerOptions
@@ -95,6 +101,7 @@ export default function HomePage() {
       if (serviceCard1Ref.current) serviceCard1Observer.unobserve(serviceCard1Ref.current);
       if (serviceCard2Ref.current) serviceCard2Observer.unobserve(serviceCard2Ref.current);
       if (serviceCard3Ref.current) serviceCard3Observer.unobserve(serviceCard3Ref.current);
+      if (leadershipSectionRef.current) leadershipSectionObserver.unobserve(leadershipSectionRef.current); // Cleanup
       if (ctaSectionRef.current) ctaSectionObserver.unobserve(ctaSectionRef.current);
     };
   }, []);
@@ -234,6 +241,17 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Leadership Section */}
+      <div
+        ref={leadershipSectionRef}
+        className={cn(
+          "transition-all transform duration-700 ease-out",
+          isLeadershipSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        )}
+      >
+        <LeadershipSection />
+      </div>
 
       {/* CTA to Contact Section */}
       <section className="py-20 bg-background">
