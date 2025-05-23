@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CardComponent } from "@/components/CardComponent";
-import { CheckCircle, Activity, BarChart3, Users } from "lucide-react";
+import { CheckCircle, Activity, BarChart3, Users, Cloud, Shield } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
@@ -121,7 +121,7 @@ export default function HomePage() {
       <section className="relative py-20 md:py-32 bg-gradient-to-r from-primary to-accent text-primary-foreground overflow-hidden">
         <Image
           src="https://placehold.co/1920x1080.png"
-          alt="Abstract technology background for TechnoNspace"
+          alt="Abstract technology background for TechnoNspace hero section"
           layout="fill"
           objectFit="cover"
           className="absolute inset-0 z-0 opacity-20"
@@ -140,7 +140,7 @@ export default function HomePage() {
             <Button asChild size="lg" variant="secondary" className="text-secondary-foreground hover:bg-secondary/90">
               <Link href="/contact">Get a Free Consultation</Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
+            <Button asChild variant="secondary" size="lg" className="text-secondary-foreground hover:bg-secondary/90">
               <Link href="/contact">Request a Demo</Link>
             </Button>
           </div>
@@ -166,7 +166,7 @@ export default function HomePage() {
               <CardComponent
                 title="Quality Assurance (QA)"
                 description="Rigorous testing to ensure product excellence and reliability."
-                icon={<Image src="https://placehold.co/64x64.png" alt="Quality Assurance Icon" width={48} height={48} data-ai-hint="quality checkmark" />}
+                icon={<Image src="https://placehold.co/64x64.png" alt="Quality Assurance Icon for TechnoNspace" width={48} height={48} data-ai-hint="quality checkmark" />}
                 link="/services#qa"
                 linkText="Explore QA Solutions"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
@@ -183,7 +183,7 @@ export default function HomePage() {
               <CardComponent
                 title="Development Services"
                 description="Custom web, mobile, and software solutions for scalable growth."
-                icon={<Image src="https://placehold.co/64x64.png" alt="Development Services Icon" width={48} height={48} data-ai-hint="code brackets" />}
+                icon={<Image src="https://placehold.co/64x64.png" alt="Development Services Icon for TechnoNspace" width={48} height={48} data-ai-hint="code brackets" />}
                 link="/services#development"
                 linkText="Discover Development"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
@@ -200,7 +200,7 @@ export default function HomePage() {
               <CardComponent
                 title="Data Analytics"
                 description="Actionable insights through data visualization and business intelligence."
-                icon={<Image src="https://placehold.co/64x64.png" alt="Data Analytics Icon" width={48} height={48} data-ai-hint="chart graph" />}
+                icon={<Image src="https://placehold.co/64x64.png" alt="Data Analytics Icon for TechnoNspace" width={48} height={48} data-ai-hint="chart graph" />}
                 link="/services#data-analytics"
                 linkText="Unlock Data Insights"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
@@ -217,7 +217,7 @@ export default function HomePage() {
               <CardComponent
                 title="DevOps Services"
                 description="Efficient development pipelines with CI/CD and cloud automation."
-                icon={<Image src="https://placehold.co/64x64.png" alt="DevOps Services Icon" width={48} height={48} data-ai-hint="gears process" />}
+                icon={<Image src="https://placehold.co/64x64.png" alt="DevOps Services Icon for TechnoNspace" width={48} height={48} data-ai-hint="gears process" />}
                 link="/services#devops"
                 linkText="Optimize Your DevOps"
                 className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
@@ -240,7 +240,7 @@ export default function HomePage() {
             >
               <Image
                 src="https://placehold.co/600x400.png"
-                alt="TechnoNspace team collaborating in a modern office"
+                alt="TechnoNspace team collaborating in a modern office environment"
                 width={600}
                 height={400}
                 className="rounded-lg shadow-xl"
