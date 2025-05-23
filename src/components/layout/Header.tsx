@@ -10,7 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { AnalogClock } from "@/components/AnalogClock"; // Import the AnalogClock
+import { AnalogClock } from "@/components/AnalogClock";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -18,6 +19,21 @@ const navItems = [
   { href: "/contact", label: "Contact" },
   { href: "/dashboard", label: "Dashboard" },
 ];
+
+interface ClockCityConfig {
+  key: string;
+  label: string;
+  timeZone: string;
+}
+
+const CITIES_CONFIG: ClockCityConfig[] = [
+  { key: "dubai", label: "Dubai", timeZone: "Asia/Dubai" },
+  { key: "india", label: "India", timeZone: "Asia/Kolkata" },
+  { key: "berlin", label: "Berlin", timeZone: "Europe/Berlin" },
+  { key: "sydney", label: "Sydney", timeZone: "Australia/Sydney" },
+  { key: "london", label: "London", timeZone: "Europe/London" },
+];
+
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -51,9 +67,22 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3"> {/* Increased gap slightly for the clock */}
-          <div className="hidden md:block"> {/* Hide clock on small screens if too cluttered */}
-            <AnalogClock timeZone="Asia/Kolkata" size={28} idSuffix="header" />
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="hidden lg:flex items-center gap-2">
+            <TooltipProvider>
+              {CITIES_CONFIG.map(city => (
+                <Tooltip key={city.key}>
+                  <TooltipTrigger asChild>
+                    <div> {/* Wrap AnalogClock for TooltipTrigger if it doesn't spread props */}
+                      <AnalogClock timeZone={city.timeZone} size={24} idSuffix={`header-${city.key}`} />
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{city.label}</p>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
+            </TooltipProvider>
           </div>
           <ThemeToggle />
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>

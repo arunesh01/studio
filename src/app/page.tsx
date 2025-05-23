@@ -5,12 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CardComponent } from "@/components/CardComponent";
-import { CheckCircle, BarChartHorizontalBig, MapPinned, Briefcase, Users, Settings } from "lucide-react"; 
+import { CheckCircle, BarChartHorizontalBig, MapPinned, Briefcase, Users, Settings, Sparkles, Workflow, BarChart3 } from "lucide-react"; 
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
 import { TechStackShowcase } from "@/components/TechStackShowcase";
-import { WorldClockDisplay } from "@/components/WorldClockDisplay"; // Added WorldClockDisplay import
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ChartContainer, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
 import type { ChartConfig } from "@/components/ui/chart";
@@ -154,9 +153,6 @@ export default function HomePage() {
   const techStackSectionRef = useRef<HTMLDivElement>(null);
   const [isTechStackSectionVisible, setIsTechStackSectionVisible] = useState(false);
 
-  const worldClockSectionRef = useRef<HTMLDivElement>(null); // Added ref for WorldClock
-  const [isWorldClockSectionVisible, setIsWorldClockSectionVisible] = useState(false); // Added state for WorldClock
-
   const globalReachSectionRef = useRef<HTMLDivElement>(null);
   const [isGlobalReachSectionVisible, setIsGlobalReachSectionVisible] = useState(false);
 
@@ -174,7 +170,6 @@ export default function HomePage() {
     { ref: serviceCard3Ref, setter: setIsServiceCard3Visible },
     { ref: serviceCard4Ref, setter: setIsServiceCard4Visible },
     { ref: techStackSectionRef, setter: setIsTechStackSectionVisible },
-    { ref: worldClockSectionRef, setter: setIsWorldClockSectionVisible }, // Added WorldClock to observer list
     { ref: leadershipSectionRef, setter: setIsLeadershipSectionVisible },
     { ref: globalReachSectionRef, setter: setIsGlobalReachSectionVisible, threshold: 0.1 },
     { ref: analyticsPreviewSectionRef, setter: setIsAnalyticsPreviewSectionVisible, threshold: 0.1 },
@@ -197,7 +192,7 @@ export default function HomePage() {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               setter(true);
-              if (ref.current) { // Check if ref.current is not null before unobserving
+              if (ref.current) { 
                 obs.unobserve(ref.current);
               }
             }
@@ -221,7 +216,7 @@ export default function HomePage() {
       });
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // No need to list all refs/setters here if they don't change
+  }, []); 
 
   return (
     <>
@@ -279,7 +274,7 @@ export default function HomePage() {
                     index === 1 ? isServiceCard2Visible :
                     index === 2 ? isServiceCard3Visible : isServiceCard4Visible
                   ) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-                  "h-full" // Ensure cards in the same row maintain height
+                  "h-full" 
                 )}
               >
                 <CardComponent
@@ -359,17 +354,6 @@ export default function HomePage() {
         )}
       >
         <TechStackShowcase techCategories={techCategoriesData} />
-      </div>
-
-      {/* World Clock Section */}
-      <div
-        ref={worldClockSectionRef}
-        className={cn(
-          "transition-all transform duration-700 ease-out",
-          isWorldClockSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        )}
-      >
-        <WorldClockDisplay />
       </div>
       
       {/* Leadership Section */}
