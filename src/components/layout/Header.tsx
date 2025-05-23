@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/", label: "Home" },
-  { href: "/services", label: "Services" }, // Changed from "Our Offerings" and /offerings
+  { href: "/services", label: "Services" },
   { href: "/contact", label: "Contact" },
   { href: "/dashboard", label: "Dashboard" },
 ];
@@ -30,9 +30,9 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2" aria-label="TechFlow Hub Home">
+        <Link href="/" className="flex items-center gap-2" aria-label="TechnoNspace Home">
           <Logo className="h-8 w-8" />
-          <span className="font-semibold text-xl hidden sm:inline-block">TechFlow Hub</span>
+          <span className="font-semibold text-xl hidden sm:inline-block">TechnoNspace</span>
         </Link>
 
         <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
@@ -61,9 +61,9 @@ export function Header() {
             </SheetTrigger>
             <SheetContent side="right" className="w-full max-w-xs bg-background p-6">
               <SheetTitle asChild>
-                  <Link href="/" className="flex items-center gap-2 mb-6" aria-label="TechFlow Hub Home" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Link href="/" className="flex items-center gap-2 mb-6" aria-label="TechnoNspace Home" onClick={() => setIsMobileMenuOpen(false)}>
                     <Logo className="h-8 w-8" />
-                    <span className="font-semibold text-xl">TechFlow Hub</span>
+                    <span className="font-semibold text-xl">TechnoNspace</span>
                   </Link>
               </SheetTitle>
               

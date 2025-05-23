@@ -6,7 +6,7 @@ import { ClipboardCheck, Code2, BarChart3, ServerCog, CheckCircle } from "lucide
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Archived Offerings - TechFlow Hub",
+  title: "Archived Offerings - TechnoNspace",
   description: "This page lists a previous version of our service offerings. For the most current information, please visit our main Services page.",
   robots: "noindex, follow", // Discourage indexing for this potentially redundant page
 };

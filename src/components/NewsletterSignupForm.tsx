@@ -99,7 +99,7 @@ export function NewsletterSignupForm() {
         />
         <div className="grid gap-1.5 leading-none">
           <Label htmlFor="newsletter-consent" className="text-sm font-normal text-muted-foreground">
-            I agree to receive marketing emails from TechFlow Hub. 
+            I agree to receive marketing emails from TechnoNspace. 
             Read our <Link href="/privacy-policy" className="underline hover:text-primary">Privacy Policy</Link>.
           </Label>
           {combinedErrors.consent && <p className="text-sm text-destructive">{combinedErrors.consent}</p>}

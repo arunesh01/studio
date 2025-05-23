@@ -9,7 +9,7 @@ export function Logo(props: SVGProps<SVGSVGElement>) {
       viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      aria-label="TechFlow Hub Logo"
+      aria-label="TechnoNspace Logo"
       {...props}
     >
       <path d="M20 80V20L50 35V65L20 80Z" className="fill-primary" />

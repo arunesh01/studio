@@ -3,10 +3,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-// import type { Metadata } from "next"; // Removed as metadata is now exported directly
 import { Button } from "@/components/ui/button";
 import { CardComponent } from "@/components/CardComponent";
-import { CheckCircle } from "lucide-react"; // Kept CheckCircle for "Why Choose Us"
+import { CheckCircle, Activity, BarChart3, Users } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
@@ -122,7 +121,7 @@ export default function HomePage() {
       <section className="relative py-20 md:py-32 bg-gradient-to-r from-primary to-accent text-primary-foreground overflow-hidden">
         <Image
           src="https://placehold.co/1920x1080.png"
-          alt="Abstract technology background"
+          alt="Abstract technology background for TechnoNspace"
           layout="fill"
           objectFit="cover"
           className="absolute inset-0 z-0 opacity-20"
@@ -132,7 +131,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-black/30 z-0"></div> {/* Optional: Dark overlay for better text contrast */}
         <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 text-primary-foreground">
-            Empowering Your Business with <span className="text-white">TechFlow Hub</span>
+            Empowering Your Business with <span className="text-white">TechnoNspace</span>
           </h1>
           <p className="text-lg md:text-xl text-primary-foreground/90 max-w-3xl mx-auto mb-10">
             We provide cutting-edge IT solutions tailored to drive growth, efficiency, and innovation for your enterprise.
@@ -241,7 +240,7 @@ export default function HomePage() {
             >
               <Image
                 src="https://placehold.co/600x400.png"
-                alt="TechFlow Hub team collaborating in a modern office"
+                alt="TechnoNspace team collaborating in a modern office"
                 width={600}
                 height={400}
                 className="rounded-lg shadow-xl"
@@ -255,7 +254,7 @@ export default function HomePage() {
                 isWhyChooseUsTextVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
               )}
             >
-              <h2 className="text-3xl font-bold text-foreground mb-6">Why Partner with TechFlow Hub?</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-6">Why Partner with TechnoNspace?</h2>
               <p className="text-muted-foreground mb-6">
                 We are committed to your success. Our team of experts leverages the latest technologies and best practices to deliver solutions that make a real impact.
               </p>
@@ -304,7 +303,7 @@ export default function HomePage() {
         >
           <h2 className="text-3xl font-bold text-foreground mb-6">Ready to Elevate Your IT?</h2>
           <p className="text-muted-foreground max-w-xl mx-auto mb-10">
-            Let's discuss how TechFlow Hub can help your business thrive. Get in touch with our experts today.
+            Let's discuss how TechnoNspace can help your business thrive. Get in touch with our experts today.
           </p>
           <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
             <Link href="/contact">Contact Us Now</Link>

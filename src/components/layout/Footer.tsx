@@ -49,7 +49,7 @@ export function Footer() {
 
         <div className="mt-12 border-t pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <p className="text-sm text-muted-foreground">
-            &copy; {currentYear} TechFlow Hub. All rights reserved.
+            &copy; {currentYear} TechnoNspace. All rights reserved.
           </p>
           <div className="flex space-x-4">
             <Link href="#" aria-label="Facebook" className="text-muted-foreground hover:text-primary transition-colors">

@@ -68,7 +68,7 @@ export default function DashboardLayout({
             <Link href="/dashboard" className="flex items-center gap-2 group-data-[collapsible=icon]:justify-center">
               <Logo className="h-8 w-8 text-primary" />
               <span className="font-semibold text-xl text-foreground group-data-[collapsible=icon]:hidden">
-                TechFlow Hub
+                TechnoNspace
               </span>
             </Link>
           </SidebarHeader>
@@ -121,7 +121,7 @@ export default function DashboardLayout({
                       <AvatarImage asChild>
                         <Image src="https://placehold.co/100x100.png" alt="User Avatar" width={36} height={36} data-ai-hint="user profile" />
                       </AvatarImage>
-                      <AvatarFallback>TF</AvatarFallback>
+                      <AvatarFallback>TN</AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
@@ -130,7 +130,7 @@ export default function DashboardLayout({
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">Admin User</p>
                       <p className="text-xs leading-none text-muted-foreground">
-                        admin@techflowhub.com
+                        admin@technonspace.com
                       </p>
                     </div>
                   </DropdownMenuLabel>

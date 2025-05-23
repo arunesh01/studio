@@ -6,9 +6,9 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact Us - TechFlow Hub",
-  description: "Get in touch with TechFlow Hub. Send us a message, find our office location, or reach out via email or phone. We're here to help with your IT needs.",
-  keywords: ["contact TechFlow Hub", "IT support contact", "TechFlow Hub address", "request consultation"],
+  title: "Contact Us - TechnoNspace",
+  description: "Get in touch with TechnoNspace. Send us a message, find our office location, or reach out via email or phone. We're here to help with your IT needs.",
+  keywords: ["contact TechnoNspace", "IT support contact", "TechnoNspace address", "request consultation"],
 };
 
 export default function ContactPage() {
@@ -38,7 +38,7 @@ export default function ContactPage() {
               <Mail className="h-6 w-6 text-primary mr-4 mt-1 shrink-0" />
               <div>
                 <h3 className="font-semibold text-foreground">Email Us</h3>
-                <a href="mailto:info@techflowhub.com" className="hover:text-primary transition-colors">info@techflowhub.com</a>
+                <a href="mailto:info@technonspace.com" className="hover:text-primary transition-colors">info@technonspace.com</a>
               </div>
             </div>
             <div className="flex items-start">
@@ -51,7 +51,7 @@ export default function ContactPage() {
             <div className="pt-4">
                 <Image 
                     src="https://placehold.co/600x300.png" 
-                    alt="Map showing TechFlow Hub office location" 
+                    alt="Map showing TechnoNspace office location" 
                     width={600} 
                     height={300}
                     className="rounded-md"

@@ -20,30 +20,30 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:9002'),
   title: {
-    default: "TechFlow Hub - Innovative IT Solutions & Services",
-    template: "%s | TechFlow Hub",
+    default: "TechnoNspace - Innovative IT Solutions & Services",
+    template: "%s | TechnoNspace",
   },
-  description: "TechFlow Hub offers expert IT solutions in QA, Development, Data Analytics, and DevOps to drive business growth and efficiency. Partner with us for cutting-edge technology services.",
-  keywords: ["IT solutions", "QA services", "software development", "data analytics", "DevOps", "TechFlow Hub", "technology consulting"],
+  description: "TechnoNspace offers expert IT solutions in QA, Development, Data Analytics, and DevOps to drive business growth and efficiency. Partner with us for cutting-edge technology services.",
+  keywords: ["IT solutions", "QA services", "software development", "data analytics", "DevOps", "TechnoNspace", "technology consulting"],
   openGraph: {
-    title: "TechFlow Hub - Innovative IT Solutions & Services",
+    title: "TechnoNspace - Innovative IT Solutions & Services",
     description: "Expert IT solutions in QA, Development, Data Analytics, and DevOps.",
     type: "website",
     locale: "en_US",
     // url: process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:9002', // Add your production URL
-    // siteName: "TechFlow Hub",
+    // siteName: "TechnoNspace",
     // images: [ // Add a default OG image
     //   {
     //     url: '/og-image.png', // Path to your default OG image
     //     width: 1200,
     //     height: 630,
-    //     alt: 'TechFlow Hub Logo',
+    //     alt: 'TechnoNspace Logo',
     //   },
     // ],
   },
   // twitter: { // Add Twitter specific card details if desired
   //   card: 'summary_large_image',
-  //   title: 'TechFlow Hub - Innovative IT Solutions',
+  //   title: 'TechnoNspace - Innovative IT Solutions',
   //   description: 'Expert IT solutions to empower your business.',
   //   // site: '@yourtwitterhandle',
   //   // creator: '@yourtwitterhandle',
