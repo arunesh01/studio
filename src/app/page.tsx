@@ -154,7 +154,6 @@ const whyChooseUsKeyPoints = [
   }
 ];
 
-
 const analyticsPreviewData = [
   { metric: "Efficiency Gain", value: 75, fill: "hsl(var(--chart-1))" },
   { metric: "Cost Reduction", value: 60, fill: "hsl(var(--chart-2))" },
@@ -258,9 +257,8 @@ export default function HomePage() {
         <Image
           src="https://placehold.co/1920x1080.png"
           alt="Abstract technology background representing TechnoNspace innovation"
-          layout="fill"
-          objectFit="cover"
-          className="absolute inset-0 z-0 opacity-20"
+          fill // Changed from layout="fill" objectFit="cover"
+          className="absolute inset-0 z-0 opacity-20 object-cover"
           data-ai-hint="tech background"
           priority
         />
@@ -285,25 +283,36 @@ export default function HomePage() {
 
       {/* Why Choose Us Section */}
       <section className="py-16 bg-secondary overflow-x-hidden">
-        <div className="container mx-auto px-4">
-          <div
-            ref={whyChooseUsTextRef}
-            className={cn(
-              "transition-all duration-700 ease-out transform text-center max-w-3xl mx-auto",
-              isWhyChooseUsTextVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-            )}
-          >
-            <h2 className="text-3xl font-bold text-foreground mb-6">Why Partner with TechnoNspace?</h2>
-            <p className="text-muted-foreground mb-10 text-lg">
-              We are committed to your success. Our team of experts leverages the latest technologies and best practices to deliver solutions that make a real impact.
-            </p>
-            <div className="grid grid-cols-1 gap-8 text-left">
+        <div
+          ref={whyChooseUsTextRef}
+          className={cn(
+            "container mx-auto px-4 transition-all duration-700 ease-out transform",
+            isWhyChooseUsTextVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          )}
+        >
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            {/* Column 1: Heading and Slogan */}
+            <div className="space-y-4 text-center md:text-left">
+              <h2 className="text-3xl font-bold text-foreground">Why Partner with TechnoNspace?</h2>
+              <p className="text-muted-foreground text-lg">
+                We are committed to your success. Our team of experts leverages the latest technologies and best practices to deliver solutions that make a real impact.
+              </p>
+            </div>
+            {/* Column 2: Key Points */}
+            <div className="space-y-6">
               {whyChooseUsKeyPoints.map((point, index) => (
-                <div key={index} className="flex flex-col items-center md:items-start text-center md:text-left p-4 rounded-lg bg-card shadow-md hover:shadow-lg transition-shadow">
-                  {point.icon}
-                  <h3 className="text-xl font-semibold text-foreground mt-2 mb-1">{point.title}</h3>
-                  <p className="text-muted-foreground text-sm">{point.description}</p>
-                </div>
+                <Card 
+                  key={index} 
+                  className="flex flex-col items-center text-center p-4 rounded-lg bg-card shadow-md hover:shadow-lg transition-shadow md:items-start md:text-left md:flex-row md:gap-4"
+                >
+                  <div className="shrink-0 mb-3 md:mb-0">
+                    {point.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-foreground mb-1">{point.title}</h3>
+                    <p className="text-muted-foreground text-sm">{point.description}</p>
+                  </div>
+                </Card>
               ))}
             </div>
           </div>
@@ -434,5 +443,6 @@ export default function HomePage() {
     
 
     
+
 
 
