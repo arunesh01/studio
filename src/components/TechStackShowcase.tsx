@@ -1,7 +1,7 @@
 
 "use client";
 
-import { Check } from "lucide-react"; // Or any other icon you prefer
+// import { Check } from "lucide-react"; // Or any other icon you prefer
 
 interface TechItem {
   name: string;
@@ -36,11 +36,11 @@ export function TechStackShowcase({ techCategories }: TechStackShowcaseProps) {
                 {/* category.icon && <span className="mr-3">{category.icon}</span> */}
                 {category.categoryName}
               </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {category.technologies.map((tech) => (
                   <div
                     key={tech.name}
-                    className="bg-card p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out flex items-center justify-center text-center transform hover:scale-105"
+                    className="bg-card p-4 rounded-lg shadow-md hover:shadow-xl hover:bg-accent/10 transition-all duration-300 ease-in-out flex items-center justify-center text-center transform hover:scale-105 cursor-default"
                   >
                     {/* tech.icon && <span className="mr-2 text-accent">{tech.icon}</span> */}
                     <span className="text-sm font-medium text-card-foreground">

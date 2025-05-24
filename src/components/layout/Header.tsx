@@ -83,7 +83,7 @@ export function Header() {
 
           {/* About Us Hover Dropdown for Desktop (State Managed) */}
           <div
-            className="relative" // Ensure no 'group' class if not used for CSS group-hover
+            className="relative"
             onMouseEnter={() => setIsAboutSubmenuOpen(true)}
             onMouseLeave={() => setIsAboutSubmenuOpen(false)}
           >
@@ -108,7 +108,7 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   className="block px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground rounded-sm"
-                  onClick={() => setIsAboutSubmenuOpen(false)} 
+                  onClick={() => setIsAboutSubmenuOpen(false)}
                 >
                   {item.label}
                 </Link>
@@ -138,7 +138,7 @@ export function Header() {
               <div key={city.key} className="flex flex-col items-center px-1">
                 <AnalogClock
                   timeZone={city.timeZone}
-                  size={24}
+                  size={24} // Adjusted size for better fit
                   idSuffix={`header-${city.key}`}
                 />
                 <span className="text-[10px] text-muted-foreground mt-0.5 tracking-tighter">
@@ -149,8 +149,8 @@ export function Header() {
           </div>
           <ThemeToggle />
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
+            <SheetTrigger asChild className="md:hidden">
+              <Button variant="ghost" size="icon">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Open menu</span>
               </Button>
