@@ -257,7 +257,7 @@ export default function HomePage() {
         <Image
           src="https://placehold.co/1920x1080.png"
           alt="Abstract technology background representing TechnoNspace innovation"
-          fill // Changed from layout="fill" objectFit="cover"
+          fill
           className="absolute inset-0 z-0 opacity-20 object-cover"
           data-ai-hint="tech background"
           priority
@@ -357,21 +357,24 @@ export default function HomePage() {
               <div className="text-center md:text-left">
                 <div className="flex justify-center md:justify-start items-center mb-4">
                   <MapPinned className="h-10 w-10 text-primary mr-3" />
-                  <h2 className="text-3xl font-bold text-foreground">Our Global Reach</h2>
+                  <h2 className="text-3xl font-bold text-foreground uppercase">Our Global Reach</h2>
                 </div>
                 <p className="text-muted-foreground max-w-2xl mx-auto md:mx-0 mb-8">
-                  Visualizing our impact and client collaborations across the globe. We are dedicated to providing top-tier IT solutions to businesses worldwide.
+                  Visualizing our impact and client collaborations across the globe.
                 </p>
               </div>
               <div className="bg-card p-4 rounded-lg shadow-md">
                 <Image
                   src="https://placehold.co/800x400.png"
-                  alt="World map graphic showing global client locations or service areas"
+                  alt="World map graphic visualizing TechnoNspace's global client collaborations and impact."
                   width={800}
                   height={400}
                   className="rounded-md w-full"
-                  data-ai-hint="world map graphic"
+                  data-ai-hint="world map connections"
                 />
+                 <p className="text-muted-foreground text-center mt-4">
+                   We are dedicated to providing top-tier IT solutions to businesses worldwide.
+                 </p>
               </div>
             </div>
 
@@ -446,3 +449,6 @@ export default function HomePage() {
 
 
 
+
+
+    
