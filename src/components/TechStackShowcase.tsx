@@ -19,7 +19,7 @@ export interface TechnologyGroup {
 export interface TechCategory {
   categoryName: string;
   description?: string;
-  iconPlaceholder?: { src: string; alt: string; hint: string };
+  iconPlaceholder?: { src: string; alt: string; hint: string }; // Not currently used here
   technologyGroups: TechnologyGroup[];
 }
 
@@ -57,17 +57,17 @@ export function TechStackShowcase({ techCategories }: TechStackShowcaseProps) {
               <CardContent className="space-y-4 flex-grow">
                 {category.technologyGroups.map((group, groupIndex) => (
                   <div key={group.groupTitle}>
-                    {groupIndex > 0 && <Separator className="my-4" />} {/* Increased spacing */}
-                    <h4 className="text-base font-semibold text-foreground mb-3 flex items-center"> {/* Increased font size */}
-                      {group.groupIcon}
-                      <span className="ml-2">{group.groupTitle}</span>
-                    </h4>
-                    <div className="flex flex-wrap gap-x-2 gap-y-2.5"> {/* Adjusted gap */}
+                    {groupIndex > 0 && <Separator className="my-4" />}
+                    <div className="flex items-center gap-1.5 text-sm font-semibold text-foreground mb-2"> {/* heading for group */}
+                       {group.groupIcon}
+                       <span>{group.groupTitle}</span>
+                    </div>
+                    <div className="flex flex-wrap gap-x-2 gap-y-2.5">
                       {group.tools.map((tech) => (
                         <Badge
                           key={tech.name}
-                          variant="outline"
-                          className="border-transparent px-3 py-1.5 text-sm text-muted-foreground hover:text-primary hover:font-semibold transition-colors duration-150 cursor-default"
+                          variant="secondary"
+                          className="px-3 py-1.5 text-sm transition-all duration-200 ease-in-out hover:bg-primary/80 hover:text-primary-foreground hover:scale-105 cursor-default"
                         >
                           {tech.name}
                         </Badge>
@@ -83,3 +83,4 @@ export function TechStackShowcase({ techCategories }: TechStackShowcaseProps) {
     </section>
   );
 }
+
