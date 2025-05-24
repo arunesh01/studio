@@ -44,7 +44,6 @@ export function TechStackShowcase({ techCategories }: TechStackShowcaseProps) {
               className="bg-card shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col"
             >
               <CardHeader>
-                {/* Optional: Category Icon can be added here if needed using category.iconPlaceholder */}
                 <CardTitle className="text-xl font-semibold text-primary mb-1">
                   {category.categoryName}
                 </CardTitle>
@@ -66,8 +65,8 @@ export function TechStackShowcase({ techCategories }: TechStackShowcaseProps) {
                       {group.tools.map((tech) => (
                         <Badge
                           key={tech.name}
-                          variant="secondary"
-                          className="px-2.5 py-1 text-xs transition-all duration-200 ease-in-out hover:bg-primary/80 hover:text-primary-foreground hover:scale-105 cursor-default"
+                          variant="outline" // Changed from secondary to outline
+                          className="px-2.5 py-1 text-xs transition-all duration-200 ease-in-out hover:bg-accent hover:text-accent-foreground hover:scale-105 cursor-default"
                         >
                           {tech.name}
                         </Badge>
@@ -83,5 +82,3 @@ export function TechStackShowcase({ techCategories }: TechStackShowcaseProps) {
     </section>
   );
 }
-
-    
