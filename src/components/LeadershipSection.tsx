@@ -80,7 +80,7 @@ export function LeadershipSection() {
     {
       id: 'arunesh-singh-rathore-ceo',
       name: 'Arunesh Singh Rathore',
-      title: 'Chief Executive Officer',
+      title: 'Founder & CEO',
       bio: 'Arunesh is a visionary leader with over 15 years of experience in the tech industry, passionate about driving innovation and helping businesses thrive through technology. His expertise spans across software development, strategic planning, and team building.',
       imageURL: 'https://placehold.co/400x400.png',
       imageHint: 'ceo portrait',
@@ -90,7 +90,7 @@ export function LeadershipSection() {
     {
       id: 'rishi-tripathi-cto',
       name: 'Rishi Tripathi',
-      title: 'Chief Technology Officer',
+      title: 'Co-Founder & CTO',
       bio: 'Rishi is a tech enthusiast and a problem-solver at heart. With a strong background in DevOps and cloud computing, he ensures our technical operations are efficient, scalable, and secure. Rishi champions agile methodologies and cutting-edge solutions.',
       imageURL: 'https://placehold.co/400x400.png',
       imageHint: 'cto portrait',
@@ -202,3 +202,4 @@ export function LeadershipSection() {
     </section>
   );
 }
+
