@@ -4,8 +4,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CardComponent } from "@/components/CardComponent";
-import { CheckCircle, BarChartHorizontalBig, MapPinned } from "lucide-react";
+import { CheckCircle, BarChartHorizontalBig, MapPinned, Sparkles, Workflow, BarChart3 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
@@ -15,49 +14,6 @@ import { ChartContainer, ChartTooltipContent, ChartLegend, ChartLegendContent } 
 import type { ChartConfig } from "@/components/ui/chart";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip as RechartsTooltip, Cell } from "recharts";
 
-
-const serviceHighlights = [
-  {
-    title: "Quality Assurance (QA)",
-    description: "Ensuring product excellence with AI-driven and automated testing solutions.",
-    icon: <Image src="https://placehold.co/64x64.png" alt="Quality Assurance and Test Automation icon" width={48} height={48} data-ai-hint="test automation" />,
-    link: "/services#qa", // Points to the updated /services page
-    linkText: "Explore QA Solutions",
-    refHook: "serviceCard1Ref",
-    visibleHook: "isServiceCard1Visible",
-    delay: "",
-  },
-  {
-    title: "Development Services",
-    description: "Custom web, mobile, and CRM/ERP solutions for scalable growth.",
-    icon: <Image src="https://placehold.co/64x64.png" alt="Software Development and Coding Screen icon" width={48} height={48} data-ai-hint="coding screen" />,
-    link: "/services#development", // Points to the updated /services page
-    linkText: "Discover Development",
-    refHook: "serviceCard2Ref",
-    visibleHook: "isServiceCard2Visible",
-    delay: "delay-200",
-  },
-  {
-    title: "Data Analytics & BI",
-    description: "Actionable insights through data visualization and business intelligence.",
-    icon: <Image src="https://placehold.co/64x64.png" alt="Data Analytics Dashboard icon" width={48} height={48} data-ai-hint="analytics dashboard" />,
-    link: "/services#data-analytics", // Points to the updated /services page
-    linkText: "Unlock Data Insights",
-    refHook: "serviceCard3Ref",
-    visibleHook: "isServiceCard3Visible",
-    delay: "delay-[400ms]",
-  },
-  {
-    title: "DevOps & Cloud Solutions",
-    description: "Efficient development pipelines with CI/CD and cloud automation.",
-    icon: <Image src="https://placehold.co/64x64.png" alt="DevOps CI/CD Pipeline icon" width={48} height={48} data-ai-hint="ci cd pipeline" />,
-    link: "/services#devops", // Points to the updated /services page
-    linkText: "Optimize Your DevOps",
-    refHook: "serviceCard4Ref",
-    visibleHook: "isServiceCard4Visible",
-    delay: "delay-[600ms]",
-  },
-];
 
 const techCategoriesData = [
   {
@@ -138,15 +94,6 @@ export default function HomePage() {
   const whyChooseUsImageRef = useRef<HTMLDivElement>(null);
   const whyChooseUsTextRef = useRef<HTMLDivElement>(null);
 
-  const serviceCard1Ref = useRef<HTMLDivElement>(null);
-  const serviceCard2Ref = useRef<HTMLDivElement>(null);
-  const serviceCard3Ref = useRef<HTMLDivElement>(null);
-  const serviceCard4Ref = useRef<HTMLDivElement>(null);
-  const [isServiceCard1Visible, setIsServiceCard1Visible] = useState(false);
-  const [isServiceCard2Visible, setIsServiceCard2Visible] = useState(false);
-  const [isServiceCard3Visible, setIsServiceCard3Visible] = useState(false);
-  const [isServiceCard4Visible, setIsServiceCard4Visible] = useState(false);
-
   const techStackSectionRef = useRef<HTMLDivElement>(null);
   const [isTechStackSectionVisible, setIsTechStackSectionVisible] = useState(false);
 
@@ -162,10 +109,6 @@ export default function HomePage() {
   const refsAndSetters = [
     { ref: whyChooseUsImageRef, setter: setIsWhyChooseUsImageVisible, threshold: 0.2 },
     { ref: whyChooseUsTextRef, setter: setIsWhyChooseUsTextVisible, threshold: 0.2 },
-    { ref: serviceCard1Ref, setter: setIsServiceCard1Visible },
-    { ref: serviceCard2Ref, setter: setIsServiceCard2Visible },
-    { ref: serviceCard3Ref, setter: setIsServiceCard3Visible },
-    { ref: serviceCard4Ref, setter: setIsServiceCard4Visible },
     { ref: techStackSectionRef, setter: setIsTechStackSectionVisible },
     { ref: leadershipSectionRef, setter: setIsLeadershipSectionVisible },
     { ref: combinedSectionRef, setter: setIsCombinedSectionVisible, threshold: 0.1 },
@@ -242,47 +185,6 @@ export default function HomePage() {
             <Button asChild variant="secondary" size="lg" className="text-secondary-foreground hover:bg-secondary/90">
               <Link href="/contact">Request a Demo</Link>
             </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Overview Section */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-4">Service Highlights</h2>
-          <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-12">
-            Discover how our expertise in QA, Development, Data Analytics, and DevOps can transform your business.
-          </p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {serviceHighlights.map((service, index) => (
-              <div
-                key={index}
-                ref={
-                  index === 0 ? serviceCard1Ref :
-                  index === 1 ? serviceCard2Ref :
-                  index === 2 ? serviceCard3Ref : serviceCard4Ref
-                }
-                className={cn(
-                  "transition-all transform duration-700 ease-out",
-                  service.delay,
-                  (
-                    index === 0 ? isServiceCard1Visible :
-                    index === 1 ? isServiceCard2Visible :
-                    index === 2 ? isServiceCard3Visible : isServiceCard4Visible
-                  ) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-                  "h-full"
-                )}
-              >
-                <CardComponent
-                  title={service.title}
-                  description={service.description}
-                  icon={service.icon}
-                  link={service.link}
-                  linkText={service.linkText}
-                  className="transition-all duration-300 ease-in-out hover:scale-105 hover:-translate-y-1 hover:shadow-xl h-full"
-                />
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -460,3 +362,5 @@ export default function HomePage() {
     </>
   );
 }
+
+    
