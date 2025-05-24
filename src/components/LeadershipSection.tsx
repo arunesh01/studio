@@ -83,7 +83,7 @@ export function LeadershipSection() {
       title: 'Founder & CEO',
       bio: 'Arunesh is a visionary leader with over 15 years of experience in the tech industry, passionate about driving innovation and helping businesses thrive through technology. His expertise spans across software development, strategic planning, and team building.',
       imageURL: 'https://placehold.co/400x400.png',
-      imageHint: 'ceo portrait',
+      imageHint: 'man mountain', // Updated hint based on provided image
       skills: ['Strategic Planning', 'Software Architecture', 'Team Leadership', 'Product Management'],
       linkedinURL: '#',
     },
