@@ -9,13 +9,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import {
   Workflow, Container, Cloud, FileCode, Gauge, ShieldCheck,
   TestTube2, Bot, Activity, ClipboardCheck as ClipboardCheckIcon,
-  Code2 as Code2Icon, Smartphone, Database, Users, ServerCog, // Added ServerCog here
+  Code2 as Code2Icon, Smartphone, Database, Users, ServerCog,
   Brain, Palette, LineChart, BarChart3 as BarChart3Icon
 } from "lucide-react";
 
@@ -38,7 +37,7 @@ interface TechnologyGroup {
 interface Service {
   id: string;
   title: string;
-  iconPlaceholder: { src: string; alt: string; hint: string };
+  icon: React.ReactNode; // Changed from iconPlaceholder
   description: string;
   technologyGroups: TechnologyGroup[];
 }
@@ -47,7 +46,7 @@ const services: Service[] = [
   {
     id: "qa",
     title: "Quality Assurance (QA)",
-    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Quality Assurance Process GIF for TechnoNspace", hint: "QA process GIF" },
+    icon: <ClipboardCheckIcon size={36} className="text-primary" />, // Using Lucide icon
     description: "Ensuring product quality through rigorous manual and automated testing, performance testing, and innovative AI-driven QA solutions. We guarantee your applications meet the highest standards of reliability and user satisfaction.",
     technologyGroups: [
       {
@@ -96,7 +95,7 @@ const services: Service[] = [
   {
     id: "development",
     title: "Development Services",
-    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Software Development Lifecycle GIF for TechnoNspace", hint: "dev cycle GIF" },
+    icon: <Code2Icon size={36} className="text-primary" />, // Using Lucide icon
     description: "Building scalable, performant, and maintainable web and mobile applications. Our expertise covers custom software development, and robust CRM/ERP solutions tailored to your specific business needs and growth objectives.",
     technologyGroups: [
       {
@@ -157,7 +156,7 @@ const services: Service[] = [
   {
     id: "data-analytics",
     title: "Data Analytics & BI",
-    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Data Insights GIF for TechnoNspace", hint: "analytics GIF" },
+    icon: <BarChart3Icon size={36} className="text-primary" />, // Using Lucide icon
     description: "Transforming raw data into strategic assets. We offer expertise in data visualization, predictive analytics, and comprehensive business intelligence solutions to unlock actionable insights and drive informed decision-making.",
     technologyGroups: [
       {
@@ -209,7 +208,7 @@ const services: Service[] = [
   {
     id: "devops",
     title: "DevOps & Cloud Solutions",
-    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "DevOps Automation GIF for TechnoNspace", hint: "automation GIF" },
+    icon: <ServerCog size={36} className="text-primary" />, // Using Lucide icon
     description: "Streamlining development pipelines and enhancing operational efficiency. Our DevOps services include continuous integration/deployment (CI/CD), cloud infrastructure management, and automation to accelerate your delivery cycles and ensure system reliability.",
     technologyGroups: [
       {
@@ -297,14 +296,9 @@ export default function ServicesPage() {
             <Card id={service.id} className="shadow-lg hover:shadow-xl transition-shadow duration-300 scroll-mt-20 bg-card">
               <AccordionTrigger className="p-6 hover:no-underline">
                 <div className="flex items-center gap-4 w-full">
-                   <Image
-                    src={service.iconPlaceholder.src}
-                    alt={service.iconPlaceholder.alt}
-                    width={64}
-                    height={64}
-                    data-ai-hint={service.iconPlaceholder.hint}
-                    className="rounded-md"
-                  />
+                   <div className="h-10 w-10 flex items-center justify-center"> {/* Wrapper for icon sizing */}
+                    {service.icon}
+                   </div>
                   <CardTitle className="text-2xl leading-tight text-left">{service.title}</CardTitle>
                 </div>
               </AccordionTrigger>
@@ -354,4 +348,3 @@ export default function ServicesPage() {
     </div>
   );
 }
-    
