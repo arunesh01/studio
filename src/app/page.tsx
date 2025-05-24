@@ -391,7 +391,7 @@ export default function HomePage() {
               </div>
               <Card className="shadow-xl bg-card">
                 <CardHeader>
-                  <CardTitle>Key Performance Indicators (Sample)</CardTitle>
+                  <CardTitle>Key Performance Indicators</CardTitle>
                   <CardDescription>Illustrative data showing typical project outcomes.</CardDescription>
                 </CardHeader>
                 <CardContent>
