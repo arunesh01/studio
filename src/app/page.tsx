@@ -4,7 +4,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, BarChartHorizontalBig, MapPinned, Users, Settings, Sparkles, Workflow, BarChart3, TestTube2, Activity, Smartphone, ClipboardCheck, Code2 as Code2Icon, ServerCog, Container, Cloud, FileCode, Gauge, ShieldCheck, Brain, Palette, Database, CloudCog, TrendingUp, Target, UserCheck, ListChecks } from "lucide-react";
+import { CheckCircle, BarChartHorizontalBig, MapPinned, Users, Settings, Sparkles, Workflow, BarChart3, TestTube2, Activity, Smartphone, CloudCog, TrendingUp, Target, UserCheck, ListChecks, Brain, Palette, Database, Container, Cloud, FileCode, Gauge, ShieldCheck, ClipboardCheck as ClipboardCheckIcon, Code2 as Code2Icon, ServerCog as ServerCogIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
@@ -36,7 +36,7 @@ const techCategoriesData: TechCategory[] = [
       },
       {
         groupTitle: "Management & Methodology",
-        groupIcon: <ClipboardCheck className="h-5 w-5 text-primary" />,
+        groupIcon: <ClipboardCheckIcon className="h-5 w-5 text-primary" />,
         tools: [ { name: "TestRail for Test Case Management" }, { name: "Jira with Xray or Zephyr" }, { name: "AI in Testing (Test Data Generation, Anomaly Detection)" }, { name: "Cucumber/Gherkin for BDD" } ],
       }
     ],
@@ -52,7 +52,7 @@ const techCategoriesData: TechCategory[] = [
       },
       {
         groupTitle: "Backend Technologies",
-        groupIcon: <ServerCog className="h-5 w-5 text-primary" />,
+        groupIcon: <ServerCogIcon className="h-5 w-5 text-primary" />,
         tools: [ { name: "Node.js (Express.js, NestJS)" }, { name: "Python (Django, Flask, FastAPI)" }, { name: "Java (Spring Boot, Quarkus)" }, { name: ".NET (ASP.NET Core)" }, { name: "GraphQL" }, { name: "REST APIs" } ],
       },
       {
@@ -290,7 +290,7 @@ export default function HomePage() {
             isWhyChooseUsTextVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           )}
         >
-          <div className="grid md:grid-cols-2 gap-12 items-start">
+          <div className="grid md:grid-cols-2 gap-12 items-start"> {/* Changed to items-start */}
             {/* Column 1: Heading and Slogan */}
             <div className="space-y-4 text-center md:text-left">
               <h2 className="text-3xl font-bold text-foreground">Why Partner with TechnoNspace?</h2>
@@ -346,12 +346,12 @@ export default function HomePage() {
       <section
         ref={combinedSectionRef}
         className={cn(
-          "py-16 bg-secondary transition-all transform duration-700 ease-out",
+          "py-16 bg-secondary transition-all transform duration-700 ease-out", /* Changed to bg-secondary */
           isCombinedSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         )}
       >
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-start">
+          <div className="grid md:grid-cols-2 gap-12 items-start"> {/* Changed to items-start */}
             {/* Column 1: Global Reach */}
             <div className="space-y-6">
               <div className="text-center md:text-left">
@@ -422,7 +422,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA to Contact Section */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-background"> {/* Changed to bg-background */}
         <div
           ref={ctaSectionRef}
           className={cn(
@@ -452,3 +452,4 @@ export default function HomePage() {
 
 
     
+
