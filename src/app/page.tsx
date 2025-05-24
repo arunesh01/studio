@@ -4,17 +4,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, BarChartHorizontalBig, MapPinned, Briefcase, Users, Settings, Sparkles, Workflow, BarChart3, TestTube2, Activity, Smartphone, ClipboardCheck, Code2, ServerCog, Container, Cloud, FileCode, Gauge, ShieldCheck, Brain, Palette, Database } from "lucide-react";
+import { CheckCircle, BarChartHorizontalBig, MapPinned, Briefcase, Users, Settings, Sparkles, Workflow, BarChart3, TestTube2, Activity, Smartphone, ClipboardCheck, Code2, ServerCog, Container, Cloud, FileCode, Gauge, ShieldCheck, Brain, Palette, Database, CloudCog, TrendingUp, Target } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
-import { TechStackShowcase } from "@/components/TechStackShowcase";
+import { TechStackShowcase, type TechCategory } from "@/components/TechStackShowcase";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ChartContainer, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
 import type { ChartConfig } from "@/components/ui/chart";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip as RechartsTooltip, Cell } from "recharts";
 
-const techCategoriesData = [
+const techCategoriesData: TechCategory[] = [
   {
     categoryName: "Quality Assurance",
     description: "Ensuring robust application quality through comprehensive testing methodologies and advanced automation tools.",
@@ -166,6 +166,49 @@ const analyticsPreviewChartConfig = {
   },
 } satisfies ChartConfig;
 
+const coreTeamData = [
+  {
+    name: "Shreya Singh",
+    role: "Head of Human Resources",
+    subtitle: "Empowering people, shaping culture",
+    icon: <Users className="h-8 w-8 text-primary" />,
+    imageSrc: "https://placehold.co/200x200.png",
+    imageHint: "hr headshot",
+  },
+  {
+    name: "Omesh Singh",
+    role: "DevOps & Cloud Head",
+    subtitle: "Automating operations, ensuring scalability",
+    icon: <CloudCog className="h-8 w-8 text-primary" />,
+    imageSrc: "https://placehold.co/200x200.png",
+    imageHint: "devops headshot",
+  },
+  {
+    name: "Anjnesh Singh",
+    role: "Head of Sales",
+    subtitle: "Driving growth through customer success",
+    icon: <TrendingUp className="h-8 w-8 text-primary" />,
+    imageSrc: "https://placehold.co/200x200.png",
+    imageHint: "sales headshot",
+  },
+  {
+    name: "Aditya Singh",
+    role: "Head of Marketing & Finance",
+    subtitle: "Strategizing growth and financial insights",
+    icon: <Target className="h-8 w-8 text-primary" />,
+    imageSrc: "https://placehold.co/200x200.png",
+    imageHint: "marketing finance headshot",
+  },
+  {
+    name: "Anshuman Singh",
+    role: "Data Analytics Lead",
+    subtitle: "Turning data into actionable intelligence",
+    icon: <Brain className="h-8 w-8 text-primary" />,
+    imageSrc: "https://placehold.co/200x200.png",
+    imageHint: "data analytics headshot",
+  },
+];
+
 
 export default function HomePage() {
   const [isWhyChooseUsImageVisible, setIsWhyChooseUsImageVisible] = useState(false);
@@ -179,6 +222,9 @@ export default function HomePage() {
   const leadershipSectionRef = useRef<HTMLDivElement>(null);
   const [isLeadershipSectionVisible, setIsLeadershipSectionVisible] = useState(false);
 
+  const coreTeamSectionRef = useRef<HTMLDivElement>(null);
+  const [isCoreTeamSectionVisible, setIsCoreTeamSectionVisible] = useState(false);
+
   const combinedSectionRef = useRef<HTMLDivElement>(null);
   const [isCombinedSectionVisible, setIsCombinedSectionVisible] = useState(false);
   
@@ -190,6 +236,7 @@ export default function HomePage() {
     { ref: whyChooseUsTextRef, setter: setIsWhyChooseUsTextVisible, threshold: 0.2 },
     { ref: techStackSectionRef, setter: setIsTechStackSectionVisible },
     { ref: leadershipSectionRef, setter: setIsLeadershipSectionVisible },
+    { ref: coreTeamSectionRef, setter: setIsCoreTeamSectionVisible, threshold: 0.1 },
     { ref: combinedSectionRef, setter: setIsCombinedSectionVisible, threshold: 0.1 },
     { ref: ctaSectionRef, setter: setIsCtaSectionVisible },
   ];
@@ -344,11 +391,51 @@ export default function HomePage() {
         <LeadershipSection />
       </div>
 
+      {/* Meet Our Core Team Section */}
+      <section
+        ref={coreTeamSectionRef}
+        className={cn(
+          "py-16 bg-background transition-all transform duration-700 ease-out",
+          isCoreTeamSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        )}
+      >
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-foreground mb-12">
+            Meet Our Core Team
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 justify-center">
+            {coreTeamData.map((member, index) => (
+              <Card
+                key={index}
+                className="flex flex-col items-center text-center p-6 shadow-md rounded-lg transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1 bg-card"
+              >
+                <div className="relative mb-4">
+                  <Image
+                    src={member.imageSrc}
+                    alt={`Photo of ${member.name}`}
+                    width={120}
+                    height={120}
+                    className="rounded-full object-cover border-4 border-primary/20"
+                    data-ai-hint={member.imageHint}
+                  />
+                  <div className="absolute -bottom-2 -right-2 bg-accent p-2 rounded-full shadow-md">
+                    {member.icon}
+                  </div>
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-1">{member.name}</h3>
+                <p className="text-primary font-medium text-sm mb-1">{member.role}</p>
+                <p className="text-xs text-muted-foreground">{member.subtitle}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Combined Global Reach & Analytics Preview Section */}
       <section
         ref={combinedSectionRef}
         className={cn(
-          "py-16 bg-background transition-all transform duration-700 ease-out",
+          "py-16 bg-secondary transition-all transform duration-700 ease-out",
           isCombinedSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         )}
       >
@@ -365,7 +452,7 @@ export default function HomePage() {
                   Visualizing our impact and client collaborations across the globe. We are dedicated to providing top-tier IT solutions to businesses worldwide.
                 </p>
               </div>
-              <div className="bg-muted p-4 rounded-lg shadow-md">
+              <div className="bg-card p-4 rounded-lg shadow-md">
                 <Image
                   src="https://placehold.co/800x400.png"
                   alt="World map graphic showing global client locations or service areas"
@@ -388,7 +475,7 @@ export default function HomePage() {
                   Get a glimpse of our powerful analytics capabilities. We transform data into actionable insights.
                 </p>
               </div>
-              <Card className="shadow-xl">
+              <Card className="shadow-xl bg-card">
                 <CardHeader>
                   <CardTitle>Key Performance Indicators (Sample)</CardTitle>
                   <CardDescription>Illustrative data showing typical project outcomes.</CardDescription>
@@ -406,8 +493,8 @@ export default function HomePage() {
                         />
                         <ChartLegend content={<ChartLegendContent />} />
                         <Bar dataKey="value" radius={5}>
-                           {analyticsPreviewData.map((entry, index) => (
-                             <Cell key={`cell-${index}`} fill={entry.fill} />
+                           {analyticsPreviewData.map((entry, index_chart) => (
+                             <Cell key={`cell-${index_chart}`} fill={entry.fill} />
                            ))}
                         </Bar>
                       </BarChart>
@@ -421,7 +508,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA to Contact Section */}
-      <section className="py-20 bg-secondary">
+      <section className="py-20 bg-background">
         <div
           ref={ctaSectionRef}
           className={cn(
