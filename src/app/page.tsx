@@ -18,42 +18,50 @@ import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Toolti
 const techCategoriesData = [
   {
     categoryName: "Quality Assurance",
+    description: "Ensuring robust application quality through comprehensive testing methodologies and advanced automation tools.",
     technologies: [
-      { name: "Selenium" }, { name: "Cypress" }, { name: "Playwright" },
-      { name: "Postman" }, { name: "REST Assured" }, { name: "JMeter" },
-      { name: "k6" }, { name: "TestRail" }, { name: "Jira Xray" },
-      { name: "AI in Testing" },
+      { name: "Selenium WebDriver & Grid" }, { name: "Cypress.io for E2E Testing" }, { name: "Playwright by Microsoft" },
+      { name: "Postman for API Testing" }, { name: "REST Assured (Java API Automation)" }, { name: "JMeter for Performance Testing" },
+      { name: "k6 for Load Testing" }, { name: "TestRail for Test Case Management" }, { name: "Jira with Xray or Zephyr" },
+      { name: "Appium for Mobile Automation" }, { name: "BrowserStack/Sauce Labs for Cross-Browser Testing" },
+      { name: "AI in Testing (Test Data Generation, Anomaly Detection)" }, { name: "Cucumber/Gherkin for BDD" },
     ],
   },
   {
     categoryName: "Development",
+    description: "Building scalable and performant web and mobile applications using modern frameworks and best practices.",
     technologies: [
-      { name: "React" }, { name: "Next.js" }, { name: "Angular" }, { name: "Vue.js" },
-      { name: "Node.js" }, { name: "Express.js" }, { name: "NestJS" },
-      { name: "Python" }, { name: "Django" }, { name: "Flask" },
-      { name: "Java" }, { name: "Spring Boot" }, { name: ".NET" },
-      { name: "React Native" }, { name: "Flutter" }, { name: "Swift" }, { name: "Kotlin" },
-      { name: "PostgreSQL" }, { name: "MongoDB" }, { name: "Firebase" }, { name: "GraphQL" },
+      { name: "React.js, Next.js, Remix" }, { name: "Angular, Vue.js" },
+      { name: "Node.js (Express.js, NestJS)" },
+      { name: "Python (Django, Flask, FastAPI)" },
+      { name: "Java (Spring Boot, Quarkus)" }, { name: ".NET (ASP.NET Core)" },
+      { name: "React Native, Flutter for Cross-Platform Mobile" }, { name: "Swift (iOS), Kotlin (Android) for Native Mobile" },
+      { name: "PostgreSQL, MySQL, SQL Server" }, { name: "MongoDB, Cassandra, DynamoDB (NoSQL)" }, { name: "Firebase Realtime Database & Firestore" }, { name: "GraphQL, REST APIs" },
+      { name: "TypeScript, JavaScript (ESNext)" }, { name: "HTML5, CSS3, Sass/LESS" },
     ],
   },
   {
     categoryName: "Data Analytics & BI",
+    description: "Transforming complex data into actionable insights with powerful analytics, visualization, and BI tools.",
     technologies: [
-      { name: "Python (Pandas, NumPy)" }, { name: "Apache Spark" }, { name: "Airflow" },
-      { name: "Tableau" }, { name: "Power BI" }, { name: "Looker" }, { name: "Grafana" },
-      { name: "Google BigQuery" }, { name: "AWS Redshift" }, { name: "Snowflake" },
-      { name: "SQL" }, { name: "Scikit-learn" }, { name: "TensorFlow" },
+      { name: "Python (Pandas, NumPy, SciPy, Scikit-learn)" }, { name: "R Language for Statistical Computing" },
+      { name: "Apache Spark, Apache Hadoop" }, { name: "Apache Airflow for Workflow Orchestration" },
+      { name: "Tableau, Power BI, Looker" }, { name: "Google Data Studio, Grafana" },
+      { name: "Google BigQuery, AWS Redshift, Snowflake" }, { name: "Azure Synapse Analytics" },
+      { name: "SQL (Advanced Querying, Window Functions)" }, { name: "TensorFlow, PyTorch for Deep Learning" },
+      { name: "ETL/ELT Tools (Talend, Informatica, Fivetran)" }, { name: "Data Warehousing & Data Lakes" },
     ],
   },
   {
     categoryName: "DevOps & Cloud Solutions",
+    description: "Streamlining development lifecycle and infrastructure management with CI/CD, containerization, and cloud-native solutions.",
     technologies: [
-      { name: "Docker" }, { name: "Kubernetes" }, { name: "Helm" },
-      { name: "Jenkins" }, { name: "GitHub Actions" }, { name: "GitLab CI" },
-      { name: "AWS" }, { name: "Azure" }, { name: "Google Cloud (GCP)" },
-      { name: "Terraform" }, { name: "Ansible" },
-      { name: "Prometheus" }, { name: "Grafana (Monitoring)" }, { name: "ELK Stack" }, { name: "Datadog" },
-      { name: "DevSecOps" },
+      { name: "Docker, Docker Swarm" }, { name: "Kubernetes (EKS, GKE, AKS)" }, { name: "Helm for Kubernetes Package Management" },
+      { name: "Jenkins, GitLab CI/CD, GitHub Actions" }, { name: "Azure DevOps, CircleCI" },
+      { name: "AWS (EC2, S3, Lambda, RDS, VPC, IAM, CloudFormation)" }, { name: "Azure (VMs, Blob Storage, Functions, SQL Database, VNet)" }, { name: "Google Cloud Platform (GCP - Compute Engine, Cloud Storage, Cloud Functions)" },
+      { name: "Terraform, Ansible, Pulumi (Infrastructure as Code)" },
+      { name: "Prometheus, Grafana for Monitoring" }, { name: "ELK Stack (Elasticsearch, Logstash, Kibana), Splunk, Datadog" },
+      { name: "Git, SVN for Version Control" }, { name: "DevSecOps Practices & Tools (SonarQube, Trivy)" }, { name: "Serverless Computing (AWS Lambda, Azure Functions)"},
     ],
   },
 ];
@@ -102,7 +110,7 @@ export default function HomePage() {
 
   const combinedSectionRef = useRef<HTMLDivElement>(null);
   const [isCombinedSectionVisible, setIsCombinedSectionVisible] = useState(false);
-
+  
   const ctaSectionRef = useRef<HTMLDivElement>(null);
   const [isCtaSectionVisible, setIsCtaSectionVisible] = useState(false);
 
@@ -362,5 +370,3 @@ export default function HomePage() {
     </>
   );
 }
-
-    
