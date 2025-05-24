@@ -4,7 +4,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, BarChartHorizontalBig, MapPinned, Users, Settings, Sparkles, Workflow, BarChart3, TestTube2, Activity, Smartphone, ClipboardCheck, Code2 as Code2Icon, ServerCog, Container, Cloud, FileCode, Gauge, ShieldCheck, Brain, Palette, Database, CloudCog, TrendingUp, Target, UserCheck, ListChecks } from "lucide-react"; // Added UserCheck
+import { CheckCircle, BarChartHorizontalBig, MapPinned, Users, Settings, Sparkles, Workflow, BarChart3, TestTube2, Activity, Smartphone, ClipboardCheck, Code2 as Code2Icon, ServerCog, Container, Cloud, FileCode, Gauge, ShieldCheck, Brain, Palette, Database, CloudCog, TrendingUp, Target, UserCheck, ListChecks } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
@@ -48,22 +48,22 @@ const techCategoriesData: TechCategory[] = [
       {
         groupTitle: "Frontend Frameworks",
         groupIcon: <Code2Icon className="h-5 w-5 text-primary" />,
-        tools: [ { name: "React.js, Next.js, Remix" }, { name: "Angular, Vue.js" }, { name: "TypeScript, JavaScript (ESNext)" }, { name: "HTML5, CSS3, Sass/LESS" } ],
+        tools: [ { name: "React.js" }, { name: "Next.js" }, { name: "Remix" }, { name: "Angular" }, { name: "Vue.js" }, { name: "TypeScript" }, { name: "JavaScript (ESNext)" }, { name: "HTML5" }, { name: "CSS3" }, { name: "Sass/LESS" } ],
       },
       {
         groupTitle: "Backend Technologies",
         groupIcon: <ServerCog className="h-5 w-5 text-primary" />,
-        tools: [ { name: "Node.js (Express.js, NestJS)" }, { name: "Python (Django, Flask, FastAPI)" }, { name: "Java (Spring Boot, Quarkus)" }, { name: ".NET (ASP.NET Core)" }, { name: "GraphQL, REST APIs" } ],
+        tools: [ { name: "Node.js (Express.js, NestJS)" }, { name: "Python (Django, Flask, FastAPI)" }, { name: "Java (Spring Boot, Quarkus)" }, { name: ".NET (ASP.NET Core)" }, { name: "GraphQL" }, { name: "REST APIs" } ],
       },
       {
         groupTitle: "Mobile Development",
         groupIcon: <Smartphone className="h-5 w-5 text-primary" />,
-        tools: [ { name: "React Native, Flutter for Cross-Platform Mobile" }, { name: "Swift (iOS), Kotlin (Android) for Native Mobile" } ],
+        tools: [ { name: "React Native" }, { name: "Flutter for Cross-Platform Mobile" }, { name: "Swift (iOS)" }, { name: "Kotlin (Android) for Native Mobile" } ],
       },
       {
         groupTitle: "Databases",
         groupIcon: <Database className="h-5 w-5 text-primary" />,
-        tools: [ { name: "PostgreSQL, MySQL, SQL Server" }, { name: "MongoDB, Cassandra, DynamoDB (NoSQL)" }, { name: "Firebase Realtime Database & Firestore" } ],
+        tools: [ { name: "PostgreSQL" }, { name: "MySQL" }, { name: "SQL Server" }, { name: "MongoDB" }, { name: "Cassandra" }, { name: "DynamoDB (NoSQL)" }, { name: "Firebase Realtime Database & Firestore" } ],
       }
     ],
   },
@@ -74,7 +74,7 @@ const techCategoriesData: TechCategory[] = [
       {
         groupTitle: "Data Processing & Analysis",
         groupIcon: <BarChart3 className="h-5 w-5 text-primary" />,
-        tools: [ { name: "Python (Pandas, NumPy, SciPy, Scikit-learn)" }, { name: "R Language for Statistical Computing" }, { name: "Apache Spark, Apache Hadoop" }, { name: "SQL (Advanced Querying, Window Functions)" } ],
+        tools: [ { name: "Python (Pandas, NumPy, SciPy, Scikit-learn)" }, { name: "R Language for Statistical Computing" }, { name: "Apache Spark" }, { name: "Apache Hadoop" }, { name: "SQL (Advanced Querying, Window Functions)" } ],
       },
       {
         groupTitle: "Workflow & ETL",
@@ -84,17 +84,17 @@ const techCategoriesData: TechCategory[] = [
       {
         groupTitle: "Visualization & BI Platforms",
         groupIcon: <Palette className="h-5 w-5 text-primary" />,
-        tools: [ { name: "Tableau, Power BI, Looker" }, { name: "Google Data Studio, Grafana" } ],
+        tools: [ { name: "Tableau" }, { name: "Power BI" }, { name: "Looker" }, { name: "Google Data Studio" }, { name: "Grafana" } ],
       },
       {
         groupTitle: "Data Warehousing & Big Data",
         groupIcon: <Database className="h-5 w-5 text-primary" />,
-        tools: [ { name: "Google BigQuery, AWS Redshift, Snowflake" }, { name: "Azure Synapse Analytics" }, { name: "Data Warehousing & Data Lakes" } ],
+        tools: [ { name: "Google BigQuery" }, { name: "AWS Redshift" }, { name: "Snowflake" }, { name: "Azure Synapse Analytics" }, { name: "Data Warehousing & Data Lakes" } ],
       },
       {
         groupTitle: "Machine Learning & AI",
         groupIcon: <Brain className="h-5 w-5 text-primary" />,
-        tools: [ { name: "TensorFlow, PyTorch for Deep Learning" } ],
+        tools: [ { name: "TensorFlow" }, { name: "PyTorch for Deep Learning" } ],
       }
     ],
   },
@@ -105,12 +105,12 @@ const techCategoriesData: TechCategory[] = [
       {
         groupTitle: "CI/CD & Automation",
         groupIcon: <Workflow className="h-5 w-5 text-primary" />,
-        tools: [ { name: "Jenkins, GitLab CI/CD, GitHub Actions" }, { name: "Azure DevOps, CircleCI" } ],
+        tools: [ { name: "Jenkins" }, { name: "GitLab CI/CD" }, { name: "GitHub Actions" }, { name: "Azure DevOps" }, { name: "CircleCI" } ],
       },
       {
         groupTitle: "Containerization & Orchestration",
         groupIcon: <Container className="h-5 w-5 text-primary" />,
-        tools: [ { name: "Docker, Docker Swarm" }, { name: "Kubernetes (EKS, GKE, AKS)" }, { name: "Helm for Kubernetes Package Management" } ],
+        tools: [ { name: "Docker" }, { name: "Docker Swarm" }, { name: "Kubernetes (EKS, GKE, AKS)" }, { name: "Helm for Kubernetes Package Management" } ],
       },
       {
         groupTitle: "Cloud Platforms",
@@ -120,17 +120,17 @@ const techCategoriesData: TechCategory[] = [
       {
         groupTitle: "Infrastructure as Code (IaC)",
         groupIcon: <FileCode className="h-5 w-5 text-primary" />,
-        tools: [ { name: "Terraform, Ansible, Pulumi (Infrastructure as Code)" } ],
+        tools: [ { name: "Terraform" }, { name: "Ansible" }, { name: "Pulumi (Infrastructure as Code)" } ],
       },
       {
         groupTitle: "Monitoring & Logging",
         groupIcon: <Gauge className="h-5 w-5 text-primary" />,
-        tools: [ { name: "Prometheus, Grafana for Monitoring" }, { name: "ELK Stack (Elasticsearch, Logstash, Kibana), Splunk, Datadog" } ],
+        tools: [ { name: "Prometheus" }, { name: "Grafana for Monitoring" }, { name: "ELK Stack (Elasticsearch, Logstash, Kibana)" }, { name: "Splunk" }, { name: "Datadog" } ],
       },
       {
         groupTitle: "Security & Version Control",
         groupIcon: <ShieldCheck className="h-5 w-5 text-primary" />,
-        tools: [ { name: "Git, SVN for Version Control" }, { name: "DevSecOps Practices & Tools (SonarQube, Trivy)" } ],
+        tools: [ { name: "Git" }, { name: "SVN for Version Control" }, { name: "DevSecOps Practices & Tools (SonarQube, Trivy)" } ],
       }
     ],
   },
@@ -297,7 +297,7 @@ export default function HomePage() {
             <p className="text-muted-foreground mb-10 text-lg">
               We are committed to your success. Our team of experts leverages the latest technologies and best practices to deliver solutions that make a real impact.
             </p>
-            <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-8 text-left">
+            <div className="grid grid-cols-1 gap-8 text-left">
               {whyChooseUsKeyPoints.map((point, index) => (
                 <div key={index} className="flex flex-col items-center md:items-start text-center md:text-left p-4 rounded-lg bg-card shadow-md hover:shadow-lg transition-shadow">
                   {point.icon}
@@ -434,4 +434,5 @@ export default function HomePage() {
     
 
     
+
 
