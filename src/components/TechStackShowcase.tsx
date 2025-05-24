@@ -4,21 +4,22 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import type { ReactNode } from "react";
 
 interface Technology {
   name: string;
 }
 
-interface TechnologyGroup {
+export interface TechnologyGroup {
   groupTitle: string;
-  groupIcon: React.ReactNode;
+  groupIcon: ReactNode;
   tools: Technology[];
 }
 
 export interface TechCategory {
   categoryName: string;
   description?: string;
-  iconPlaceholder?: { src: string; alt: string; hint: string }; // Optional overall icon for the category
+  iconPlaceholder?: { src: string; alt: string; hint: string };
   technologyGroups: TechnologyGroup[];
 }
 
@@ -31,7 +32,7 @@ export function TechStackShowcase({ techCategories }: TechStackShowcaseProps) {
     <section className="py-16 bg-background"> {/* Ensures solid background */}
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center text-foreground mb-4">
-          Technologies We Master
+          Technology We Master
         </h2>
         <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-12">
           Explore our core technology competencies and the tools we leverage to deliver cutting-edge solutions.
@@ -56,17 +57,17 @@ export function TechStackShowcase({ techCategories }: TechStackShowcaseProps) {
               <CardContent className="space-y-4 flex-grow">
                 {category.technologyGroups.map((group, groupIndex) => (
                   <div key={group.groupTitle}>
-                    {groupIndex > 0 && <Separator className="my-3" />}
-                    <h4 className="text-md font-semibold text-foreground mb-2.5 flex items-center">
+                    {groupIndex > 0 && <Separator className="my-4" />} {/* Increased spacing */}
+                    <h4 className="text-base font-semibold text-foreground mb-3 flex items-center"> {/* Increased font size */}
                       {group.groupIcon}
                       <span className="ml-2">{group.groupTitle}</span>
                     </h4>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-x-2 gap-y-2.5"> {/* Adjusted gap */}
                       {group.tools.map((tech) => (
                         <Badge
                           key={tech.name}
-                          variant="outline" // Changed from secondary to outline
-                          className="px-2.5 py-1 text-xs transition-all duration-200 ease-in-out hover:bg-accent hover:text-accent-foreground hover:scale-105 cursor-default"
+                          variant="outline"
+                          className="border-transparent px-3 py-1.5 text-sm text-muted-foreground hover:text-primary hover:font-semibold transition-colors duration-150 cursor-default"
                         >
                           {tech.name}
                         </Badge>
