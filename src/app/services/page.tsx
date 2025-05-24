@@ -2,7 +2,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"; // CardContent added
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
   Accordion,
   AccordionContent,
@@ -13,11 +13,10 @@ import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import {
-  ClipboardCheck, Code2, BarChart3, ServerCog, CheckCircle,
-  Workflow, Container, Cloud, FileCode, Gauge, ShieldCheck, // DevOps
-  TestTube2, Bot, Activity, // QA (TestTube2 for testing, Bot for AI, Activity for performance)
-  Smartphone, Database, Users, // Development (Smartphone for mobile, Database, Users for CRM/ERP)
-  Brain, Palette, LineChart // Data Analytics (Brain for ML/Predictive, Palette for Visualization, LineChart for BI)
+  Workflow, Container, Cloud, FileCode, Gauge, ShieldCheck,
+  TestTube2, Bot, Activity, ClipboardCheck as ClipboardCheckIcon, // Renamed to avoid conflict with CheckCircle
+  Code2 as Code2Icon, Smartphone, Database, Users, // Renamed Code2 to avoid conflict
+  Brain, Palette, LineChart, BarChart3 as BarChart3Icon // Renamed BarChart3 to avoid conflict
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -28,7 +27,6 @@ export const metadata: Metadata = {
 
 interface Technology {
   name: string;
-  // icon?: React.ReactNode; // Optional: for individual tool icons later
 }
 
 interface TechnologyGroup {
@@ -49,7 +47,7 @@ const services: Service[] = [
   {
     id: "qa",
     title: "Quality Assurance (QA)",
-    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Quality Assurance icon", hint: "test report" },
+    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Quality Assurance Process GIF", hint: "QA process GIF" },
     description: "Ensuring product quality through rigorous manual and automated testing, performance testing, and innovative AI-driven QA solutions. We guarantee your applications meet the highest standards of reliability and user satisfaction.",
     technologyGroups: [
       {
@@ -85,7 +83,7 @@ const services: Service[] = [
       },
       {
         groupTitle: "Test Management & Reporting",
-        groupIcon: <ClipboardCheck className="h-5 w-5 text-primary mr-2" />,
+        groupIcon: <ClipboardCheckIcon className="h-5 w-5 text-primary mr-2" />,
         tools: [
           { name: "Jira (with Xray/Zephyr)" },
           { name: "TestRail" },
@@ -98,12 +96,12 @@ const services: Service[] = [
   {
     id: "development",
     title: "Development Services",
-    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Software Development icon", hint: "software architecture" },
+    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Software Development Lifecycle GIF", hint: "dev cycle GIF" },
     description: "Building scalable, performant, and maintainable web and mobile applications. Our expertise covers custom software development, and robust CRM/ERP solutions tailored to your specific business needs and growth objectives.",
     technologyGroups: [
       {
         groupTitle: "Frontend Development",
-        groupIcon: <Code2 className="h-5 w-5 text-primary mr-2" />,
+        groupIcon: <Code2Icon className="h-5 w-5 text-primary mr-2" />,
         tools: [
           { name: "React.js & Next.js" },
           { name: "Angular" },
@@ -159,12 +157,12 @@ const services: Service[] = [
   {
     id: "data-analytics",
     title: "Data Analytics & BI",
-    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Data Analytics icon", hint: "bi dashboard" },
+    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Data Insights GIF/Chart Animation", hint: "analytics GIF" },
     description: "Transforming raw data into strategic assets. We offer expertise in data visualization, predictive analytics, and comprehensive business intelligence solutions to unlock actionable insights and drive informed decision-making.",
     technologyGroups: [
       {
         groupTitle: "Data Processing & ETL",
-        groupIcon: <BarChart3 className="h-5 w-5 text-primary mr-2" />,
+        groupIcon: <BarChart3Icon className="h-5 w-5 text-primary mr-2" />,
         tools: [
           { name: "Python (Pandas, NumPy, Dask)" },
           { name: "Apache Spark" },
@@ -211,7 +209,7 @@ const services: Service[] = [
   {
     id: "devops",
     title: "DevOps & Cloud Solutions",
-    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "DevOps and Cloud icon", hint: "cloud automation" },
+    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "DevOps Automation GIF", hint: "automation GIF" },
     description: "Streamlining development pipelines and enhancing operational efficiency. Our DevOps services include continuous integration/deployment (CI/CD), cloud infrastructure management, and automation to accelerate your delivery cycles and ensure system reliability.",
     technologyGroups: [
       {
@@ -302,8 +300,8 @@ export default function ServicesPage() {
                    <Image
                     src={service.iconPlaceholder.src}
                     alt={service.iconPlaceholder.alt}
-                    width={56}
-                    height={56}
+                    width={64}
+                    height={64}
                     data-ai-hint={service.iconPlaceholder.hint}
                     className="rounded-md"
                   />
@@ -327,7 +325,7 @@ export default function ServicesPage() {
                           <Badge
                             key={tech.name}
                             variant="secondary"
-                            className="px-3 py-1 text-sm transition-all duration-200 ease-in-out hover:bg-primary/80 hover:text-primary-foreground hover:scale-105 cursor-default"
+                            className="px-3 py-1.5 text-sm transition-all duration-200 ease-in-out hover:bg-primary/80 hover:text-primary-foreground hover:scale-105 cursor-default"
                           >
                             {tech.name}
                           </Badge>
@@ -356,5 +354,4 @@ export default function ServicesPage() {
     </div>
   );
 }
-
     
