@@ -4,7 +4,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, BarChartHorizontalBig, MapPinned, Briefcase, Users, Settings, Sparkles, Workflow, BarChart3, TestTube2, Activity, Smartphone, ClipboardCheck, Code2, ServerCog, Container, Cloud, FileCode, Gauge, ShieldCheck, Brain, Palette, Database, CloudCog, TrendingUp, Target } from "lucide-react";
+import { CheckCircle, BarChartHorizontalBig, MapPinned, Users, Settings, Sparkles, Workflow, BarChart3, TestTube2, Activity, Smartphone, ClipboardCheck, Code2 as Code2Icon, ServerCog, Container, Cloud, FileCode, Gauge, ShieldCheck, Brain, Palette, Database, CloudCog, TrendingUp, Target, UserCheck, ListChecks } from "lucide-react"; // Added UserCheck
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
@@ -47,7 +47,7 @@ const techCategoriesData: TechCategory[] = [
     technologyGroups: [
       {
         groupTitle: "Frontend Frameworks",
-        groupIcon: <Code2 className="h-5 w-5 text-primary" />,
+        groupIcon: <Code2Icon className="h-5 w-5 text-primary" />,
         tools: [ { name: "React.js, Next.js, Remix" }, { name: "Angular, Vue.js" }, { name: "TypeScript, JavaScript (ESNext)" }, { name: "HTML5, CSS3, Sass/LESS" } ],
       },
       {
@@ -136,6 +136,24 @@ const techCategoriesData: TechCategory[] = [
   },
 ];
 
+const whyChooseUsKeyPoints = [
+  {
+    icon: <UserCheck className="h-8 w-8 text-primary mb-3" />,
+    title: "Expert Team",
+    description: "Certified professionals dedicated to your project."
+  },
+  {
+    icon: <Settings className="h-8 w-8 text-primary mb-3" />,
+    title: "Tailored Solutions",
+    description: "Custom strategies that fit your unique business needs."
+  },
+  {
+    icon: <TrendingUp className="h-8 w-8 text-primary mb-3" />,
+    title: "Proven Results",
+    description: "A track record of delivering successful outcomes for our clients."
+  }
+];
+
 
 const analyticsPreviewData = [
   { metric: "Efficiency Gain", value: 75, fill: "hsl(var(--chart-1))" },
@@ -168,9 +186,7 @@ const analyticsPreviewChartConfig = {
 
 
 export default function HomePage() {
-  const [isWhyChooseUsImageVisible, setIsWhyChooseUsImageVisible] = useState(false);
   const [isWhyChooseUsTextVisible, setIsWhyChooseUsTextVisible] = useState(false);
-  const whyChooseUsImageRef = useRef<HTMLDivElement>(null);
   const whyChooseUsTextRef = useRef<HTMLDivElement>(null);
 
   const techStackSectionRef = useRef<HTMLDivElement>(null);
@@ -186,7 +202,6 @@ export default function HomePage() {
   const [isCtaSectionVisible, setIsCtaSectionVisible] = useState(false);
 
   const refsAndSetters = [
-    { ref: whyChooseUsImageRef, setter: setIsWhyChooseUsImageVisible, threshold: 0.2 },
     { ref: whyChooseUsTextRef, setter: setIsWhyChooseUsTextVisible, threshold: 0.2 },
     { ref: techStackSectionRef, setter: setIsTechStackSectionVisible },
     { ref: leadershipSectionRef, setter: setIsLeadershipSectionVisible },
@@ -246,7 +261,7 @@ export default function HomePage() {
           layout="fill"
           objectFit="cover"
           className="absolute inset-0 z-0 opacity-20"
-          data-ai-hint="tech abstract"
+          data-ai-hint="tech background"
           priority
         />
         <div className="absolute inset-0 bg-black/30 z-0"></div>
@@ -271,52 +286,25 @@ export default function HomePage() {
       {/* Why Choose Us Section */}
       <section className="py-16 bg-secondary overflow-x-hidden">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center gap-12">
-            <div
-              ref={whyChooseUsImageRef}
-              className={cn(
-                "md:w-1/2 transition-all duration-700 ease-out transform",
-                isWhyChooseUsImageVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
-              )}
-            >
-              <Image
-                src="https://placehold.co/600x400.png"
-                alt="TechnoNspace team collaborating on a technical project"
-                width={600}
-                height={400}
-                className="rounded-lg shadow-xl"
-                data-ai-hint="tech collaboration"
-              />
-            </div>
-            <div
-              ref={whyChooseUsTextRef}
-              className={cn(
-                "md:w-1/2 transition-all duration-700 ease-out transform",
-                isWhyChooseUsTextVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
-              )}
-            >
-              <h2 className="text-3xl font-bold text-foreground mb-6">Why Partner with TechnoNspace?</h2>
-              <p className="text-muted-foreground mb-6">
-                We are committed to your success. Our team of experts leverages the latest technologies and best practices to deliver solutions that make a real impact.
-              </p>
-              <ul className="space-y-3">
-                <li className="flex items-start">
-                  <CheckCircle className="h-6 w-6 text-primary mr-3 mt-1 shrink-0" />
-                  <span><strong>Expert Team:</strong> Certified professionals dedicated to your project.</span>
-                </li>
-                <li className="flex items-start">
-                  <CheckCircle className="h-6 w-6 text-primary mr-3 mt-1 shrink-0" />
-                  <span><strong>Tailored Solutions:</strong> Custom strategies that fit your unique business needs.</span>
-                </li>
-                <li className="flex items-start">
-                  <CheckCircle className="h-6 w-6 text-primary mr-3 mt-1 shrink-0" />
-                  <span><strong>Proven Results:</strong> A track record of delivering successful outcomes for our clients.</span>
-                </li>
-                 <li className="flex items-start">
-                  <CheckCircle className="h-6 w-6 text-primary mr-3 mt-1 shrink-0" />
-                  <span><strong>24/7 Support:</strong> Reliable assistance whenever you need it.</span>
-                </li>
-              </ul>
+          <div
+            ref={whyChooseUsTextRef}
+            className={cn(
+              "transition-all duration-700 ease-out transform text-center max-w-3xl mx-auto",
+              isWhyChooseUsTextVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            )}
+          >
+            <h2 className="text-3xl font-bold text-foreground mb-6">Why Partner with TechnoNspace?</h2>
+            <p className="text-muted-foreground mb-10 text-lg">
+              We are committed to your success. Our team of experts leverages the latest technologies and best practices to deliver solutions that make a real impact.
+            </p>
+            <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-8 text-left">
+              {whyChooseUsKeyPoints.map((point, index) => (
+                <div key={index} className="flex flex-col items-center md:items-start text-center md:text-left p-4 rounded-lg bg-card shadow-md hover:shadow-lg transition-shadow">
+                  {point.icon}
+                  <h3 className="text-xl font-semibold text-foreground mt-2 mb-1">{point.title}</h3>
+                  <p className="text-muted-foreground text-sm">{point.description}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -446,3 +434,4 @@ export default function HomePage() {
     
 
     
+
