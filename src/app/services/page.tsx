@@ -14,9 +14,9 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import {
   Workflow, Container, Cloud, FileCode, Gauge, ShieldCheck,
-  TestTube2, Bot, Activity, ClipboardCheck as ClipboardCheckIcon, // Renamed to avoid conflict with CheckCircle
-  Code2 as Code2Icon, Smartphone, Database, Users, // Renamed Code2 to avoid conflict
-  Brain, Palette, LineChart, BarChart3 as BarChart3Icon // Renamed BarChart3 to avoid conflict
+  TestTube2, Bot, Activity, ClipboardCheck as ClipboardCheckIcon,
+  Code2 as Code2Icon, Smartphone, Database, Users, ServerCog, // Added ServerCog here
+  Brain, Palette, LineChart, BarChart3 as BarChart3Icon
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -47,7 +47,7 @@ const services: Service[] = [
   {
     id: "qa",
     title: "Quality Assurance (QA)",
-    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Quality Assurance Process GIF", hint: "QA process GIF" },
+    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Quality Assurance Process GIF for TechnoNspace", hint: "QA process GIF" },
     description: "Ensuring product quality through rigorous manual and automated testing, performance testing, and innovative AI-driven QA solutions. We guarantee your applications meet the highest standards of reliability and user satisfaction.",
     technologyGroups: [
       {
@@ -96,7 +96,7 @@ const services: Service[] = [
   {
     id: "development",
     title: "Development Services",
-    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Software Development Lifecycle GIF", hint: "dev cycle GIF" },
+    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Software Development Lifecycle GIF for TechnoNspace", hint: "dev cycle GIF" },
     description: "Building scalable, performant, and maintainable web and mobile applications. Our expertise covers custom software development, and robust CRM/ERP solutions tailored to your specific business needs and growth objectives.",
     technologyGroups: [
       {
@@ -157,7 +157,7 @@ const services: Service[] = [
   {
     id: "data-analytics",
     title: "Data Analytics & BI",
-    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Data Insights GIF/Chart Animation", hint: "analytics GIF" },
+    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "Data Insights GIF for TechnoNspace", hint: "analytics GIF" },
     description: "Transforming raw data into strategic assets. We offer expertise in data visualization, predictive analytics, and comprehensive business intelligence solutions to unlock actionable insights and drive informed decision-making.",
     technologyGroups: [
       {
@@ -209,7 +209,7 @@ const services: Service[] = [
   {
     id: "devops",
     title: "DevOps & Cloud Solutions",
-    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "DevOps Automation GIF", hint: "automation GIF" },
+    iconPlaceholder: { src: "https://placehold.co/64x64.png", alt: "DevOps Automation GIF for TechnoNspace", hint: "automation GIF" },
     description: "Streamlining development pipelines and enhancing operational efficiency. Our DevOps services include continuous integration/deployment (CI/CD), cloud infrastructure management, and automation to accelerate your delivery cycles and ensure system reliability.",
     technologyGroups: [
       {
