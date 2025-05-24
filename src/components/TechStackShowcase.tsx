@@ -1,7 +1,8 @@
 
 "use client";
 
-import { Badge } from "@/components/ui/badge"; // Import Badge component
+import { Badge } from "@/components/ui/badge";
+import { ListChecks } from "lucide-react"; // Import the ListChecks icon
 
 interface TechItem {
   name: string;
@@ -44,9 +45,12 @@ export function TechStackShowcase({ techCategories }: TechStackShowcaseProps) {
               )}
               {category.technologies && category.technologies.length > 0 && (
                 <div className="mt-auto pt-4 border-t border-border/50">
-                  <h4 className="text-sm font-semibold text-foreground mb-3">
-                    Key Technologies & Tools:
-                  </h4>
+                  <div className="flex items-center gap-1.5 mb-2"> {/* Changed h4 to div and added flex for icon */}
+                    <ListChecks className="h-4 w-4 text-accent" />
+                    <span className="text-sm font-semibold text-foreground">
+                      Key Technologies & Tools:
+                    </span>
+                  </div>
                   <div className="flex flex-wrap gap-2">
                     {category.technologies.map((tech) => (
                       <Badge key={tech.name} variant="secondary" className="text-xs">
