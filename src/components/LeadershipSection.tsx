@@ -78,9 +78,29 @@ export function LeadershipSection() {
 
   const getPlaceholderFounders = (): FounderProfile[] => [
     {
+      id: 'arunesh-singh-rathore',
+      name: 'Arunesh Singh Rathore',
+      title: 'Founder & Visionary',
+      bio: 'Arunesh drives the core vision of TechnoNspace, focusing on innovation and strategic direction. With a deep understanding of technology trends, he leads the company towards new frontiers.',
+      imageURL: 'https://placehold.co/400x400.png',
+      imageHint: 'founder visionary',
+      skills: ['Strategic Vision', 'Innovation Leadership', 'Technology Evangelism', 'Business Development'],
+      linkedinURL: '#',
+    },
+    {
+      id: 'rishi-tripathi',
+      name: 'Rishi Tripathi',
+      title: 'Co-Founder & Strategist',
+      bio: 'Rishi co-founded TechnoNspace with a focus on operational excellence and strategic growth. His expertise lies in translating vision into actionable plans and building high-performing teams.',
+      imageURL: 'https://placehold.co/400x400.png',
+      imageHint: 'cofounder strategist',
+      skills: ['Strategic Planning', 'Operational Management', 'Team Building', 'Market Analysis'],
+      linkedinURL: '#',
+    },
+    {
       id: 'placeholder-1',
       name: 'Alex Johnson',
-      title: 'Founder & CEO',
+      title: 'Chief Executive Officer',
       bio: 'Alex is a visionary leader with over 15 years of experience in the tech industry, passionate about driving innovation and helping businesses thrive through technology. His expertise spans across software development, strategic planning, and team building.',
       imageURL: 'https://placehold.co/400x400.png',
       imageHint: 'ceo headshot',
@@ -90,7 +110,7 @@ export function LeadershipSection() {
     {
       id: 'placeholder-2',
       name: 'Maria Garcia',
-      title: 'Co-Founder & CTO',
+      title: 'Chief Technology Officer',
       bio: 'Maria is a tech enthusiast and a problem-solver at heart. With a strong background in DevOps and cloud computing, she ensures our technical operations are efficient, scalable, and secure. Maria champions agile methodologies and cutting-edge solutions.',
       imageURL: 'https://placehold.co/400x400.png',
       imageHint: 'cto headshot',
@@ -159,7 +179,7 @@ export function LeadershipSection() {
         <h2 className="text-3xl font-bold text-center text-foreground mb-12">Meet Our Leadership</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
           {founders.map((founder) => (
-            <Card key={founder.id} className="flex flex-col shadow-xl overflow-hidden rounded-lg hover:shadow-2xl transition-shadow duration-300 group">
+            <Card key={founder.id} className="flex flex-col shadow-xl overflow-hidden rounded-lg hover:shadow-2xl transition-shadow duration-300 group bg-card">
               <div className="relative w-full h-72 md:h-80 lg:h-96">
                 <Image
                   src={founder.imageURL}
@@ -171,7 +191,7 @@ export function LeadershipSection() {
                 />
               </div>
               <CardHeader className="pt-6">
-                <CardTitle className="text-2xl font-semibold">{founder.name}</CardTitle>
+                <CardTitle className="text-2xl font-semibold text-foreground">{founder.name}</CardTitle>
                 <CardDescription className="text-primary font-medium text-base">{founder.title}</CardDescription>
               </CardHeader>
               <CardContent className="flex-grow space-y-4 pb-6">
@@ -202,3 +222,5 @@ export function LeadershipSection() {
     </section>
   );
 }
+
+    
