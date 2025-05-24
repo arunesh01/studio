@@ -1,4 +1,5 @@
 
+import * as React from 'react';
 import {
   Accordion,
   AccordionContent,
@@ -204,5 +205,3 @@ export default function AboutUsPage() {
     </div>
   );
 }
-
-    
