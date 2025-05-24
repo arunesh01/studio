@@ -1,13 +1,15 @@
 
 "use client";
 
-interface TechItem { // This interface is no longer directly used for rendering skills in this reverted version
+import { Badge } from "@/components/ui/badge"; // Import Badge component
+
+interface TechItem {
   name: string;
 }
 
 interface TechCategory {
   categoryName: string;
-  technologies: TechItem[]; // This will exist in the data but won't be used for popovers
+  technologies: TechItem[];
   description?: string;
 }
 
@@ -23,24 +25,37 @@ export function TechStackShowcase({ techCategories }: TechStackShowcaseProps) {
           Technologies We Master
         </h2>
         <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-12">
-          Explore the key technology categories we specialize in.
+          Explore the key technology categories we specialize in, and the tools we use.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           {techCategories.map((category) => (
             <div
               key={category.categoryName}
-              className="bg-card p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-default"
+              className="bg-card p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col"
             >
               <h3 className="text-xl font-semibold text-primary mb-3">
                 {category.categoryName}
               </h3>
               {category.description && (
-                <p className="text-sm text-muted-foreground min-h-[3rem] line-clamp-3">
+                <p className="text-sm text-muted-foreground mb-4">
                   {category.description}
                 </p>
               )}
-              {/* Popover for detailed skills is removed in this reverted version */}
+              {category.technologies && category.technologies.length > 0 && (
+                <div className="mt-auto pt-4 border-t border-border/50">
+                  <h4 className="text-sm font-semibold text-foreground mb-3">
+                    Key Technologies & Tools:
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {category.technologies.map((tech) => (
+                      <Badge key={tech.name} variant="secondary" className="text-xs">
+                        {tech.name}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
