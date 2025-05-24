@@ -5,12 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle } from "lucide-react";
 import Image from "next/image";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 
 export const metadata: Metadata = {
   title: "Our Core IT Services - QA, Development, Data Analytics, DevOps",
@@ -95,44 +89,48 @@ export default function ServicesPage() {
         </p>
       </header>
 
-      <Accordion type="single" collapsible className="w-full space-y-6 mb-16">
+      <div className="space-y-8 mb-16">
         {services.map((service) => (
-          <AccordionItem value={service.id} key={service.id} id={service.id} className="border-none">
-             <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col scroll-mt-20">
-                <AccordionTrigger className="p-6 hover:no-underline">
-                  <div className="flex items-center gap-4 w-full">
-                    <Image
-                        src={service.iconPlaceholder.src}
-                        alt={service.iconPlaceholder.alt}
-                        width={56} // Slightly larger for trigger
-                        height={56}
-                        data-ai-hint={service.iconPlaceholder.hint}
-                    />
-                    <CardTitle className="text-2xl leading-tight text-left">{service.title}</CardTitle>
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="px-6 pb-6">
-                  <p className="text-muted-foreground mb-6 text-base leading-relaxed">
-                    {service.description}
-                  </p>
-                  <div>
-                    <h4 className="font-semibold mb-3 text-md text-foreground">
-                      Key Skills & Technologies:
-                    </h4>
-                    <ul className="space-y-2">
-                      {service.skills.map((skill) => (
-                        <li key={skill} className="flex items-start text-sm">
-                          <CheckCircle className="h-4 w-4 text-accent mr-2 mt-0.5 shrink-0" />
-                          <span>{skill}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </AccordionContent>
-             </Card>
-          </AccordionItem>
+          <Card 
+            key={service.id} 
+            id={service.id} 
+            className="shadow-lg transition-all duration-300 group hover:shadow-xl scroll-mt-20"
+          >
+            <CardHeader className="cursor-pointer"> {/* Make header part of hover target zone */}
+              <div className="flex items-center gap-4">
+                <Image
+                    src={service.iconPlaceholder.src}
+                    alt={service.iconPlaceholder.alt}
+                    width={56}
+                    height={56}
+                    data-ai-hint={service.iconPlaceholder.hint}
+                    className="rounded-md"
+                />
+                <CardTitle className="text-2xl leading-tight">{service.title}</CardTitle>
+              </div>
+            </CardHeader>
+            {/* Content revealed on hover */}
+            <div className="px-6 pb-6 overflow-hidden max-h-0 opacity-0 group-hover:max-h-[1000px] group-hover:opacity-100 transition-all duration-700 ease-in-out">
+              <p className="text-muted-foreground mb-6 text-base leading-relaxed pt-4 border-t group-hover:border-border">
+                {service.description}
+              </p>
+              <div>
+                <h4 className="font-semibold mb-3 text-md text-foreground">
+                  Key Skills & Technologies:
+                </h4>
+                <ul className="space-y-2">
+                  {service.skills.map((skill) => (
+                    <li key={skill} className="flex items-start text-sm">
+                      <CheckCircle className="h-4 w-4 text-accent mr-2 mt-0.5 shrink-0" />
+                      <span>{skill}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </Card>
         ))}
-      </Accordion>
+      </div>
 
       <section className="text-center py-10 bg-secondary rounded-lg shadow-md">
         <h2 className="text-3xl font-bold text-foreground mb-4">

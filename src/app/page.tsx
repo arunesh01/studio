@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CardComponent } from "@/components/CardComponent";
-import { CheckCircle, BarChartHorizontalBig, MapPinned, Briefcase, Users, Settings, Sparkles, Workflow, BarChart3, Clock, ServerCog, ClipboardCheck, Code2 } from "lucide-react";
+import { CheckCircle, BarChartHorizontalBig, MapPinned } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
@@ -14,7 +14,6 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { ChartContainer, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
 import type { ChartConfig } from "@/components/ui/chart";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip as RechartsTooltip, Cell } from "recharts";
-// import { WorldClockDisplay } from "@/components/WorldClockDisplay";
 
 
 const serviceHighlights = [
@@ -22,7 +21,7 @@ const serviceHighlights = [
     title: "Quality Assurance (QA)",
     description: "Ensuring product excellence with AI-driven and automated testing solutions.",
     icon: <Image src="https://placehold.co/64x64.png" alt="Quality Assurance and Test Automation icon" width={48} height={48} data-ai-hint="test automation" />,
-    link: "/services#qa",
+    link: "/services#qa", // Points to the updated /services page
     linkText: "Explore QA Solutions",
     refHook: "serviceCard1Ref",
     visibleHook: "isServiceCard1Visible",
@@ -32,7 +31,7 @@ const serviceHighlights = [
     title: "Development Services",
     description: "Custom web, mobile, and CRM/ERP solutions for scalable growth.",
     icon: <Image src="https://placehold.co/64x64.png" alt="Software Development and Coding Screen icon" width={48} height={48} data-ai-hint="coding screen" />,
-    link: "/services#development",
+    link: "/services#development", // Points to the updated /services page
     linkText: "Discover Development",
     refHook: "serviceCard2Ref",
     visibleHook: "isServiceCard2Visible",
@@ -42,7 +41,7 @@ const serviceHighlights = [
     title: "Data Analytics & BI",
     description: "Actionable insights through data visualization and business intelligence.",
     icon: <Image src="https://placehold.co/64x64.png" alt="Data Analytics Dashboard icon" width={48} height={48} data-ai-hint="analytics dashboard" />,
-    link: "/services#data-analytics",
+    link: "/services#data-analytics", // Points to the updated /services page
     linkText: "Unlock Data Insights",
     refHook: "serviceCard3Ref",
     visibleHook: "isServiceCard3Visible",
@@ -52,7 +51,7 @@ const serviceHighlights = [
     title: "DevOps & Cloud Solutions",
     description: "Efficient development pipelines with CI/CD and cloud automation.",
     icon: <Image src="https://placehold.co/64x64.png" alt="DevOps CI/CD Pipeline icon" width={48} height={48} data-ai-hint="ci cd pipeline" />,
-    link: "/services#devops",
+    link: "/services#devops", // Points to the updated /services page
     linkText: "Optimize Your DevOps",
     refHook: "serviceCard4Ref",
     visibleHook: "isServiceCard4Visible",
@@ -151,9 +150,6 @@ export default function HomePage() {
   const techStackSectionRef = useRef<HTMLDivElement>(null);
   const [isTechStackSectionVisible, setIsTechStackSectionVisible] = useState(false);
 
-  // const worldClockSectionRef = useRef<HTMLDivElement>(null);
-  // const [isWorldClockSectionVisible, setIsWorldClockSectionVisible] = useState(false);
-
   const leadershipSectionRef = useRef<HTMLDivElement>(null);
   const [isLeadershipSectionVisible, setIsLeadershipSectionVisible] = useState(false);
 
@@ -171,7 +167,6 @@ export default function HomePage() {
     { ref: serviceCard3Ref, setter: setIsServiceCard3Visible },
     { ref: serviceCard4Ref, setter: setIsServiceCard4Visible },
     { ref: techStackSectionRef, setter: setIsTechStackSectionVisible },
-    // { ref: worldClockSectionRef, setter: setIsWorldClockSectionVisible, threshold: 0.1 },
     { ref: leadershipSectionRef, setter: setIsLeadershipSectionVisible },
     { ref: combinedSectionRef, setter: setIsCombinedSectionVisible, threshold: 0.1 },
     { ref: ctaSectionRef, setter: setIsCtaSectionVisible },
@@ -357,19 +352,6 @@ export default function HomePage() {
         <TechStackShowcase techCategories={techCategoriesData} />
       </div>
 
-      {/* World Clock Display Section - Removed, clocks moved to header */}
-      {/*
-      <section
-        ref={worldClockSectionRef}
-        className={cn(
-          "py-16 bg-muted transition-all transform duration-700 ease-out",
-          isWorldClockSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        )}
-      >
-        <WorldClockDisplay />
-      </section>
-      */}
-
       {/* Leadership Section */}
       <div
         ref={leadershipSectionRef}
@@ -478,4 +460,3 @@ export default function HomePage() {
     </>
   );
 }
-
