@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Briefcase, Building, Eye, Users } from "lucide-react"; // Removed Mail as it's not used
+import { Briefcase, Building, Eye, Users, CloudCog, TrendingUp, Target, Brain } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -17,6 +17,50 @@ export const metadata: Metadata = {
   description: "Learn more about TechnoNspace, our vision, company culture, our dedicated team, and career opportunities. Discover what drives our innovation in IT solutions.",
   keywords: ["TechnoNspace about", "company vision", "IT company culture", "TechnoNspace team", "IT careers", "job openings"],
 };
+
+const coreTeamData = [
+  {
+    name: "Shreya Singh",
+    role: "Head of Human Resources",
+    subtitle: "Empowering people, shaping culture",
+    icon: <Users className="h-8 w-8 text-primary" />, // Re-using Users icon for HR
+    imageSrc: "https://placehold.co/200x200.png",
+    imageHint: "hr headshot",
+  },
+  {
+    name: "Omesh Singh",
+    role: "DevOps & Cloud Head",
+    subtitle: "Automating operations, ensuring scalability",
+    icon: <CloudCog className="h-8 w-8 text-primary" />,
+    imageSrc: "https://placehold.co/200x200.png",
+    imageHint: "devops headshot",
+  },
+  {
+    name: "Anjnesh Singh",
+    role: "Head of Sales",
+    subtitle: "Driving growth through customer success",
+    icon: <TrendingUp className="h-8 w-8 text-primary" />,
+    imageSrc: "https://placehold.co/200x200.png",
+    imageHint: "sales headshot",
+  },
+  {
+    name: "Aditya Singh",
+    role: "Head of Marketing & Finance",
+    subtitle: "Strategizing growth and financial insights",
+    icon: <Target className="h-8 w-8 text-primary" />,
+    imageSrc: "https://placehold.co/200x200.png",
+    imageHint: "marketing finance headshot",
+  },
+  {
+    name: "Anshuman Singh",
+    role: "Data Analytics Lead",
+    subtitle: "Turning data into actionable intelligence",
+    icon: <Brain className="h-8 w-8 text-primary" />,
+    imageSrc: "https://placehold.co/200x200.png",
+    imageHint: "data analytics headshot",
+  },
+];
+
 
 const aboutSections = [
   {
@@ -64,11 +108,36 @@ const aboutSections = [
     title: "Our Team",
     icon: <Users className="h-8 w-8 text-primary" />,
     content: (
-       <div className="space-y-4 text-muted-foreground">
+       <div className="space-y-6 text-muted-foreground">
           <p>
-              Our team is composed of passionate, skilled, and dedicated professionals who are experts in their respective fields. We believe in the power of teamwork and continuous improvement. While detailed profiles are best viewed on our leadership section, know that every member of TechnoNspace is committed to delivering excellence.
+              Our team is composed of passionate, skilled, and dedicated professionals who are experts in their respective fields. We believe in the power of teamwork and continuous improvement.
           </p>
-          <p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+            {coreTeamData.map((member, index) => (
+              <Card
+                key={index}
+                className="flex flex-col items-center text-center p-6 shadow-md rounded-lg transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1 bg-card"
+              >
+                <div className="relative mb-4">
+                  <Image
+                    src={member.imageSrc}
+                    alt={`Photo of ${member.name}`}
+                    width={100} // Adjusted for accordion content
+                    height={100} // Adjusted for accordion content
+                    className="rounded-full object-cover border-4 border-primary/20"
+                    data-ai-hint={member.imageHint}
+                  />
+                  <div className="absolute -bottom-2 -right-2 bg-accent p-1.5 rounded-full shadow-md">
+                    {React.cloneElement(member.icon, { className: "h-6 w-6 text-primary"})}
+                  </div>
+                </div>
+                <h3 className="text-lg font-semibold text-foreground mb-1">{member.name}</h3>
+                <p className="text-primary font-medium text-xs mb-1">{member.role}</p>
+                <p className="text-xs text-muted-foreground">{member.subtitle}</p>
+              </Card>
+            ))}
+          </div>
+          <p className="mt-4">
               You can meet our founders on the <Link href="/#leadership-section" className="text-primary hover:underline">Homepage Leadership Section</Link>.
           </p>
           <Image
@@ -117,7 +186,7 @@ export default function AboutUsPage() {
         <Accordion type="single" collapsible className="w-full space-y-6">
           {aboutSections.map((section) => (
             <AccordionItem value={section.id} key={section.id} className="border-none">
-              <Card id={section.id} className="shadow-lg hover:shadow-xl transition-shadow duration-300 scroll-mt-20"> {/* Added scroll-mt-20 for better anchor scrolling */}
+              <Card id={section.id} className="shadow-lg hover:shadow-xl transition-shadow duration-300 scroll-mt-20">
                 <AccordionTrigger className="p-6 hover:no-underline">
                   <div className="flex items-center gap-4 w-full">
                     {section.icon}
@@ -135,3 +204,5 @@ export default function AboutUsPage() {
     </div>
   );
 }
+
+    

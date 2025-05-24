@@ -166,49 +166,6 @@ const analyticsPreviewChartConfig = {
   },
 } satisfies ChartConfig;
 
-const coreTeamData = [
-  {
-    name: "Shreya Singh",
-    role: "Head of Human Resources",
-    subtitle: "Empowering people, shaping culture",
-    icon: <Users className="h-8 w-8 text-primary" />,
-    imageSrc: "https://placehold.co/200x200.png",
-    imageHint: "hr headshot",
-  },
-  {
-    name: "Omesh Singh",
-    role: "DevOps & Cloud Head",
-    subtitle: "Automating operations, ensuring scalability",
-    icon: <CloudCog className="h-8 w-8 text-primary" />,
-    imageSrc: "https://placehold.co/200x200.png",
-    imageHint: "devops headshot",
-  },
-  {
-    name: "Anjnesh Singh",
-    role: "Head of Sales",
-    subtitle: "Driving growth through customer success",
-    icon: <TrendingUp className="h-8 w-8 text-primary" />,
-    imageSrc: "https://placehold.co/200x200.png",
-    imageHint: "sales headshot",
-  },
-  {
-    name: "Aditya Singh",
-    role: "Head of Marketing & Finance",
-    subtitle: "Strategizing growth and financial insights",
-    icon: <Target className="h-8 w-8 text-primary" />,
-    imageSrc: "https://placehold.co/200x200.png",
-    imageHint: "marketing finance headshot",
-  },
-  {
-    name: "Anshuman Singh",
-    role: "Data Analytics Lead",
-    subtitle: "Turning data into actionable intelligence",
-    icon: <Brain className="h-8 w-8 text-primary" />,
-    imageSrc: "https://placehold.co/200x200.png",
-    imageHint: "data analytics headshot",
-  },
-];
-
 
 export default function HomePage() {
   const [isWhyChooseUsImageVisible, setIsWhyChooseUsImageVisible] = useState(false);
@@ -222,9 +179,6 @@ export default function HomePage() {
   const leadershipSectionRef = useRef<HTMLDivElement>(null);
   const [isLeadershipSectionVisible, setIsLeadershipSectionVisible] = useState(false);
 
-  const coreTeamSectionRef = useRef<HTMLDivElement>(null);
-  const [isCoreTeamSectionVisible, setIsCoreTeamSectionVisible] = useState(false);
-
   const combinedSectionRef = useRef<HTMLDivElement>(null);
   const [isCombinedSectionVisible, setIsCombinedSectionVisible] = useState(false);
   
@@ -236,7 +190,6 @@ export default function HomePage() {
     { ref: whyChooseUsTextRef, setter: setIsWhyChooseUsTextVisible, threshold: 0.2 },
     { ref: techStackSectionRef, setter: setIsTechStackSectionVisible },
     { ref: leadershipSectionRef, setter: setIsLeadershipSectionVisible },
-    { ref: coreTeamSectionRef, setter: setIsCoreTeamSectionVisible, threshold: 0.1 },
     { ref: combinedSectionRef, setter: setIsCombinedSectionVisible, threshold: 0.1 },
     { ref: ctaSectionRef, setter: setIsCtaSectionVisible },
   ];
@@ -382,6 +335,7 @@ export default function HomePage() {
 
       {/* Leadership Section */}
       <div
+        id="leadership-section"
         ref={leadershipSectionRef}
         className={cn(
           "transition-all transform duration-700 ease-out",
@@ -390,46 +344,6 @@ export default function HomePage() {
       >
         <LeadershipSection />
       </div>
-
-      {/* Meet Our Core Team Section */}
-      <section
-        ref={coreTeamSectionRef}
-        className={cn(
-          "py-16 bg-background transition-all transform duration-700 ease-out",
-          isCoreTeamSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-        )}
-      >
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-12">
-            Meet Our Core Team
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 justify-center">
-            {coreTeamData.map((member, index) => (
-              <Card
-                key={index}
-                className="flex flex-col items-center text-center p-6 shadow-md rounded-lg transition-all duration-300 ease-in-out hover:shadow-xl hover:-translate-y-1 bg-card"
-              >
-                <div className="relative mb-4">
-                  <Image
-                    src={member.imageSrc}
-                    alt={`Photo of ${member.name}`}
-                    width={120}
-                    height={120}
-                    className="rounded-full object-cover border-4 border-primary/20"
-                    data-ai-hint={member.imageHint}
-                  />
-                  <div className="absolute -bottom-2 -right-2 bg-accent p-2 rounded-full shadow-md">
-                    {member.icon}
-                  </div>
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-1">{member.name}</h3>
-                <p className="text-primary font-medium text-sm mb-1">{member.role}</p>
-                <p className="text-xs text-muted-foreground">{member.subtitle}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Combined Global Reach & Analytics Preview Section */}
       <section
@@ -528,5 +442,7 @@ export default function HomePage() {
     </>
   );
 }
+
+    
 
     
