@@ -72,4 +72,3 @@ export function TechStackShowcase({ techCategories }: TechStackShowcaseProps) {
     </section>
   );
 }
-
