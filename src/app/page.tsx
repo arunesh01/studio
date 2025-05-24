@@ -4,7 +4,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, BarChartHorizontalBig, MapPinned, Sparkles, Workflow, BarChart3 } from "lucide-react";
+import { CheckCircle, BarChartHorizontalBig, MapPinned, Briefcase, Users, Settings, Sparkles, Workflow, BarChart3, TestTube2, Activity, Smartphone, ClipboardCheck, Code2, ServerCog, Container, Cloud, FileCode, Gauge, ShieldCheck, Brain, Palette, Database } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LeadershipSection } from "@/components/LeadershipSection";
@@ -14,57 +14,128 @@ import { ChartContainer, ChartTooltipContent, ChartLegend, ChartLegendContent } 
 import type { ChartConfig } from "@/components/ui/chart";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip as RechartsTooltip, Cell } from "recharts";
 
-
 const techCategoriesData = [
   {
     categoryName: "Quality Assurance",
     description: "Ensuring robust application quality through comprehensive testing methodologies and advanced automation tools.",
-    technologies: [
-      { name: "Selenium WebDriver & Grid" }, { name: "Cypress.io for E2E Testing" }, { name: "Playwright by Microsoft" },
-      { name: "Postman for API Testing" }, { name: "REST Assured (Java API Automation)" }, { name: "JMeter for Performance Testing" },
-      { name: "k6 for Load Testing" }, { name: "TestRail for Test Case Management" }, { name: "Jira with Xray or Zephyr" },
-      { name: "Appium for Mobile Automation" }, { name: "BrowserStack/Sauce Labs for Cross-Browser Testing" },
-      { name: "AI in Testing (Test Data Generation, Anomaly Detection)" }, { name: "Cucumber/Gherkin for BDD" },
+    technologyGroups: [
+      {
+        groupTitle: "Web & E2E Automation",
+        groupIcon: <TestTube2 className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Selenium WebDriver & Grid" }, { name: "Cypress.io for E2E Testing" }, { name: "Playwright by Microsoft" } ],
+      },
+      {
+        groupTitle: "API & Performance Testing",
+        groupIcon: <Activity className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Postman for API Testing" }, { name: "REST Assured (Java API Automation)" }, { name: "JMeter for Performance Testing" }, { name: "k6 for Load Testing" } ],
+      },
+      {
+        groupTitle: "Mobile & Cross-Browser",
+        groupIcon: <Smartphone className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Appium for Mobile Automation" }, { name: "BrowserStack/Sauce Labs for Cross-Browser Testing" }],
+      },
+      {
+        groupTitle: "Management & Methodology",
+        groupIcon: <ClipboardCheck className="h-5 w-5 text-primary" />,
+        tools: [ { name: "TestRail for Test Case Management" }, { name: "Jira with Xray or Zephyr" }, { name: "AI in Testing (Test Data Generation, Anomaly Detection)" }, { name: "Cucumber/Gherkin for BDD" } ],
+      }
     ],
   },
   {
     categoryName: "Development",
     description: "Building scalable and performant web and mobile applications using modern frameworks and best practices.",
-    technologies: [
-      { name: "React.js, Next.js, Remix" }, { name: "Angular, Vue.js" },
-      { name: "Node.js (Express.js, NestJS)" },
-      { name: "Python (Django, Flask, FastAPI)" },
-      { name: "Java (Spring Boot, Quarkus)" }, { name: ".NET (ASP.NET Core)" },
-      { name: "React Native, Flutter for Cross-Platform Mobile" }, { name: "Swift (iOS), Kotlin (Android) for Native Mobile" },
-      { name: "PostgreSQL, MySQL, SQL Server" }, { name: "MongoDB, Cassandra, DynamoDB (NoSQL)" }, { name: "Firebase Realtime Database & Firestore" }, { name: "GraphQL, REST APIs" },
-      { name: "TypeScript, JavaScript (ESNext)" }, { name: "HTML5, CSS3, Sass/LESS" },
+    technologyGroups: [
+      {
+        groupTitle: "Frontend Frameworks",
+        groupIcon: <Code2 className="h-5 w-5 text-primary" />,
+        tools: [ { name: "React.js, Next.js, Remix" }, { name: "Angular, Vue.js" }, { name: "TypeScript, JavaScript (ESNext)" }, { name: "HTML5, CSS3, Sass/LESS" } ],
+      },
+      {
+        groupTitle: "Backend Technologies",
+        groupIcon: <ServerCog className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Node.js (Express.js, NestJS)" }, { name: "Python (Django, Flask, FastAPI)" }, { name: "Java (Spring Boot, Quarkus)" }, { name: ".NET (ASP.NET Core)" }, { name: "GraphQL, REST APIs" } ],
+      },
+      {
+        groupTitle: "Mobile Development",
+        groupIcon: <Smartphone className="h-5 w-5 text-primary" />,
+        tools: [ { name: "React Native, Flutter for Cross-Platform Mobile" }, { name: "Swift (iOS), Kotlin (Android) for Native Mobile" } ],
+      },
+      {
+        groupTitle: "Databases",
+        groupIcon: <Database className="h-5 w-5 text-primary" />,
+        tools: [ { name: "PostgreSQL, MySQL, SQL Server" }, { name: "MongoDB, Cassandra, DynamoDB (NoSQL)" }, { name: "Firebase Realtime Database & Firestore" } ],
+      }
     ],
   },
   {
     categoryName: "Data Analytics & BI",
     description: "Transforming complex data into actionable insights with powerful analytics, visualization, and BI tools.",
-    technologies: [
-      { name: "Python (Pandas, NumPy, SciPy, Scikit-learn)" }, { name: "R Language for Statistical Computing" },
-      { name: "Apache Spark, Apache Hadoop" }, { name: "Apache Airflow for Workflow Orchestration" },
-      { name: "Tableau, Power BI, Looker" }, { name: "Google Data Studio, Grafana" },
-      { name: "Google BigQuery, AWS Redshift, Snowflake" }, { name: "Azure Synapse Analytics" },
-      { name: "SQL (Advanced Querying, Window Functions)" }, { name: "TensorFlow, PyTorch for Deep Learning" },
-      { name: "ETL/ELT Tools (Talend, Informatica, Fivetran)" }, { name: "Data Warehousing & Data Lakes" },
+    technologyGroups: [
+      {
+        groupTitle: "Data Processing & Analysis",
+        groupIcon: <BarChart3 className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Python (Pandas, NumPy, SciPy, Scikit-learn)" }, { name: "R Language for Statistical Computing" }, { name: "Apache Spark, Apache Hadoop" }, { name: "SQL (Advanced Querying, Window Functions)" } ],
+      },
+      {
+        groupTitle: "Workflow & ETL",
+        groupIcon: <Workflow className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Apache Airflow for Workflow Orchestration" }, { name: "ETL/ELT Tools (Talend, Informatica, Fivetran)" } ],
+      },
+      {
+        groupTitle: "Visualization & BI Platforms",
+        groupIcon: <Palette className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Tableau, Power BI, Looker" }, { name: "Google Data Studio, Grafana" } ],
+      },
+      {
+        groupTitle: "Data Warehousing & Big Data",
+        groupIcon: <Database className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Google BigQuery, AWS Redshift, Snowflake" }, { name: "Azure Synapse Analytics" }, { name: "Data Warehousing & Data Lakes" } ],
+      },
+      {
+        groupTitle: "Machine Learning & AI",
+        groupIcon: <Brain className="h-5 w-5 text-primary" />,
+        tools: [ { name: "TensorFlow, PyTorch for Deep Learning" } ],
+      }
     ],
   },
   {
     categoryName: "DevOps & Cloud Solutions",
     description: "Streamlining development lifecycle and infrastructure management with CI/CD, containerization, and cloud-native solutions.",
-    technologies: [
-      { name: "Docker, Docker Swarm" }, { name: "Kubernetes (EKS, GKE, AKS)" }, { name: "Helm for Kubernetes Package Management" },
-      { name: "Jenkins, GitLab CI/CD, GitHub Actions" }, { name: "Azure DevOps, CircleCI" },
-      { name: "AWS (EC2, S3, Lambda, RDS, VPC, IAM, CloudFormation)" }, { name: "Azure (VMs, Blob Storage, Functions, SQL Database, VNet)" }, { name: "Google Cloud Platform (GCP - Compute Engine, Cloud Storage, Cloud Functions)" },
-      { name: "Terraform, Ansible, Pulumi (Infrastructure as Code)" },
-      { name: "Prometheus, Grafana for Monitoring" }, { name: "ELK Stack (Elasticsearch, Logstash, Kibana), Splunk, Datadog" },
-      { name: "Git, SVN for Version Control" }, { name: "DevSecOps Practices & Tools (SonarQube, Trivy)" }, { name: "Serverless Computing (AWS Lambda, Azure Functions)"},
+    technologyGroups: [
+      {
+        groupTitle: "CI/CD & Automation",
+        groupIcon: <Workflow className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Jenkins, GitLab CI/CD, GitHub Actions" }, { name: "Azure DevOps, CircleCI" } ],
+      },
+      {
+        groupTitle: "Containerization & Orchestration",
+        groupIcon: <Container className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Docker, Docker Swarm" }, { name: "Kubernetes (EKS, GKE, AKS)" }, { name: "Helm for Kubernetes Package Management" } ],
+      },
+      {
+        groupTitle: "Cloud Platforms",
+        groupIcon: <Cloud className="h-5 w-5 text-primary" />,
+        tools: [ { name: "AWS (EC2, S3, Lambda, RDS, VPC, IAM, CloudFormation)" }, { name: "Azure (VMs, Blob Storage, Functions, SQL Database, VNet)" }, { name: "Google Cloud Platform (GCP - Compute Engine, Cloud Storage, Cloud Functions)" }, { name: "Serverless Computing (AWS Lambda, Azure Functions)"} ],
+      },
+      {
+        groupTitle: "Infrastructure as Code (IaC)",
+        groupIcon: <FileCode className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Terraform, Ansible, Pulumi (Infrastructure as Code)" } ],
+      },
+      {
+        groupTitle: "Monitoring & Logging",
+        groupIcon: <Gauge className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Prometheus, Grafana for Monitoring" }, { name: "ELK Stack (Elasticsearch, Logstash, Kibana), Splunk, Datadog" } ],
+      },
+      {
+        groupTitle: "Security & Version Control",
+        groupIcon: <ShieldCheck className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Git, SVN for Version Control" }, { name: "DevSecOps Practices & Tools (SonarQube, Trivy)" } ],
+      }
     ],
   },
 ];
+
 
 const analyticsPreviewData = [
   { metric: "Efficiency Gain", value: 75, fill: "hsl(var(--chart-1))" },
@@ -370,3 +441,5 @@ export default function HomePage() {
     </>
   );
 }
+
+    
