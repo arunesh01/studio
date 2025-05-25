@@ -1,5 +1,5 @@
 
-"use client"; // Sidebar component might require client context
+"use client"; 
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -37,6 +37,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import Image from "next/image"; 
 
 const sidebarNavItems = [
   { href: "/dashboard", label: "Overview", icon: <LayoutDashboard /> },
@@ -67,7 +68,7 @@ export default function DashboardLayout({
             <Link href="/dashboard" className="flex items-center gap-2 group-data-[collapsible=icon]:justify-center">
               <Logo className="h-8 w-8 text-primary" />
               <span className="font-semibold text-xl text-foreground group-data-[collapsible=icon]:hidden">
-                TechFlow Hub
+                TechnoNspace
               </span>
             </Link>
           </SidebarHeader>
@@ -106,13 +107,10 @@ export default function DashboardLayout({
 
         <SidebarInset className="flex-1 flex flex-col">
           <header className="sticky top-0 z-40 flex h-16 items-center gap-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6">
-            <SidebarTrigger className="md:hidden" /> {/* Mobile Trigger */}
+            <SidebarTrigger className="md:hidden" /> 
              <div className="hidden md:block">
-                {/* Desktop trigger can be a button or part of rail interaction from sidebar component */}
              </div>
             <div className="flex-1">
-              {/* Optional: Breadcrumbs or Page Title */}
-              {/* <h1 className="text-xl font-semibold">Dashboard</h1> */}
             </div>
             <div className="flex items-center gap-4">
               <ThemeToggle />
@@ -120,8 +118,10 @@ export default function DashboardLayout({
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                     <Avatar className="h-9 w-9">
-                      <AvatarImage src="https://placehold.co/100x100.png" alt="User Avatar" data-ai-hint="person avatar" />
-                      <AvatarFallback>TF</AvatarFallback>
+                      <AvatarImage asChild>
+                        <Image src="https://placehold.co/100x100.png" alt="User Avatar" width={36} height={36} data-ai-hint="user profile" />
+                      </AvatarImage>
+                      <AvatarFallback>TN</AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
@@ -130,7 +130,7 @@ export default function DashboardLayout({
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">Admin User</p>
                       <p className="text-xs leading-none text-muted-foreground">
-                        admin@techflowhub.com
+                        admin@technonspace.com
                       </p>
                     </div>
                   </DropdownMenuLabel>

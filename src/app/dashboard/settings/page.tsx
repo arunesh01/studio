@@ -32,7 +32,7 @@ export default function SettingsPage() {
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" defaultValue="admin@techflowhub.com" />
+            <Input id="email" type="email" defaultValue="admin@technonspace.com" />
           </div>
           <Button>Save Profile</Button>
         </CardContent>

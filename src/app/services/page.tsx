@@ -1,98 +1,280 @@
 
-import { CardComponent } from "@/components/CardComponent";
-import { Zap, Cloud, ShieldCheck, Network, Database, MessageSquare } from "lucide-react";
-import Image from "next/image";
+import Link from "next/link";
+import type { Metadata } from "next";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import {
+  Workflow, Container, Cloud, FileCode, Gauge, ShieldCheck,
+  TestTube2, Bot, Activity, ClipboardCheck as ClipboardCheckIcon,
+  Code2 as Code2Icon, Smartphone, Database, Users, ServerCog,
+  Brain, Palette, LineChart, BarChart3 as BarChart3Icon
+} from "lucide-react";
 
-const services = [
+export const metadata: Metadata = {
+  title: "Our Core IT Services - QA, Development, Data Analytics, DevOps",
+  description: "Explore TechnoNspace's core services: Advanced Quality Assurance, full-stack Development, insightful Data Analytics, and efficient DevOps practices, each detailed with key technology groups and tools.",
+  keywords: ["IT services", "Quality Assurance", "Software Development", "Data Analytics", "DevOps", "TechnoNspace", "technology stack", "CI/CD", "cloud solutions", "AI testing"],
+};
+
+interface Technology {
+  name: string;
+}
+
+interface TechnologyGroup {
+  groupTitle: string;
+  groupIcon: React.ReactNode;
+  tools: Technology[];
+}
+
+interface Service {
+  id: string;
+  title: string;
+  icon: React.ReactNode; // Changed from iconPlaceholder
+  description: string;
+  technologyGroups: TechnologyGroup[];
+}
+
+const services: Service[] = [
   {
-    id: "managed-it",
-    title: "Managed IT Services",
-    description: "Comprehensive IT support, monitoring, and management to ensure your systems are always operational and efficient. We handle everything from helpdesk to strategic IT planning.",
-    icon: <Zap size={32} />,
-    details: [
-      "24/7 System Monitoring",
-      "Proactive Maintenance & Updates",
-      "Helpdesk Support",
-      "Vendor Management",
-      "IT Asset Management",
+    id: "qa",
+    title: "Quality Assurance (QA)",
+    icon: <ClipboardCheckIcon size={36} className="text-primary" />, // Using Lucide icon
+    description: "Ensuring product quality through rigorous manual and automated testing, performance testing, and innovative AI-driven QA solutions. We guarantee your applications meet the highest standards of reliability and user satisfaction.",
+    technologyGroups: [
+      {
+        groupTitle: "Manual & Exploratory Testing",
+        groupIcon: <TestTube2 className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "Test Case Design & Execution" },
+          { name: "Usability Testing" },
+          { name: "Compatibility Testing" },
+          { name: "Regression Testing Suites" },
+        ],
+      },
+      {
+        groupTitle: "Test Automation",
+        groupIcon: <Bot className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "Selenium WebDriver" },
+          { name: "Cypress.io" },
+          { name: "Playwright" },
+          { name: "Appium (Mobile)" },
+          { name: "AI-driven Test Generation" },
+        ],
+      },
+      {
+        groupTitle: "API & Performance Testing",
+        groupIcon: <Activity className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "Postman" },
+          { name: "REST Assured" },
+          { name: "JMeter" },
+          { name: "k6 (Load Testing)" },
+        ],
+      },
+      {
+        groupTitle: "Test Management & Reporting",
+        groupIcon: <ClipboardCheckIcon className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "Jira (with Xray/Zephyr)" },
+          { name: "TestRail" },
+          { name: "QMetry" },
+          { name: "Comprehensive Dashboards" },
+        ],
+      },
     ],
-    image: "https://placehold.co/600x400.png?text=Managed+IT",
-    imageHint: "server room",
   },
   {
-    id: "cloud-solutions",
-    title: "Cloud Solutions",
-    description: "Leverage the power of the cloud with our tailored solutions. We offer cloud migration, infrastructure management, and SaaS integration to enhance scalability and collaboration.",
-    icon: <Cloud size={32} />,
-    details: [
-      "Cloud Migration & Strategy",
-      "Infrastructure as a Service (IaaS)",
-      "Platform as a Service (PaaS)",
-      "Software as a Service (SaaS) Integration",
-      "Cloud Backup & Disaster Recovery",
+    id: "development",
+    title: "Development Services",
+    icon: <Code2Icon size={36} className="text-primary" />, // Using Lucide icon
+    description: "Building scalable, performant, and maintainable web and mobile applications. Our expertise covers custom software development, and robust CRM/ERP solutions tailored to your specific business needs and growth objectives.",
+    technologyGroups: [
+      {
+        groupTitle: "Frontend Development",
+        groupIcon: <Code2Icon className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "React.js & Next.js" },
+          { name: "Angular" },
+          { name: "Vue.js" },
+          { name: "HTML5, CSS3, Sass/LESS" },
+          { name: "TypeScript" },
+        ],
+      },
+      {
+        groupTitle: "Backend Development",
+        groupIcon: <ServerCog className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "Node.js (Express, NestJS)" },
+          { name: "Python (Django, Flask, FastAPI)" },
+          { name: "Java (Spring Boot)" },
+          { name: ".NET Core / ASP.NET" },
+          { name: "REST APIs & GraphQL" },
+        ],
+      },
+      {
+        groupTitle: "Mobile App Development",
+        groupIcon: <Smartphone className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "React Native" },
+          { name: "Flutter" },
+          { name: "Swift (iOS Native)" },
+          { name: "Kotlin (Android Native)" },
+        ],
+      },
+      {
+        groupTitle: "Databases & Storage",
+        groupIcon: <Database className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "PostgreSQL" },
+          { name: "MySQL" },
+          { name: "MongoDB (NoSQL)" },
+          { name: "Firebase Firestore/Realtime DB" },
+          { name: "Redis (Caching)" },
+        ],
+      },
+      {
+        groupTitle: "Custom Software & Enterprise",
+        groupIcon: <Users className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "CRM/ERP System Integration" },
+          { name: "Custom Business Applications" },
+          { name: "Microservices Architecture" },
+          { name: "Enterprise Software Development" },
+        ],
+      },
     ],
-    image: "https://placehold.co/600x400.png?text=Cloud+Solutions",
-    imageHint: "cloud computing",
   },
   {
-    id: "cybersecurity",
-    title: "Cybersecurity Services",
-    description: "Protect your digital assets with our robust cybersecurity services. We provide threat detection, vulnerability assessments, and security awareness training.",
-    icon: <ShieldCheck size={32} />,
-    details: [
-      "Threat Detection & Response",
-      "Vulnerability Assessments",
-      "Penetration Testing",
-      "Security Awareness Training",
-      "Firewall & Network Security",
+    id: "data-analytics",
+    title: "Data Analytics & BI",
+    icon: <BarChart3Icon size={36} className="text-primary" />, // Using Lucide icon
+    description: "Transforming raw data into strategic assets. We offer expertise in data visualization, predictive analytics, and comprehensive business intelligence solutions to unlock actionable insights and drive informed decision-making.",
+    technologyGroups: [
+      {
+        groupTitle: "Data Processing & ETL",
+        groupIcon: <BarChart3Icon className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "Python (Pandas, NumPy, Dask)" },
+          { name: "Apache Spark" },
+          { name: "SQL" },
+          { name: "Apache Airflow (Workflow Orchestration)" },
+          { name: "Talend, Informatica" },
+        ],
+      },
+      {
+        groupTitle: "Data Warehousing & Storage",
+        groupIcon: <Database className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "Google BigQuery" },
+          { name: "Amazon Redshift" },
+          { name: "Snowflake" },
+          { name: "Azure Synapse Analytics" },
+          { name: "Data Lakes (S3, Azure Blob)" },
+        ],
+      },
+      {
+        groupTitle: "BI & Visualization",
+        groupIcon: <Palette className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "Tableau" },
+          { name: "Microsoft Power BI" },
+          { name: "Looker" },
+          { name: "Qlik Sense" },
+          { name: "Grafana, Kibana" },
+        ],
+      },
+      {
+        groupTitle: "Predictive Analytics & ML",
+        groupIcon: <Brain className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "Scikit-learn" },
+          { name: "TensorFlow & Keras" },
+          { name: "PyTorch" },
+          { name: "R Language" },
+          { name: "Statistical Modeling" },
+        ],
+      },
     ],
-    image: "https://placehold.co/600x400.png?text=Cybersecurity",
-    imageHint: "security lock",
   },
   {
-    id: "network-solutions",
-    title: "Network Solutions",
-    description: "Design, implementation, and management of reliable and high-performance network infrastructures. Ensuring seamless connectivity for your business.",
-    icon: <Network size={32} />,
-    details: [
-        "Network Design & Implementation",
-        "Wireless Network Solutions",
-        "VPN & Remote Access",
-        "Network Monitoring & Optimization",
-        "SD-WAN Solutions"
+    id: "devops",
+    title: "DevOps & Cloud Solutions",
+    icon: <ServerCog size={36} className="text-primary" />, // Using Lucide icon
+    description: "Streamlining development pipelines and enhancing operational efficiency. Our DevOps services include continuous integration/deployment (CI/CD), cloud infrastructure management, and automation to accelerate your delivery cycles and ensure system reliability.",
+    technologyGroups: [
+      {
+        groupTitle: "CI/CD Tools",
+        groupIcon: <Workflow className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "GitHub Actions" },
+          { name: "Jenkins" },
+          { name: "GitLab CI" },
+          { name: "Azure DevOps" },
+          { name: "CircleCI" },
+        ],
+      },
+      {
+        groupTitle: "Containerization & Orchestration",
+        groupIcon: <Container className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "Docker" },
+          { name: "Kubernetes (K8s)" },
+          { name: "Helm" },
+          { name: "Docker Swarm" },
+          { name: "Amazon ECS/EKS" },
+        ],
+      },
+      {
+        groupTitle: "Cloud Providers",
+        groupIcon: <Cloud className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "Amazon Web Services (AWS)" },
+          { name: "Microsoft Azure" },
+          { name: "Google Cloud Platform (GCP)" },
+        ],
+      },
+      {
+        groupTitle: "Infrastructure as Code (IaC)",
+        groupIcon: <FileCode className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "Terraform" },
+          { name: "Ansible" },
+          { name: "AWS CloudFormation" },
+          { name: "Azure Resource Manager (ARM)" },
+        ],
+      },
+      {
+        groupTitle: "Monitoring & Logging",
+        groupIcon: <Gauge className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "Prometheus & Grafana" },
+          { name: "ELK Stack (Elasticsearch, Logstash, Kibana)" },
+          { name: "Datadog" },
+          { name: "Splunk" },
+          { name: "AWS CloudWatch, Azure Monitor" },
+        ],
+      },
+      {
+        groupTitle: "Security & DevSecOps",
+        groupIcon: <ShieldCheck className="h-5 w-5 text-primary mr-2" />,
+        tools: [
+          { name: "SonarQube" },
+          { name: "OWASP ZAP" },
+          { name: "Trivy, Snyk (Container Scanning)" },
+          { name: "Vault (Secrets Management)" },
+          { name: "Security Best Practices Integration" },
+        ],
+      },
     ],
-    image: "https://placehold.co/600x400.png?text=Network+Solutions",
-    imageHint: "network cables",
-  },
-  {
-    id: "data-management",
-    title: "Data Management & Analytics",
-    description: "Unlock the power of your data with our comprehensive data management and analytics services. From data warehousing to business intelligence.",
-    icon: <Database size={32} />,
-    details: [
-        "Data Warehousing",
-        "Database Administration",
-        "Business Intelligence & Reporting",
-        "Data Backup & Recovery",
-        "Big Data Solutions"
-    ],
-    image: "https://placehold.co/600x400.png?text=Data+Management",
-    imageHint: "data charts",
-  },
-  {
-    id: "it-consulting",
-    title: "IT Consulting",
-    description: "Strategic IT guidance to help you make informed technology decisions, optimize your IT investments, and align technology with your business goals.",
-    icon: <MessageSquare size={32} />,
-    details: [
-        "IT Strategy & Roadmap",
-        "Digital Transformation",
-        "Technology Assessment",
-        "Project Management",
-        "Compliance & Governance"
-    ],
-    image: "https://placehold.co/600x400.png?text=IT+Consulting",
-    imageHint: "business meeting",
   },
 ];
 
@@ -100,53 +282,69 @@ export default function ServicesPage() {
   return (
     <div className="container mx-auto px-4 py-12">
       <header className="text-center mb-12">
-        <h1 className="text-4xl font-bold tracking-tight text-foreground">Our IT Services</h1>
-        <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-          Tailored technology solutions designed to propel your business forward. Explore our comprehensive range of IT services.
+        <h1 className="text-4xl font-bold tracking-tight text-foreground">
+          Our Core IT Services
+        </h1>
+        <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
+          TechnoNspace provides a comprehensive suite of IT services designed to empower your business. From ensuring software quality to leveraging data for strategic advantage, our expert teams are here to support your digital transformation.
         </p>
       </header>
 
-      <div className="space-y-16">
-        {services.map((service, index) => (
-          <section key={service.id} id={service.id} className="scroll-mt-20">
-            <div className={`flex flex-col gap-8 md:gap-12 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-              <div className="md:w-1/2">
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  width={600}
-                  height={400}
-                  className="rounded-lg shadow-lg object-cover aspect-[3/2]"
-                  data-ai-hint={service.imageHint}
-                />
-              </div>
-              <div className="md:w-1/2">
-                <div className="flex items-center mb-4">
-                  <span className="text-primary mr-3">{service.icon}</span>
-                  <h2 className="text-3xl font-semibold text-foreground">{service.title}</h2>
+      <Accordion type="single" collapsible className="w-full space-y-6">
+        {services.map((service) => (
+          <AccordionItem value={service.id} key={service.id} className="border-none">
+            <Card id={service.id} className="shadow-lg hover:shadow-xl transition-shadow duration-300 scroll-mt-20 bg-card">
+              <AccordionTrigger className="p-6 hover:no-underline">
+                <div className="flex items-center gap-4 w-full">
+                   <div className="h-10 w-10 flex items-center justify-center"> {/* Wrapper for icon sizing */}
+                    {service.icon}
+                   </div>
+                  <CardTitle className="text-2xl leading-tight text-left">{service.title}</CardTitle>
                 </div>
-                <p className="text-muted-foreground mb-6 text-base leading-relaxed">{service.description}</p>
-                <ul className="space-y-2">
-                  {service.details.map((detail) => (
-                    <li key={detail} className="flex items-center">
-                      <CheckCircle className="h-5 w-5 text-accent mr-2 shrink-0" />
-                      <span className="text-sm">{detail}</span>
-                    </li>
+              </AccordionTrigger>
+              <AccordionContent className="px-6 pb-6">
+                <p className="text-muted-foreground mb-6 text-base leading-relaxed">
+                  {service.description}
+                </p>
+                <div className="space-y-6">
+                  {service.technologyGroups.map((group, groupIndex) => (
+                    <div key={group.groupTitle}>
+                      {groupIndex > 0 && <Separator className="my-4" />}
+                      <h4 className="text-lg font-semibold text-primary mb-3 flex items-center">
+                        {group.groupIcon}
+                        <span>{group.groupTitle}</span>
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {group.tools.map((tech) => (
+                          <Badge
+                            key={tech.name}
+                            variant="secondary"
+                            className="px-3 py-1.5 text-sm transition-all duration-200 ease-in-out hover:bg-primary/80 hover:text-primary-foreground hover:scale-105 cursor-default"
+                          >
+                            {tech.name}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
                   ))}
-                </ul>
-              </div>
-            </div>
-          </section>
+                </div>
+              </AccordionContent>
+            </Card>
+          </AccordionItem>
         ))}
-      </div>
+      </Accordion>
+
+      <section className="text-center py-10 mt-16 bg-secondary rounded-lg shadow-md">
+        <h2 className="text-3xl font-bold text-foreground mb-4">
+          Ready to Discuss Your Project?
+        </h2>
+        <p className="text-muted-foreground max-w-xl mx-auto mb-8">
+          Let our experts help you find the best solutions for your business. Contact us for a personalized consultation.
+        </p>
+        <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+          <Link href="/contact">Get a Free Consultation</Link>
+        </Button>
+      </section>
     </div>
   );
 }
-
-// Helper for CheckCircle icon (assuming it's from lucide-react)
-const CheckCircle = ({className}: {className?: string}) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-  </svg>
-);

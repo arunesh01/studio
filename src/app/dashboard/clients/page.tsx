@@ -5,13 +5,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PlusCircle, Edit, Trash2 } from "lucide-react";
+import Image from "next/image";
 
 const clients = [
-  { id: "C001", name: "Acme Corp", contact: "Alice Johnson", email: "alice@acme.com", status: "Active", projects: 3, avatar: "A", avatarHint: "company logo" },
-  { id: "C002", name: "Beta LLC", contact: "Bob Williams", email: "bob@betallc.com", status: "Active", projects: 1, avatar: "B", avatarHint: "company logo" },
-  { id: "C003", name: "Gamma Inc", contact: "Charlie Brown", email: "charlie@gammainc.com", status: "Inactive", projects: 5, avatar: "G", avatarHint: "company logo" },
-  { id: "C004", name: "Delta Solutions", contact: "Diana Prince", email: "diana@deltasol.com", status: "Active", projects: 2, avatar: "D", avatarHint: "company logo" },
-  { id: "C005", name: "Epsilon Group", contact: "Edward Nygma", email: "edward@epsilongrp.com", status: "On Hold", projects: 0, avatar: "E", avatarHint: "company logo" },
+  { id: "C001", name: "Acme Corp", contact: "Alice Johnson", email: "alice@acme.com", status: "Active", projects: 3, avatarLetter: "A" },
+  { id: "C002", name: "Beta LLC", contact: "Bob Williams", email: "bob@betallc.com", status: "Active", projects: 1, avatarLetter: "B" },
+  { id: "C003", name: "Gamma Inc", contact: "Charlie Brown", email: "charlie@gammainc.com", status: "Inactive", projects: 5, avatarLetter: "G" },
+  { id: "C004", name: "Delta Solutions", contact: "Diana Prince", email: "diana@deltasol.com", status: "Active", projects: 2, avatarLetter: "D" },
+  { id: "C005", name: "Epsilon Group", contact: "Edward Nygma", email: "edward@epsilongrp.com", status: "On Hold", projects: 0, avatarLetter: "E" },
 ];
 
 export default function ClientsPage() {
@@ -52,8 +53,15 @@ export default function ClientsPage() {
                   <TableCell>
                     <div className="flex items-center gap-2">
                         <Avatar className="h-8 w-8">
-                            <AvatarImage src={`https://placehold.co/40x40.png?text=${client.avatar}`} data-ai-hint={client.avatarHint} />
-                            <AvatarFallback>{client.avatar}</AvatarFallback>
+                            <AvatarImage asChild>
+                               <Image 
+                                    src="https://placehold.co/40x40.png" 
+                                    alt={`${client.name} logo placeholder`}
+                                    width={32}
+                                    height={32}
+                                    data-ai-hint="brand logo" />
+                            </AvatarImage>
+                            <AvatarFallback>{client.avatarLetter}</AvatarFallback>
                         </Avatar>
                         {client.name}
                     </div>

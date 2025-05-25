@@ -4,239 +4,425 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CardComponent } from "@/components/CardComponent";
-import { CheckCircle, Zap, Users } from "lucide-react"; // Removed BarChart as it wasn't used in this section
+import { CheckCircle, BarChartHorizontalBig, MapPinned, Users, Settings, Sparkles, Workflow, BarChart3, TestTube2, Activity, Smartphone, CloudCog, TrendingUp, Target, UserCheck, ListChecks, Brain, Palette, Database, Container, Cloud, FileCode, Gauge, ShieldCheck, ClipboardCheck as ClipboardCheckIcon, Code2 as Code2Icon, ServerCog as ServerCogIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { LeadershipSection } from "@/components/LeadershipSection";
+import { TechStackShowcase, type TechCategory } from "@/components/TechStackShowcase";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { ChartContainer, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
+import type { ChartConfig } from "@/components/ui/chart";
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis, Tooltip as RechartsTooltip, Cell } from "recharts";
+
+const techCategoriesData: TechCategory[] = [
+  {
+    categoryName: "Quality Assurance",
+    description: "Ensuring robust application quality through comprehensive testing methodologies and advanced automation tools.",
+    technologyGroups: [
+      {
+        groupTitle: "Web & E2E Automation",
+        groupIcon: <TestTube2 className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Selenium WebDriver & Grid" }, { name: "Cypress.io for E2E Testing" }, { name: "Playwright by Microsoft" } ],
+      },
+      {
+        groupTitle: "API & Performance Testing",
+        groupIcon: <Activity className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Postman for API Testing" }, { name: "REST Assured (Java API Automation)" }, { name: "JMeter for Performance Testing" }, { name: "k6 for Load Testing" } ],
+      },
+      {
+        groupTitle: "Mobile & Cross-Browser",
+        groupIcon: <Smartphone className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Appium for Mobile Automation" }, { name: "BrowserStack/Sauce Labs for Cross-Browser Testing" }],
+      },
+      {
+        groupTitle: "Management & Methodology",
+        groupIcon: <ClipboardCheckIcon className="h-5 w-5 text-primary" />,
+        tools: [ { name: "TestRail for Test Case Management" }, { name: "Jira with Xray or Zephyr" }, { name: "AI in Testing (Test Data Generation, Anomaly Detection)" }, { name: "Cucumber/Gherkin for BDD" } ],
+      }
+    ],
+  },
+  {
+    categoryName: "Development",
+    description: "Building scalable and performant web and mobile applications using modern frameworks and best practices.",
+    technologyGroups: [
+      {
+        groupTitle: "Frontend Frameworks",
+        groupIcon: <Code2Icon className="h-5 w-5 text-primary" />,
+        tools: [ { name: "React.js" }, { name: "Next.js" }, { name: "Remix" }, { name: "Angular" }, { name: "Vue.js" }, { name: "TypeScript" }, { name: "JavaScript (ESNext)" }, { name: "HTML5" }, { name: "CSS3" }, { name: "Sass/LESS" } ],
+      },
+      {
+        groupTitle: "Backend Technologies",
+        groupIcon: <ServerCogIcon className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Node.js (Express.js, NestJS)" }, { name: "Python (Django, Flask, FastAPI)" }, { name: "Java (Spring Boot, Quarkus)" }, { name: ".NET (ASP.NET Core)" }, { name: "GraphQL" }, { name: "REST APIs" } ],
+      },
+      {
+        groupTitle: "Mobile Development",
+        groupIcon: <Smartphone className="h-5 w-5 text-primary" />,
+        tools: [ { name: "React Native" }, { name: "Flutter for Cross-Platform Mobile" }, { name: "Swift (iOS)" }, { name: "Kotlin (Android) for Native Mobile" } ],
+      },
+      {
+        groupTitle: "Databases",
+        groupIcon: <Database className="h-5 w-5 text-primary" />,
+        tools: [ { name: "PostgreSQL" }, { name: "MySQL" }, { name: "SQL Server" }, { name: "MongoDB" }, { name: "Cassandra" }, { name: "DynamoDB (NoSQL)" }, { name: "Firebase Realtime Database & Firestore" } ],
+      }
+    ],
+  },
+  {
+    categoryName: "Data Analytics & BI",
+    description: "Transforming complex data into actionable insights with powerful analytics, visualization, and BI tools.",
+    technologyGroups: [
+      {
+        groupTitle: "Data Processing & Analysis",
+        groupIcon: <BarChart3 className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Python (Pandas, NumPy, SciPy, Scikit-learn)" }, { name: "R Language for Statistical Computing" }, { name: "Apache Spark" }, { name: "Apache Hadoop" }, { name: "SQL (Advanced Querying, Window Functions)" } ],
+      },
+      {
+        groupTitle: "Workflow & ETL",
+        groupIcon: <Workflow className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Apache Airflow for Workflow Orchestration" }, { name: "ETL/ELT Tools (Talend, Informatica, Fivetran)" } ],
+      },
+      {
+        groupTitle: "Visualization & BI Platforms",
+        groupIcon: <Palette className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Tableau" }, { name: "Power BI" }, { name: "Looker" }, { name: "Google Data Studio" }, { name: "Grafana" } ],
+      },
+      {
+        groupTitle: "Data Warehousing & Big Data",
+        groupIcon: <Database className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Google BigQuery" }, { name: "AWS Redshift" }, { name: "Snowflake" }, { name: "Azure Synapse Analytics" }, { name: "Data Warehousing & Data Lakes" } ],
+      },
+      {
+        groupTitle: "Machine Learning & AI",
+        groupIcon: <Brain className="h-5 w-5 text-primary" />,
+        tools: [ { name: "TensorFlow" }, { name: "PyTorch for Deep Learning" } ],
+      }
+    ],
+  },
+  {
+    categoryName: "DevOps & Cloud Solutions",
+    description: "Streamlining development lifecycle and infrastructure management with CI/CD, containerization, and cloud-native solutions.",
+    technologyGroups: [
+      {
+        groupTitle: "CI/CD & Automation",
+        groupIcon: <Workflow className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Jenkins" }, { name: "GitLab CI/CD" }, { name: "GitHub Actions" }, { name: "Azure DevOps" }, { name: "CircleCI" } ],
+      },
+      {
+        groupTitle: "Containerization & Orchestration",
+        groupIcon: <Container className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Docker" }, { name: "Docker Swarm" }, { name: "Kubernetes (EKS, GKE, AKS)" }, { name: "Helm for Kubernetes Package Management" } ],
+      },
+      {
+        groupTitle: "Cloud Platforms",
+        groupIcon: <Cloud className="h-5 w-5 text-primary" />,
+        tools: [ { name: "AWS (EC2, S3, Lambda, RDS, VPC, IAM, CloudFormation)" }, { name: "Azure (VMs, Blob Storage, Functions, SQL Database, VNet)" }, { name: "Google Cloud Platform (GCP - Compute Engine, Cloud Storage, Cloud Functions)" }, { name: "Serverless Computing (AWS Lambda, Azure Functions)"} ],
+      },
+      {
+        groupTitle: "Infrastructure as Code (IaC)",
+        groupIcon: <FileCode className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Terraform" }, { name: "Ansible" }, { name: "Pulumi (Infrastructure as Code)" } ],
+      },
+      {
+        groupTitle: "Monitoring & Logging",
+        groupIcon: <Gauge className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Prometheus" }, { name: "Grafana for Monitoring" }, { name: "ELK Stack (Elasticsearch, Logstash, Kibana)" }, { name: "Splunk" }, { name: "Datadog" } ],
+      },
+      {
+        groupTitle: "Security & Version Control",
+        groupIcon: <ShieldCheck className="h-5 w-5 text-primary" />,
+        tools: [ { name: "Git" }, { name: "SVN for Version Control" }, { name: "DevSecOps Practices & Tools (SonarQube, Trivy)" } ],
+      }
+    ],
+  },
+];
+
+const whyChooseUsKeyPoints = [
+  {
+    icon: <UserCheck className="h-8 w-8 text-primary mb-3" />,
+    title: "Expert Team",
+    description: "Certified professionals dedicated to your project."
+  },
+  {
+    icon: <Settings className="h-8 w-8 text-primary mb-3" />,
+    title: "Tailored Solutions",
+    description: "Custom strategies that fit your unique business needs."
+  },
+  {
+    icon: <TrendingUp className="h-8 w-8 text-primary mb-3" />,
+    title: "Proven Results",
+    description: "A track record of delivering successful outcomes for our clients."
+  }
+];
+
+const analyticsPreviewData = [
+  { metric: "Efficiency Gain", value: 75, fill: "hsl(var(--chart-1))" },
+  { metric: "Cost Reduction", value: 60, fill: "hsl(var(--chart-2))" },
+  { metric: "Process Speed-up", value: 85, fill: "hsl(var(--chart-3))" },
+  { metric: "Risk Mitigation", value: 70, fill: "hsl(var(--chart-4))" },
+];
+
+const analyticsPreviewChartConfig = {
+  value: {
+    label: "Percentage",
+  },
+  "Efficiency Gain": {
+    label: "Efficiency Gain",
+    color: "hsl(var(--chart-1))",
+  },
+  "Cost Reduction": {
+    label: "Cost Reduction",
+    color: "hsl(var(--chart-2))",
+  },
+  "Process Speed-up": {
+    label: "Process Speed-up",
+    color: "hsl(var(--chart-3))",
+  },
+  "Risk Mitigation": {
+    label: "Risk Mitigation",
+    color: "hsl(var(--chart-4))",
+  },
+} satisfies ChartConfig;
+
 
 export default function HomePage() {
-  const [isWhyChooseUsImageVisible, setIsWhyChooseUsImageVisible] = useState(false);
   const [isWhyChooseUsTextVisible, setIsWhyChooseUsTextVisible] = useState(false);
-  const whyChooseUsImageRef = useRef<HTMLDivElement>(null);
   const whyChooseUsTextRef = useRef<HTMLDivElement>(null);
 
-  const serviceCard1Ref = useRef<HTMLDivElement>(null);
-  const serviceCard2Ref = useRef<HTMLDivElement>(null);
-  const serviceCard3Ref = useRef<HTMLDivElement>(null);
-  const [isServiceCard1Visible, setIsServiceCard1Visible] = useState(false);
-  const [isServiceCard2Visible, setIsServiceCard2Visible] = useState(false);
-  const [isServiceCard3Visible, setIsServiceCard3Visible] = useState(false);
+  const techStackSectionRef = useRef<HTMLDivElement>(null);
+  const [isTechStackSectionVisible, setIsTechStackSectionVisible] = useState(false);
 
+  const leadershipSectionRef = useRef<HTMLDivElement>(null);
+  const [isLeadershipSectionVisible, setIsLeadershipSectionVisible] = useState(false);
+
+  const combinedSectionRef = useRef<HTMLDivElement>(null);
+  const [isCombinedSectionVisible, setIsCombinedSectionVisible] = useState(false);
+  
   const ctaSectionRef = useRef<HTMLDivElement>(null);
   const [isCtaSectionVisible, setIsCtaSectionVisible] = useState(false);
+
+  const refsAndSetters = [
+    { ref: whyChooseUsTextRef, setter: setIsWhyChooseUsTextVisible, threshold: 0.2 },
+    { ref: techStackSectionRef, setter: setIsTechStackSectionVisible },
+    { ref: leadershipSectionRef, setter: setIsLeadershipSectionVisible },
+    { ref: combinedSectionRef, setter: setIsCombinedSectionVisible, threshold: 0.1 },
+    { ref: ctaSectionRef, setter: setIsCtaSectionVisible },
+  ];
 
   useEffect(() => {
     const observerOptions = {
       root: null,
       rootMargin: "0px",
-      threshold: 0.1, // Trigger when 10% of the element is visible
+      threshold: 0.1, // Default threshold
     };
 
-    const genericObserverCallback = (
-      entries: IntersectionObserverEntry[],
-      observer: IntersectionObserver,
-      setter: React.Dispatch<React.SetStateAction<boolean>>
-    ) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setter(true);
-          observer.unobserve(entry.target);
+    const observers: IntersectionObserver[] = [];
+
+    refsAndSetters.forEach(({ ref, setter, threshold }) => {
+      const currentObserverOptions = { ...observerOptions, threshold: threshold || observerOptions.threshold };
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setter(true);
+              if (ref.current) {
+                obs.unobserve(ref.current);
+              }
+            }
+          });
+        },
+        currentObserverOptions
+      );
+
+      if (ref.current) {
+        observer.observe(ref.current);
+        observers.push(observer);
+      }
+    });
+
+    return () => {
+      observers.forEach((observer, index) => {
+        const ref = refsAndSetters[index]?.ref;
+        if (ref?.current) {
+          observer.unobserve(ref.current);
         }
       });
     };
-
-    // Observer for "Why Choose Us" Image
-    const whyChooseUsImageObserver = new IntersectionObserver(
-      (entries, obs) => genericObserverCallback(entries, obs, setIsWhyChooseUsImageVisible),
-      { ...observerOptions, threshold: 0.2 } // specific threshold for this element
-    );
-    if (whyChooseUsImageRef.current) {
-      whyChooseUsImageObserver.observe(whyChooseUsImageRef.current);
-    }
-
-    // Observer for "Why Choose Us" Text
-    const whyChooseUsTextObserver = new IntersectionObserver(
-      (entries, obs) => genericObserverCallback(entries, obs, setIsWhyChooseUsTextVisible),
-      { ...observerOptions, threshold: 0.2 } // specific threshold for this element
-    );
-    if (whyChooseUsTextRef.current) {
-      whyChooseUsTextObserver.observe(whyChooseUsTextRef.current);
-    }
-
-    // Observers for Service Cards
-    const serviceCard1Observer = new IntersectionObserver(
-      (entries, obs) => genericObserverCallback(entries, obs, setIsServiceCard1Visible),
-      observerOptions
-    );
-    if (serviceCard1Ref.current) serviceCard1Observer.observe(serviceCard1Ref.current);
-
-    const serviceCard2Observer = new IntersectionObserver(
-      (entries, obs) => genericObserverCallback(entries, obs, setIsServiceCard2Visible),
-      observerOptions
-    );
-    if (serviceCard2Ref.current) serviceCard2Observer.observe(serviceCard2Ref.current);
-
-    const serviceCard3Observer = new IntersectionObserver(
-      (entries, obs) => genericObserverCallback(entries, obs, setIsServiceCard3Visible),
-      observerOptions
-    );
-    if (serviceCard3Ref.current) serviceCard3Observer.observe(serviceCard3Ref.current);
-
-    // Observer for CTA Section
-    const ctaSectionObserver = new IntersectionObserver(
-      (entries, obs) => genericObserverCallback(entries, obs, setIsCtaSectionVisible),
-      observerOptions
-    );
-    if (ctaSectionRef.current) ctaSectionObserver.observe(ctaSectionRef.current);
-
-    return () => {
-      if (whyChooseUsImageRef.current) whyChooseUsImageObserver.unobserve(whyChooseUsImageRef.current);
-      if (whyChooseUsTextRef.current) whyChooseUsTextObserver.unobserve(whyChooseUsTextRef.current);
-      if (serviceCard1Ref.current) serviceCard1Observer.unobserve(serviceCard1Ref.current);
-      if (serviceCard2Ref.current) serviceCard2Observer.unobserve(serviceCard2Ref.current);
-      if (serviceCard3Ref.current) serviceCard3Observer.unobserve(serviceCard3Ref.current);
-      if (ctaSectionRef.current) ctaSectionObserver.unobserve(ctaSectionRef.current);
-    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       {/* Hero Section */}
-      <section className="py-20 md:py-32 bg-gradient-to-r from-primary to-accent">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-primary-foreground mb-6">
-            Empowering Your Business with <span className="text-white">TechFlow Hub</span>
+      <section className="relative py-20 md:py-32 bg-gradient-to-r from-primary to-accent text-primary-foreground overflow-hidden">
+        <Image
+          src="https://placehold.co/1920x1080.png"
+          alt="Abstract technology background representing TechnoNspace innovation"
+          fill
+          className="absolute inset-0 z-0 opacity-20 object-cover"
+          data-ai-hint="tech background"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/30 z-0"></div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 text-primary-foreground">
+            Empowering Your Business with <span className="text-white">TechnoNspace</span>
           </h1>
           <p className="text-lg md:text-xl text-primary-foreground/90 max-w-3xl mx-auto mb-10">
             We provide cutting-edge IT solutions tailored to drive growth, efficiency, and innovation for your enterprise.
           </p>
           <div className="space-x-4">
             <Button asChild size="lg" variant="secondary" className="text-secondary-foreground hover:bg-secondary/90">
-              <Link href="/dashboard">Get Started</Link>
+              <Link href="/contact">Get a Free Consultation</Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10">
-              <Link href="/services">Our Services</Link>
+            <Button asChild variant="secondary" size="lg" className="text-secondary-foreground hover:bg-secondary/90">
+              <Link href="/contact">Request a Demo</Link>
             </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Overview Section */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-4">Our Core Services</h2>
-          <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-12">
-            Discover how our expertise can transform your business operations.
-          </p>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div
-              ref={serviceCard1Ref}
-              className={cn(
-                "transition-all transform duration-700 ease-out",
-                isServiceCard1Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-              )}
-            >
-              <CardComponent
-                title="Managed IT Services"
-                description="Proactive IT support and management to keep your systems running smoothly."
-                icon={<Zap size={28} />}
-                link="/services#managed-it"
-                linkText="Explore Managed IT"
-                className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full" 
-              />
-            </div>
-            <div
-              ref={serviceCard2Ref}
-              className={cn(
-                "transition-all transform duration-700 ease-out delay-200",
-                isServiceCard2Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-              )}
-            >
-              <CardComponent
-                title="Cloud Solutions"
-                description="Scalable and secure cloud infrastructure to power your applications."
-                icon={<CheckCircle size={28} />} 
-                link="/services#cloud-solutions"
-                linkText="Discover Cloud Options"
-                className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
-              />
-            </div>
-            <div
-              ref={serviceCard3Ref}
-              className={cn(
-                "transition-all transform duration-700 ease-out delay-[400ms]",
-                isServiceCard3Visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-              )}
-            >
-              <CardComponent
-                title="Cybersecurity"
-                description="Protect your valuable assets with our comprehensive security services."
-                icon={<Users size={28} />} 
-                link="/services#cybersecurity"
-                linkText="Strengthen Security"
-                className="transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl h-full"
-              />
-            </div>
           </div>
         </div>
       </section>
 
       {/* Why Choose Us Section */}
       <section className="py-16 bg-secondary overflow-x-hidden">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center gap-12">
-            <div
-              ref={whyChooseUsImageRef}
-              className={cn(
-                "md:w-1/2 transition-all duration-700 ease-out transform",
-                isWhyChooseUsImageVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
-              )}
-            >
-              <Image
-                src="https://placehold.co/600x400.png"
-                alt="Team collaboration"
-                width={600}
-                height={400}
-                className="rounded-lg shadow-xl"
-                data-ai-hint="collaboration team"
-              />
-            </div>
-            <div
-              ref={whyChooseUsTextRef}
-              className={cn(
-                "md:w-1/2 transition-all duration-700 ease-out transform",
-                isWhyChooseUsTextVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
-              )}
-            >
-              <h2 className="text-3xl font-bold text-foreground mb-6">Why Partner with TechFlow Hub?</h2>
-              <p className="text-muted-foreground mb-6">
+        <div
+          ref={whyChooseUsTextRef}
+          className={cn(
+            "container mx-auto px-4 transition-all duration-700 ease-out transform",
+            isWhyChooseUsTextVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          )}
+        >
+          <div className="grid md:grid-cols-2 gap-12 items-start"> {/* Changed to items-start */}
+            {/* Column 1: Heading and Slogan */}
+            <div className="space-y-4 text-center md:text-left">
+              <h2 className="text-3xl font-bold text-foreground">Why Partner with TechnoNspace?</h2>
+              <p className="text-muted-foreground text-lg">
                 We are committed to your success. Our team of experts leverages the latest technologies and best practices to deliver solutions that make a real impact.
               </p>
-              <ul className="space-y-3">
-                <li className="flex items-start">
-                  <CheckCircle className="h-6 w-6 text-primary mr-3 mt-1 shrink-0" />
-                  <span><strong>Expert Team:</strong> Certified professionals dedicated to your project.</span>
-                </li>
-                <li className="flex items-start">
-                  <CheckCircle className="h-6 w-6 text-primary mr-3 mt-1 shrink-0" />
-                  <span><strong>Tailored Solutions:</strong> Custom strategies that fit your unique business needs.</span>
-                </li>
-                <li className="flex items-start">
-                  <CheckCircle className="h-6 w-6 text-primary mr-3 mt-1 shrink-0" />
-                  <span><strong>Proven Results:</strong> A track record of delivering successful outcomes for our clients.</span>
-                </li>
-                 <li className="flex items-start">
-                  <CheckCircle className="h-6 w-6 text-primary mr-3 mt-1 shrink-0" />
-                  <span><strong>24/7 Support:</strong> Reliable assistance whenever you need it.</span>
-                </li>
-              </ul>
+            </div>
+            {/* Column 2: Key Points */}
+            <div className="space-y-6">
+              {whyChooseUsKeyPoints.map((point, index) => (
+                <Card 
+                  key={index} 
+                  className="flex flex-col items-center text-center p-4 rounded-lg bg-card shadow-md hover:shadow-lg transition-shadow md:items-start md:text-left md:flex-row md:gap-4"
+                >
+                  <div className="shrink-0 mb-3 md:mb-0">
+                    {point.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-foreground mb-1">{point.title}</h3>
+                    <p className="text-muted-foreground text-sm">{point.description}</p>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tech Stack Showcase Section */}
+      <div
+        ref={techStackSectionRef}
+        className={cn(
+          "transition-all transform duration-700 ease-out",
+          isTechStackSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        )}
+      >
+        <TechStackShowcase techCategories={techCategoriesData} />
+      </div>
+
+      {/* Leadership Section */}
+      <div
+        id="leadership-section"
+        ref={leadershipSectionRef}
+        className={cn(
+          "transition-all transform duration-700 ease-out",
+          isLeadershipSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        )}
+      >
+        <LeadershipSection />
+      </div>
+
+      {/* Combined Global Reach & Analytics Preview Section */}
+      <section
+        ref={combinedSectionRef}
+        className={cn(
+          "py-16 bg-secondary transition-all transform duration-700 ease-out", /* Changed to bg-secondary */
+          isCombinedSectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        )}
+      >
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-start"> {/* Changed to items-start */}
+            {/* Column 1: Global Reach */}
+            <div className="space-y-6">
+              <div className="text-center md:text-left">
+                <div className="flex justify-center md:justify-start items-center mb-4">
+                  <MapPinned className="h-10 w-10 text-primary mr-3" />
+                  <h2 className="text-3xl font-bold text-foreground uppercase">Our Global Reach</h2>
+                </div>
+                <p className="text-muted-foreground max-w-2xl mx-auto md:mx-0 mb-8">
+                  Visualizing our impact and client collaborations across the globe.
+                </p>
+              </div>
+              <div className="bg-card p-4 rounded-lg shadow-md">
+                <Image
+                  src="https://placehold.co/800x400.png"
+                  alt="World map graphic visualizing TechnoNspace's global client collaborations and impact."
+                  width={800}
+                  height={400}
+                  className="rounded-md w-full"
+                  data-ai-hint="world map connections"
+                />
+                 <p className="text-muted-foreground text-center mt-4">
+                   We are dedicated to providing top-tier IT solutions to businesses worldwide.
+                 </p>
+              </div>
+            </div>
+
+            {/* Column 2: Analytics Preview */}
+            <div className="space-y-6">
+              <div className="text-center md:text-left">
+                <div className="flex justify-center md:justify-start items-center mb-4">
+                    <BarChartHorizontalBig className="h-10 w-10 text-primary mr-3" />
+                    <h2 className="text-3xl font-bold text-foreground">Analytics Preview</h2>
+                </div>
+                <p className="text-muted-foreground max-w-2xl mx-auto md:mx-0 mb-8">
+                  Get a glimpse of our powerful analytics capabilities. We transform data into actionable insights.
+                </p>
+              </div>
+              <Card className="shadow-xl bg-card">
+                <CardHeader>
+                  <CardTitle>Key Performance Indicators</CardTitle>
+                  <CardDescription>Illustrative data showing typical project outcomes.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ChartContainer config={analyticsPreviewChartConfig} className="h-[250px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={analyticsPreviewData} layout="vertical" margin={{ right: 20, left:20 }}>
+                        <CartesianGrid horizontal={false} />
+                        <XAxis type="number" hide/>
+                        <YAxis dataKey="metric" type="category" tickLine={false} axisLine={false} tickMargin={5} width={120} />
+                        <RechartsTooltip
+                          cursor={{ fill: 'hsl(var(--muted))' }}
+                          content={<ChartTooltipContent indicator="dot" />}
+                        />
+                        <ChartLegend content={<ChartLegendContent />} />
+                        <Bar dataKey="value" radius={5}>
+                           {analyticsPreviewData.map((entry, index_chart) => (
+                             <Cell key={`cell-${index_chart}`} fill={entry.fill} />
+                           ))}
+                        </Bar>
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA to Contact Section */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-background"> {/* Changed to bg-background */}
         <div
           ref={ctaSectionRef}
           className={cn(
@@ -246,9 +432,9 @@ export default function HomePage() {
         >
           <h2 className="text-3xl font-bold text-foreground mb-6">Ready to Elevate Your IT?</h2>
           <p className="text-muted-foreground max-w-xl mx-auto mb-10">
-            Let's discuss how TechFlow Hub can help your business thrive. Get in touch with our experts today.
+            Let's discuss how TechnoNspace can help your business thrive. Get in touch with our experts today.
           </p>
-          <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+          <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
             <Link href="/contact">Contact Us Now</Link>
           </Button>
         </div>
@@ -256,3 +442,14 @@ export default function HomePage() {
     </>
   );
 }
+    
+    
+
+    
+
+
+
+
+
+    
+

@@ -1,8 +1,15 @@
 
 import { ContactForm } from "@/components/ContactForm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact Us - TechnoNspace",
+  description: "Get in touch with TechnoNspace. Send us a message, find our office locations, or reach out via email. We're here to help with your IT needs.",
+  keywords: ["contact TechnoNspace", "IT support contact", "TechnoNspace address", "request consultation", "TechnoNspace Satna", "TechnoNspace Pune"],
+};
 
 export default function ContactPage() {
   return (
@@ -10,7 +17,7 @@ export default function ContactPage() {
       <header className="text-center mb-12">
         <h1 className="text-4xl font-bold tracking-tight text-foreground">Get In Touch</h1>
         <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-          We're here to help and answer any question you might have. We look forward to hearing from you.
+          We're here to help and answer any question you might have. We look forward to hearing from you. Fill out the form below or reach out through our contact details.
         </p>
       </header>
 
@@ -23,32 +30,32 @@ export default function ContactPage() {
             <div className="flex items-start">
               <MapPin className="h-6 w-6 text-primary mr-4 mt-1 shrink-0" />
               <div>
-                <h3 className="font-semibold text-foreground">Our Office</h3>
-                <p>123 Tech Avenue, Innovation City, TX 75001</p>
+                <h3 className="font-semibold text-foreground">Head Office</h3>
+                <p>Satna, MP, India</p>
+              </div>
+            </div>
+            <div className="flex items-start">
+              <MapPin className="h-6 w-6 text-primary mr-4 mt-1 shrink-0" />
+              <div>
+                <h3 className="font-semibold text-foreground">Pune Office</h3>
+                <p>Baner, Pune, MH, India</p>
               </div>
             </div>
             <div className="flex items-start">
               <Mail className="h-6 w-6 text-primary mr-4 mt-1 shrink-0" />
               <div>
                 <h3 className="font-semibold text-foreground">Email Us</h3>
-                <a href="mailto:info@techflowhub.com" className="hover:text-primary transition-colors">info@techflowhub.com</a>
-              </div>
-            </div>
-            <div className="flex items-start">
-              <Phone className="h-6 w-6 text-primary mr-4 mt-1 shrink-0" />
-              <div>
-                <h3 className="font-semibold text-foreground">Call Us</h3>
-                <a href="tel:+1234567890" className="hover:text-primary transition-colors">(123) 456-7890</a>
+                <a href="mailto:info@technonspace.com" className="hover:text-primary transition-colors">info@technonspace.com</a>
               </div>
             </div>
             <div className="pt-4">
-                <Image 
-                    src="https://placehold.co/600x300.png" 
-                    alt="Office location map placeholder" 
-                    width={600} 
+                <Image
+                    src="https://placehold.co/600x300.png"
+                    alt="Map showing TechnoNspace office location"
+                    width={600}
                     height={300}
                     className="rounded-md"
-                    data-ai-hint="map office"
+                    data-ai-hint="office map"
                 />
             </div>
           </CardContent>
